@@ -44,7 +44,7 @@ devDependencies:
     specifier: 18.2.7
     version: 18.2.7
   cspell:
-    specifier: ^8.8.3
+    specifier: 8.8.3
     version: 8.8.3
   eslint:
     specifier: 9.4.0
@@ -68,10 +68,10 @@ devDependencies:
     specifier: 4.6.2
     version: 4.6.2(eslint@9.4.0)
   globals:
-    specifier: ^15.3.0
+    specifier: 15.3.0
     version: 15.3.0
   husky:
-    specifier: ^9.0.11
+    specifier: 9.0.11
     version: 9.0.11
   lint-staged:
     specifier: ^15.2.5
@@ -83,13 +83,13 @@ devDependencies:
     specifier: 16.14.20
     version: 16.14.20
   prettier:
-    specifier: ^3.3.0
+    specifier: 3.3.0
     version: 3.3.0
   typescript:
     specifier: 5.4.5
     version: 5.4.5
   typescript-eslint:
-    specifier: ^7.11.0
+    specifier: 7.11.0
     version: 7.11.0(eslint@9.4.0)(typescript@5.4.5)
   vite:
     specifier: 5.1.0
