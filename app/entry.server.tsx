@@ -1,31 +1,30 @@
 import React from 'react';
-import { RemixServer } from '@remix-run/react';
-import { isbot } from 'isbot';
-import { renderToReadableStream } from 'react-dom/server';
-import type { EntryContext } from '@remix-run/cloudflare';
+import fs from "node:fs";
+import path from "node:path";
+import { RemixServer } from "@remix-run/react";
+import { renderToString } from "react-dom/server";
+import type { EntryContext } from '@remix-run/node';
 
-export default async function handleRequest(
+export default function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
   remixContext: EntryContext
-  // loadContext: AppLoadContext
 ) {
-  const body = await renderToReadableStream(<RemixServer context={remixContext} url={request.url} />, {
-    signal: request.signal,
-    onError(error: unknown) {
-      console.error(error);
-      responseStatusCode = 500;
-    },
-  });
+  const shellHtml = fs
+    .readFileSync(
+      path.join(process.cwd(), "app/index.html")
+    )
+    .toString();
 
-  if (isbot(request.headers.get('user-agent') || '')) {
-    await body.allReady;
-  }
+  const appHtml = renderToString(
+    <RemixServer context={remixContext} url={request.url} />
+  );
 
-  responseHeaders.set('Content-Type', 'text/html');
-  return new Response(body, {
-    headers: responseHeaders,
+  const html = shellHtml.replace('<!-- Remix SPA -->', appHtml);
+
+  return new Response(html, {
+    headers: { "Content-Type": "text/html" },
     status: responseStatusCode,
   });
 }
