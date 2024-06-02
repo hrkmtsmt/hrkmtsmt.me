@@ -1,0 +1,19 @@
+{
+  "ignorePaths": [
+    "node_modules/**",
+    "dist/**",
+    "./pnpm-lock.yaml"
+  ],
+  "words": [
+    "vite",
+    "vitest",
+    "isbot",
+    "tseslint",
+    "maxage",
+    "xlink",
+    "evenodd",
+    "linejoin",
+    "miterlimit",
+    "hrkmtsmt"
+  ]
+}
