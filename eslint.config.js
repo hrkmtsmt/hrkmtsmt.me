@@ -1,8 +1,8 @@
 /** @typedef { import("eslint").Linter.FlatConfig } FlatConfig */
 
-import globals from "globals";
+import globals from 'globals';
 import eslint from '@eslint/js';
-import tseslint from "typescript-eslint";
+import tseslint from 'typescript-eslint';
 import functional from 'eslint-plugin-functional';
 import react from 'eslint-plugin-react';
 import hooks from 'eslint-plugin-react-hooks';
@@ -10,11 +10,11 @@ import hooks from 'eslint-plugin-react-hooks';
 const baseConfig = tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.strict,
-  ...tseslint.configs.stylistic,
+  ...tseslint.configs.stylistic
 );
 
 /** @type FlatConfig */
-const globalConfig =  { languageOptions: { globals: globals.browser }};
+const globalConfig = { languageOptions: { globals: globals.browser } };
 
 /** @type FlatConfig */
 const eslintConfig = {
@@ -71,15 +71,10 @@ const reactConfig = {
   rules: {
     ...react.configs.recommended.rules,
     ...hooks.configs.recommended.rules,
-    "@typescript-eslint/no-empty-interface": "off",
+    '@typescript-eslint/no-empty-interface': 'off',
     'react/jsx-no-leaked-render': ['error', { validStrategies: ['ternary', 'coerce'] }],
   },
 };
 
 /** @type Array<FlatConfig> */
-export default [
-  ...baseConfig,
-  globalConfig,
-  eslintConfig,
-  reactConfig,
-];
+export default [...baseConfig, globalConfig, eslintConfig, reactConfig];

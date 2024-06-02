@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "@remix-run/react";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -23,8 +17,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </body>
     </html>
   );
-};
+}
 
 export default function App() {
   return <Outlet />;
-};
+}
