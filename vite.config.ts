@@ -3,9 +3,8 @@ import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
-  plugins: [
-    remixCloudflareDevProxy(),
-    remix({ ssr: false }),
-    tsconfigPaths(),
-  ],
+  plugins: [remixCloudflareDevProxy(), remix({ ssr: false }), tsconfigPaths()],
+  ssr: {
+    noExternal: ['problematic-dependency'],
+  },
 });
