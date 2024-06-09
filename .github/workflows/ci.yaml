@@ -1,0 +1,63 @@
+name: CI
+run-name: Created by ${{ github.actor }}
+on: [push]
+jobs:
+  tsc:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        node-version: '20.14.0'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Packages
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Type Check use Node.js {{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+        run: pnpm install
+      - name: Tyep Check
+        run: pnpm tsc --noEmit
+  eslint:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        node-version: '20.14.0'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Packages
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: ESLint use Node.js {{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+        run: pnpm install
+      - name: Lint
+        run: pnpm eslint --config eslint.config.js .
+        env:
+          ESLINT_USE_FLAT_CONFIG: true
+  cspell:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        node-version: '20.14.0'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Packages
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: CSpell use Node.js {{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+        run: pnpm install
+      - name: Spell Check
+        run: pnpm cspell "**"
