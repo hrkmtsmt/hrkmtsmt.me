@@ -15,7 +15,7 @@ const Component: React.FC<ButtonProps> = (props) => {
       <button
         {...props}
         type="button"
-        className="rounded-full bg-primary px-4 font-qualion-bold font-bold leading-10 text-black duration-200 ease-in-out hover:opacity-80"
+        className="rounded-full bg-primary px-4 font-qualion-bold font-bold leading-10 text-black duration-200 ease-in-out hover:opacity-80 active:scale-95"
       />
     );
   }
@@ -24,7 +24,7 @@ const Component: React.FC<ButtonProps> = (props) => {
     <button
       {...props}
       type="button"
-      className="rounded-full bg-black px-4 font-qualion-bold font-bold leading-10 text-primary duration-200 ease-in-out hover:opacity-80"
+      className="rounded-full bg-black px-4 font-qualion-bold font-bold leading-10 text-primary duration-200 ease-in-out hover:opacity-80 active:scale-95"
     />
   )
 };
