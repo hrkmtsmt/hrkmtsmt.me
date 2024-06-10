@@ -1,4 +1,4 @@
 {
-  "ignorePaths": ["node_modules/**", "dist/**", "./pnpm-lock.yaml"],
+  "ignorePaths": ["node_modules/**", "build/**", "./pnpm-lock.yaml"],
   "words": ["vite", "vitest", "isbot", "tseslint", "maxage", "xlink", "evenodd", "linejoin", "miterlimit", "hrkmtsmt", "qualion", "hiroki", "matsumoto", "zenn", "neue", "qiita", "hiragino", "kaku", "meiryo", "cardcom"]
 }

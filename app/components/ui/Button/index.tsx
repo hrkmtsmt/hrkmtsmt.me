@@ -5,7 +5,7 @@ const ButtonColor = {
   secondary: 'secondary', 
 } as const;
 
-export interface ButtonProps extends Pick<ComponentProps<'button'>, 'children' | 'onClick' | 'disabled'> {
+export interface ButtonProps extends Pick<ComponentProps<'button'>, 'children' | 'onClick' | 'disabled' | 'role'> {
   color: typeof ButtonColor[keyof typeof ButtonColor];
 }
 
