@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card } from '@components/ui';
+import { Button, Card, Navigation } from '@components/ui';
 import type { MetaFunction } from '@remix-run/cloudflare';
 
 export const meta: MetaFunction = () => {
@@ -18,6 +18,7 @@ export default function Index() {
       <Button color="primary">Primary</Button>
       <Button color="secondary">Secondary</Button>
       <Card to="https://example.com" category="Zenn" title="cardcom" />
+      <Navigation links={[{ to: '/about', name: 'About' }, { to: '/posts', name: 'Posts' }]} />
     </>
   );
 }

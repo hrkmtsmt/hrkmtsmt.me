@@ -40,8 +40,8 @@ const eslintConfig = {
     '@typescript-eslint/member-delimiter-style': [
       'error',
       {
-        multiline: { delimiter: 'comma', requireLast: true },
-        singleline: { delimiter: 'comma', requireLast: false },
+        multiline: { delimiter: 'semi', requireLast: true },
+        singleline: { delimiter: 'semi', requireLast: true },
         overrides: {
           interface: { multiline: { delimiter: 'semi', requireLast: true } },
           typeLiteral: { multiline: { delimiter: 'semi', requireLast: true } },
