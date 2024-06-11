@@ -8,7 +8,7 @@ interface NavigationProps {
 
 export const Navigation: React.FC<NavigationProps> = (props) => {
   return (
-    <nav className="">
+    <nav>
       <ul className="flex items-center gap-4">
         {props.links.map((l, i) => (
           <li key={i} className="">

@@ -13,9 +13,9 @@ export const links: LinksFunction = () => {
   ];
 };
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({ children }: { children: React.ReactNode; }) {
   return (
-    <html lang="ja" className="bg-base font-qualion-regular text-white">
+    <html lang="ja" className="bg-base font-qualion-regular text-white selection:bg-primary selection:text-white">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
