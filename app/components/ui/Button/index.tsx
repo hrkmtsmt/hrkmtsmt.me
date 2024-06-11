@@ -2,11 +2,11 @@ import React, { ComponentProps } from 'react';
 
 const ButtonColor = {
   primary: 'primary',
-  secondary: 'secondary', 
+  secondary: 'secondary',
 } as const;
 
 export interface ButtonProps extends Pick<ComponentProps<'button'>, 'children' | 'onClick' | 'disabled' | 'role'> {
-  color: typeof ButtonColor[keyof typeof ButtonColor];
+  color: (typeof ButtonColor)[keyof typeof ButtonColor];
 }
 
 const Component: React.FC<ButtonProps> = (props) => {
@@ -26,7 +26,7 @@ const Component: React.FC<ButtonProps> = (props) => {
       type="button"
       className="rounded-full bg-black px-4 font-qualion-bold leading-10 text-primary duration-200 ease-in-out hover:opacity-80 active:scale-95"
     />
-  )
+  );
 };
 
 export const Button = React.memo(Component);

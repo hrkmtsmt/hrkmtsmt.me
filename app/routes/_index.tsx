@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Card, Navigation } from '@components/ui';
+import { Grid, GridColumn } from '@components/layout';
 import type { MetaFunction } from '@remix-run/cloudflare';
 
 export const meta: MetaFunction = () => {
@@ -17,8 +18,19 @@ export default function Index() {
     <>
       <Button color="primary">Primary</Button>
       <Button color="secondary">Secondary</Button>
-      <Card to="https://example.com" category="Zenn" title="cardcom" />
-      <Navigation links={[{ to: '/about', name: 'About' }, { to: '/posts', name: 'Posts' }]} />
+      <Grid>
+        {[...Array(20)].map((_, i) => (
+          <GridColumn key={i} size="md">
+            <Card to="https://example.com" category="Zenn" title={`Title ${i}`} />
+          </GridColumn>
+        ))}
+      </Grid>
+      <Navigation
+        links={[
+          { to: '/about', name: 'About' },
+          { to: '/posts', name: 'Posts' },
+        ]}
+      />
     </>
   );
 }

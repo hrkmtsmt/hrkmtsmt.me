@@ -17,7 +17,7 @@ export default {
         '"Hiragino Kaku Gothic ProN"',
         '"Hiragino Sans"',
         'Meiryo',
-        'sans-serif'
+        'sans-serif',
       ],
       'qualion-bold': [
         '"QualionRound-Bold"',
@@ -26,9 +26,9 @@ export default {
         '"Hiragino Kaku Gothic ProN"',
         '"Hiragino Sans"',
         'Meiryo',
-        'sans-serif'
-      ]
-    }
+        'sans-serif',
+      ],
+    },
   },
   plugins: [],
 } satisfies Config;
