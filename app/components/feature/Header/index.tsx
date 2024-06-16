@@ -13,7 +13,7 @@ export const Header: React.FC = () => {
   }, []);
 
   return (
-    <header>
+    <header className="flex h-16 justify-between">
       <Container>
         <div className="flex items-center gap-4">
           <h1>

@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Card, Tab, Tabs } from '@components/ui';
-import { Container, Grid, Column } from '@components/layout';
+import { Container, Grid, Column, Root } from '@components/layout';
 import { Header } from '@components/feature';
 import type { MetaFunction } from '@remix-run/cloudflare';
 
@@ -22,7 +22,7 @@ export default function Index() {
   }, []);
 
   return (
-    <>
+    <Root>
       <Header />
       <Container>
         <Tabs>
@@ -45,8 +45,6 @@ export default function Index() {
             Qiita
           </Tab>
         </Tabs>
-      </Container>
-      <Container>
         <Grid>
           {[...Array(20)].map((_, i) => (
             <Column key={i} size="md">
@@ -55,6 +53,6 @@ export default function Index() {
           ))}
         </Grid>
       </Container>
-    </>
+    </Root>
   );
 }
