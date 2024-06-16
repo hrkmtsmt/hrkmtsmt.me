@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link, LinkProps } from '@remix-run/react';
 
-interface NavigationProps {
-  links: { to: LinkProps['to']; name: string }[];
+export interface NavigationProps {
+  links: {
+    to: LinkProps['to'];
+    name: string;
+  }[];
 }
 
 export const Navigation: React.FC<NavigationProps> = (props) => {

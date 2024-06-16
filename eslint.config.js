@@ -43,8 +43,14 @@ const eslintConfig = {
         multiline: { delimiter: 'semi', requireLast: true },
         singleline: { delimiter: 'semi', requireLast: true },
         overrides: {
-          interface: { multiline: { delimiter: 'semi', requireLast: true } },
-          typeLiteral: { multiline: { delimiter: 'semi', requireLast: true } },
+          interface: {
+            multiline: { delimiter: 'semi', requireLast: true },
+            singleline: { delimiter: 'semi', requireLast: true },
+          },
+          typeLiteral: {
+            multiline: { delimiter: 'semi', requireLast: true },
+            singleline: { delimiter: 'semi', requireLast: true },
+          },
         },
       },
     ],

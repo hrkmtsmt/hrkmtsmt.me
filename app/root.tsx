@@ -13,9 +13,16 @@ export const links: LinksFunction = () => {
   ];
 };
 
-export function Layout({ children }: { children: React.ReactNode }) {
+interface Props {
+  children: React.ReactNode;
+}
+
+export function Layout(props: Props) {
   return (
-    <html lang="ja" className="bg-base font-qualion-regular text-white selection:bg-primary selection:text-white">
+    <html
+      lang="ja"
+      className="w-full bg-base font-qualion-regular text-white transition duration-200 ease-out selection:bg-primary selection:text-white"
+    >
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,7 +30,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        {props.children}
         <ScrollRestoration />
         <Scripts />
       </body>
