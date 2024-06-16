@@ -16,8 +16,8 @@ export const Header: React.FC = () => {
     <header>
       <Container>
         <div className="flex items-center gap-4">
-            <h1>
-              <Link to={PAGES.top.path}>
+          <h1>
+            <Link to={PAGES.top.path}>
               <BrandSymbol size={40} />
             </Link>
           </h1>

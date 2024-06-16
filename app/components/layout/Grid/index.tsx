@@ -17,12 +17,12 @@ const GRID_COLUMN_SIZES = {
   sm: 'sm',
 } as const;
 
-export interface GridColumnProps {
+export interface ColumnProps {
   size: (typeof GRID_COLUMN_SIZES)[keyof typeof GRID_COLUMN_SIZES];
   children?: React.ReactNode;
 }
 
-export const GridColumn: React.FC<GridColumnProps> = (props) => {
+export const Column: React.FC<ColumnProps> = (props) => {
   if (props.size === GRID_COLUMN_SIZES.full) {
     return <div className="col-span-full">{props.children}</div>;
   }

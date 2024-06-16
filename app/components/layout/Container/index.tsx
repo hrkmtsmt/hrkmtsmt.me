@@ -5,9 +5,5 @@ export interface ContainerProps {
 }
 
 export const Container: React.FC<ContainerProps> = (props) => {
-  return (
-    <div className="m-auto max-w-screen-xl px-6 sm:px-8">
-      {props.children}
-    </div>
-  );
+  return <div className="m-auto max-w-screen-xl px-6 sm:px-8">{props.children}</div>;
 };
