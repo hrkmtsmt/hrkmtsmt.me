@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Card, Tab, Tabs } from '@components/ui';
 import { Container, Grid, Column, Root } from '@components/layout';
-import { Header } from '@components/feature';
+import { Footer, Header } from '@components/feature';
 import type { MetaFunction } from '@remix-run/cloudflare';
 
 export const meta: MetaFunction = () => {
@@ -53,6 +53,7 @@ export default function Index() {
           ))}
         </Grid>
       </Container>
+      <Footer />
     </Root>
   );
 }
