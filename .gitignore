@@ -3,6 +3,7 @@ node_modules
 /.cache
 /build
 .env
+!.env.example
 .dev.vars
 
-.wrangler
+wrangler.toml
