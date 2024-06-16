@@ -2,12 +2,13 @@ import React, { useMemo } from 'react';
 import { Link } from '@remix-run/react';
 import { BrandSymbol, Navigation, NavigationProps } from '@components/ui';
 import { Container } from '@components/layout';
+import { PAGES } from '@modules/constants';
 
 export const Header: React.FC = () => {
   const links: NavigationProps['links'] = useMemo(() => {
     return [
-      { to: '/about', name: 'About' },
-      { to: '/posts', name: 'Posts' },
+      { to: PAGES.about.path as string, name: PAGES.about.name },
+      { to: PAGES.posts.path as string, name: PAGES.posts.name },
     ];
   }, []);
 
@@ -15,8 +16,8 @@ export const Header: React.FC = () => {
     <header>
       <Container>
         <div className="flex items-center gap-4">
-          <h1>
-            <Link to="/">
+            <h1>
+              <Link to={PAGES.top.path}>
               <BrandSymbol size={40} />
             </Link>
           </h1>

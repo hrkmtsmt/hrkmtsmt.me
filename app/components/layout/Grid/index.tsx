@@ -8,9 +8,9 @@ export const Grid: React.FC<GridProps> = (props) => {
   return <div className="grid w-full grid-cols-4 gap-6 sm:grid-cols-8 sm:gap-8 md:grid-cols-12">{props.children}</div>;
 };
 
-const GridColumnSize = {
+const GRID_COLUMN_SIZES = {
   full: 'full',
-  xl2: 'xl2',
+  '2xl': '2xl',
   xl: 'xl',
   lg: 'sm',
   md: 'md',
@@ -18,28 +18,28 @@ const GridColumnSize = {
 } as const;
 
 export interface GridColumnProps {
-  size: (typeof GridColumnSize)[keyof typeof GridColumnSize];
+  size: (typeof GRID_COLUMN_SIZES)[keyof typeof GRID_COLUMN_SIZES];
   children?: React.ReactNode;
 }
 
 export const GridColumn: React.FC<GridColumnProps> = (props) => {
-  if (props.size === GridColumnSize.full) {
+  if (props.size === GRID_COLUMN_SIZES.full) {
     return <div className="col-span-full">{props.children}</div>;
   }
 
-  if (props.size === GridColumnSize.xl2) {
+  if (props.size === GRID_COLUMN_SIZES['2xl']) {
     return <div className="col-span-8 md:col-span-full">{props.children}</div>;
   }
 
-  if (props.size === GridColumnSize.xl) {
+  if (props.size === GRID_COLUMN_SIZES.xl) {
     return <div className="col-span-4 sm:col-span-4 md:col-span-6">{props.children}</div>;
   }
 
-  if (props.size === GridColumnSize.lg) {
+  if (props.size === GRID_COLUMN_SIZES.lg) {
     return <div className="col-span-2 sm:col-span-4 md:col-span-4">{props.children}</div>;
   }
 
-  if (props.size === GridColumnSize.md) {
+  if (props.size === GRID_COLUMN_SIZES.md) {
     return <div className="col-span-2 sm:col-span-4 md:col-span-4">{props.children}</div>;
   }
 
