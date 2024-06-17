@@ -1,5 +1,6 @@
 import React from 'react';
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
+import { Loader } from '@components/ui';
 import './tailwind.css';
 import type { LinksFunction } from '@remix-run/node'; // or cloudflare/deno
 
@@ -43,5 +44,5 @@ export default function App() {
 }
 
 export function HydrateFallback() {
-  return <p>Loading...</p>;
+  return <Loader />;
 }
