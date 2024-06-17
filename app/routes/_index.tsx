@@ -1,7 +1,8 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Card, Tab, Tabs } from '@components/ui';
 import { Container, Grid, Column, Root } from '@components/layout';
 import { Footer, Header } from '@components/feature';
+import { api, Api } from '@modules/api';
 import type { MetaFunction } from '@remix-run/cloudflare';
 
 export const meta: MetaFunction = () => {
@@ -16,9 +17,14 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   const [tab, setTab] = useState('1');
+  const [posts, setPosts] = useState<Api.Post.ListResponse>([]);
 
   const handleClickTab: React.MouseEventHandler<HTMLButtonElement> = useCallback((e) => {
     setTab(e.currentTarget.value);
+  }, []);
+
+  useEffect(() => {
+    api.posts.list().then((response) => setPosts(response));
   }, []);
 
   return (
@@ -46,9 +52,9 @@ export default function Index() {
           </Tab>
         </Tabs>
         <Grid>
-          {[...Array(20)].map((_, i) => (
-            <Column key={i} size="md">
-              <Card to="https://example.com" category="Zenn" title={`Title ${i}`} />
+          {posts.map((post) => (
+            <Column key={post.id} size="md">
+              <Card to={post.url} category={post.media} title={post.title} />
             </Column>
           ))}
         </Grid>

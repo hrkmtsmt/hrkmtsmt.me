@@ -25,7 +25,8 @@
     "isbot": "4.1.0",
     "react": "19.0.0-rc-cc1ec60d0d-20240607",
     "react-dom": "19.0.0-rc-cc1ec60d0d-20240607",
-    "react-feather": "^2.0.10"
+    "react-feather": "2.0.10",
+    "zod": "3.23.8"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "4.20240529.0",

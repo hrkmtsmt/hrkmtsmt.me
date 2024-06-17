@@ -80,6 +80,15 @@ export const createHttpClient = (baseURL: string, headers?: Headers) => {
     },
     delete: async <T, U = undefined>(path: string, body?: U): Promise<T> => {
       return fetcher(toURL(path), HTTP_METHODS.delete, body, headers);
-    }
+    },
   };
 };
+
+const basicAuth = (username: string, password: string) => {
+  return `Basic ${btoa(`${username}:${password}`)}`;
+};
+
+export const httpClient = createHttpClient(import.meta.env.VITE_API_BASE_URL, {
+  Authorization: basicAuth(import.meta.env.VITE_API_BASIC_AUTH_USERNAME, import.meta.env.VITE_API_BASIC_AUTH_PASSWORD),
+  'Access-Control-Allow-Origin': import.meta.env.BASE_URL,
+});
