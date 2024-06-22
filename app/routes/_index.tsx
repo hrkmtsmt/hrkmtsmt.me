@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Card, Tab, Tabs } from '@components/ui';
 import { Container, Grid, Column, Root } from '@components/layout';
 import { Footer, Header } from '@components/feature';
-import { api, Api } from '@modules/api';
+import { api, loaderFetcher } from '@modules/api';
+import { useClientLoader } from '@modules/hooks/use-client-loader';
 import type { MetaFunction } from '@remix-run/cloudflare';
 
 export const meta: MetaFunction = () => {
@@ -15,17 +16,22 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export async function clientLoader() {
+  return loaderFetcher(api.posts.list);
+}
+
 export default function Index() {
   const [tab, setTab] = useState('1');
-  const [posts, setPosts] = useState<Api.Post.ListResponse>([]);
+
+  const { data, error } = useClientLoader<typeof clientLoader>();
 
   const handleClickTab: React.MouseEventHandler<HTMLButtonElement> = useCallback((e) => {
     setTab(e.currentTarget.value);
   }, []);
 
-  useEffect(() => {
-    api.posts.list().then((response) => setPosts(response));
-  }, []);
+  if (error) {
+    return null;
+  }
 
   return (
     <Root>
@@ -52,7 +58,7 @@ export default function Index() {
           </Tab>
         </Tabs>
         <Grid>
-          {posts.map((post) => (
+          {data.map((post) => (
             <Column key={post.id} size="md">
               <Card to={post.url} category={post.media} title={post.title} />
             </Column>

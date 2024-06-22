@@ -64,8 +64,8 @@ export const isSystemError = (error: unknown): error is SystemError => {
   return error instanceof SystemError;
 };
 
-export type HttpClientError = ApiError | FetchError | SystemError;
+export type ClientError = ApiError | FetchError | SystemError;
 
-export const isHttpClientError = (error: unknown): error is HttpClientError => {
+export const isClientError = (error: unknown): error is ClientError => {
   return isApiError(error) || isFetchError(error) || isSystemError(error);
 };

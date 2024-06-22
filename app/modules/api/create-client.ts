@@ -62,7 +62,7 @@ const fetcher = async <T, U>(url: string, method: HttpMethods, body?: U, headers
 
 const generateURL = (baseURL: string) => (path: string) => `${baseURL}${path}`;
 
-export const createHttpClient = (baseURL: string, headers?: Headers) => {
+export const createClient = (baseURL: string, headers?: Headers) => {
   const toURL = generateURL(baseURL);
 
   return {
@@ -88,7 +88,7 @@ const basicAuth = (username: string, password: string) => {
   return `Basic ${btoa(`${username}:${password}`)}`;
 };
 
-export const httpClient = createHttpClient(import.meta.env.VITE_API_BASE_URL, {
+export const client = createClient(import.meta.env.VITE_API_BASE_URL, {
   Authorization: basicAuth(import.meta.env.VITE_API_BASIC_AUTH_USERNAME, import.meta.env.VITE_API_BASIC_AUTH_PASSWORD),
   'Access-Control-Allow-Origin': import.meta.env.BASE_URL,
 });
