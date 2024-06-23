@@ -1,5 +1,6 @@
 import React from 'react';
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
+import { Loader } from '@components/ui';
 import './tailwind.css';
 import type { LinksFunction } from '@remix-run/node'; // or cloudflare/deno
 
@@ -13,9 +14,16 @@ export const links: LinksFunction = () => {
   ];
 };
 
-export function Layout({ children }: { children: React.ReactNode }) {
+interface Props {
+  children: React.ReactNode;
+}
+
+export function Layout(props: Props) {
   return (
-    <html lang="ja" className="bg-base font-qualion-regular text-white">
+    <html
+      lang="ja"
+      className="w-full bg-base font-qualion-regular text-white transition duration-200 ease-out selection:bg-primary selection:text-white"
+    >
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,7 +31,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        {props.children}
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -36,5 +44,5 @@ export default function App() {
 }
 
 export function HydrateFallback() {
-  return <p>Loading...</p>;
+  return <Loader />;
 }

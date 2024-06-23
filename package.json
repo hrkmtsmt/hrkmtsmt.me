@@ -24,13 +24,16 @@
     "@remix-run/react": "2.9.2",
     "isbot": "4.1.0",
     "react": "19.0.0-rc-cc1ec60d0d-20240607",
-    "react-dom": "19.0.0-rc-cc1ec60d0d-20240607"
+    "react-dom": "19.0.0-rc-cc1ec60d0d-20240607",
+    "react-feather": "2.0.10",
+    "zod": "3.23.8"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "4.20240529.0",
     "@eslint/compat": "1.0.3",
     "@eslint/js": "9.4.0",
     "@remix-run/dev": "2.9.2",
+    "@types/feather-icons": "^4.29.4",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "^10.4.19",
