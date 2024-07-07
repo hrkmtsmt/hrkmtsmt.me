@@ -1,7 +1,5 @@
 import React from 'react';
-import { Container } from '@components/layout';
-import { api, loaderFetcher } from '@modules/api';
-import { defer } from '@remix-run/react';
+import { About } from '@components/pages';
 import type { MetaFunction } from '@remix-run/cloudflare';
 
 export const meta: MetaFunction = () => {
@@ -14,14 +12,6 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export async function clientLoader() {
-  return defer({ data: loaderFetcher(api.posts.list) });
-}
-
-export default function About() {
-  return (
-    <Container>
-      About
-    </Container>
-  );
+export default function Page() {
+  return <About />
 }
