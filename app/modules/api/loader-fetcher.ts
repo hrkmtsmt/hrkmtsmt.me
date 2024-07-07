@@ -16,10 +16,6 @@ export const loaderFetcher = async <T>(fetcher: () => Promise<T>): Promise<Succe
   try {
     return { data: await fetcher(), error: undefined };
   } catch (error: unknown) {
-    if (isClientError(error)) {
-      return { data: undefined, error };
-    }
-
-    return { data: undefined, error: new SystemError() };
+    return { data: undefined, error: isClientError(error) ? error : new SystemError() };
   }
 };
