@@ -13,5 +13,5 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Page() {
-  return <About />
+  return <About />;
 }

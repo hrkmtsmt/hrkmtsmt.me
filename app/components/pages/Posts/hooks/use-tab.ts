@@ -1,13 +1,36 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo } from 'react';
+import { useSearchParams } from '@remix-run/react';
+import { Api } from '@modules/api';
 
 export const useTab = () => {
-  const [tab, setTab] = useState<'Zenn' | 'Qiita' | 'Note'>('Zenn');
+  const tabs = [
+    { id: 'all', name: 'All' },
+    { id: 'zenn', name: 'Zenn' },
+    { id: 'qiita', name: 'Qiita' },
+    { id: 'note', name: 'Note' },
+  ] as const;
 
-  const handleClickTab = useCallback((t: typeof tab) => {
-    setTab(t);
+  const [params, setParams] = useSearchParams();
+
+  const name = 'media';
+
+  const tab = useMemo(() => params.get('media') ?? 'all', [params]);
+
+  const handleClickTab = useCallback((tab: (typeof tabs)[number]['id']) => {
+    setParams((prev) => {
+      prev.set(name, tab);
+
+      return prev;
+    });
+  }, []);
+  
+  const postFilter = useCallback((post: Api.Post.ListResponse[number], tab: string) => {
+    if (tab === 'all') {
+      return true;
+    }
+
+    return post.media === tab;
   }, []);
 
-  const tabs = [{ id: 'Zenn' }, { id: 'Qiita' }, { id: 'Note' }] as const;
-
-  return { tab, handleClickTab, tabs };
+  return { tab, handleClickTab, tabs, postFilter };
 };
