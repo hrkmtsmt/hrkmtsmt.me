@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { Card, SkeltonCards } from '@components/ui';
-import { Container, Grid, Column } from '@components/layout';
+import { Container, Grid, Column, Heading2 } from '@components/layout';
 import { api, loaderFetcher } from '@modules/api';
 import type { MetaFunction } from '@remix-run/cloudflare';
 import { Await, defer } from '@remix-run/react';
@@ -22,6 +22,7 @@ export async function clientLoader() {
 export default function Index() {
   return (
     <Container>
+      <Heading2>Posts</Heading2>
       <Suspense fallback={<SkeltonCards total={12} size="md" />}>
         <Await resolve={loaderFetcher(api.posts.list)}>
           {(response) => (
