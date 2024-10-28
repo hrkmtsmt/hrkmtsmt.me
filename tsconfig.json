@@ -16,8 +16,8 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*"],
-      "@components/*": ["./app/components/*"]
+      "@components/*": ["./app/components/*"],
+      "@modules/*": ["./app/modules/*"]
     }
   },
   "include": [

@@ -20,13 +20,16 @@ const Component: React.FC<CardProps> = (props) => {
   }, []);
 
   return (
-    <div onClick={handleClick} className="flex cursor-pointer flex-col gap-4 rounded-2xl bg-black p-4 font-qualion-bold">
-      <h3 >
-        {!!props.category && <span className="block text-xs leading-4 text-primary">{props.category}</span>}
-        <span className="leading-6">{props.title}</span>
+    <div
+      onClick={handleClick}
+      className="flex cursor-pointer flex-col gap-4 rounded-2xl bg-black p-4 font-qualion-bold duration-200 ease-in-out hover:opacity-80"
+    >
+      <h3 className="line-clamp-2 flex flex-col gap-2">
+        {!!props.category && <span className="block text-xs capitalize leading-4 text-primary">{props.category}</span>}
+        <span className="line-clamp-2 h-12 leading-6">{props.title}</span>
       </h3>
       <LinkButton to={props.to} ref={ref}>
-        Button
+        More
       </LinkButton>
     </div>
   );

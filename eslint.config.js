@@ -6,7 +6,7 @@ import tseslint from 'typescript-eslint';
 import functional from 'eslint-plugin-functional';
 import react from 'eslint-plugin-react';
 import hooks from 'eslint-plugin-react-hooks';
-import tailwind from "eslint-plugin-tailwindcss";
+import tailwind from 'eslint-plugin-tailwindcss';
 
 const baseConfig = tseslint.config(
   eslint.configs.recommended,
@@ -40,11 +40,17 @@ const eslintConfig = {
     '@typescript-eslint/member-delimiter-style': [
       'error',
       {
-        multiline: { delimiter: 'comma', requireLast: true },
-        singleline: { delimiter: 'comma', requireLast: false },
+        multiline: { delimiter: 'semi', requireLast: true },
+        singleline: { delimiter: 'semi', requireLast: true },
         overrides: {
-          interface: { multiline: { delimiter: 'semi', requireLast: true } },
-          typeLiteral: { multiline: { delimiter: 'semi', requireLast: true } },
+          interface: {
+            multiline: { delimiter: 'semi', requireLast: true },
+            singleline: { delimiter: 'semi', requireLast: true },
+          },
+          typeLiteral: {
+            multiline: { delimiter: 'semi', requireLast: true },
+            singleline: { delimiter: 'semi', requireLast: true },
+          },
         },
       },
     ],
@@ -78,4 +84,4 @@ const reactConfig = {
 };
 
 /** @type Array<FlatConfig> */
-export default [...baseConfig, globalConfig, eslintConfig, reactConfig, ...tailwind.configs["flat/recommended"]];
+export default [...baseConfig, globalConfig, eslintConfig, reactConfig, ...tailwind.configs['flat/recommended']];

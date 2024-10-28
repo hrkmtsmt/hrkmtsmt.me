@@ -13,23 +13,25 @@ const isURL = (props: LProps | AProps): props is AProps => {
   const pattern = /^https?:\/\/[\w/:%#$&?()~.=+-]+$/;
 
   return typeof props.to === 'string' && pattern.test(props.to);
-}
+};
 
 const Component: React.FC<LinkButtonProps> = (props) => {
   if (isURL(props)) {
     return (
       <a
-      href={props.to}
-      ref={props.ref}
-      className="block w-fit rounded-full bg-primary px-4 font-qualion-bold font-bold leading-10 text-black duration-200 ease-in-out hover:opacity-80"
-      >{props.children}</a>
-    )
+        href={props.to}
+        ref={props.ref}
+        className="block w-fit rounded-full bg-primary px-4 font-qualion-bold leading-10 text-black duration-200 ease-in-out hover:opacity-80 active:scale-95"
+      >
+        {props.children}
+      </a>
+    );
   }
 
   return (
     <Link
       {...props}
-      className="block w-fit rounded-full bg-primary px-4 font-qualion-bold font-bold leading-10 text-black duration-200 ease-in-out hover:opacity-80"
+      className="block w-fit rounded-full bg-primary px-4 font-qualion-bold leading-10 text-black duration-200 ease-in-out hover:opacity-80 active:scale-95"
     />
   );
 };
