@@ -12,12 +12,14 @@
     "format": "prettier --write . --config ./prettier.config.js",
     "type-check": "tsc",
     "spell-check": "cspell '**'",
+    "dotenvx": "dotenvx",
     "typegen": "wrangler types",
     "preview": "npm run build && wrangler pages dev",
     "cf-typegen": "wrangler types",
     "postinstall": "husky install"
   },
   "dependencies": {
+    "@dotenvx/dotenvx": "^1.21.0",
     "@remix-run/cloudflare": "2.13.1",
     "@remix-run/cloudflare-pages": "2.13.1",
     "@remix-run/node": "2.13.1",
