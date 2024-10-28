@@ -1,6 +1,9 @@
 import React from 'react';
-import { Top } from '@components/pages';
-import type { MetaFunction } from '@remix-run/cloudflare';
+import { MetaFunction } from '@remix-run/cloudflare';
+import { Card, SkeltonCards } from '@components/ui';
+import { Container, Grid, Column, Heading2 } from '@components/layout';
+import { PAGES } from '@modules/constants';
+import { usePosts } from '@modules/api';
 
 export const meta: MetaFunction = () => {
   return [
@@ -13,5 +16,22 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Page() {
-  return <Top />;
+  const { data: posts, isLoading } = usePosts();
+
+  return (
+    <Container>
+      <Heading2>{PAGES.posts.name}</Heading2>
+      {isLoading ? (
+        <SkeltonCards total={12} size="md" />
+      ) : (
+        <Grid>
+          {posts?.map((post) => (
+            <Column key={post.id} size="md">
+              <Card to={post.url} category={post.media} title={post.title} />
+            </Column>
+          ))}
+        </Grid>
+      )}
+    </Container>
+  );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
-import { About } from '@components/pages';
-import type { MetaFunction } from '@remix-run/cloudflare';
+import { MetaFunction } from '@remix-run/cloudflare';
+import { Container } from '@components/layout';
 
 export const meta: MetaFunction = () => {
   return [
@@ -13,5 +13,5 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Page() {
-  return <About />;
+  return <Container>About</Container>;
 }
