@@ -6,7 +6,7 @@ import dotenvx from '@dotenvx/dotenvx';
 dotenvx.config();
 
 export default defineConfig({
-  plugins: [remixCloudflareDevProxy(), remix({ ssr: true }), tsconfigPaths()],
+  plugins: [remixCloudflareDevProxy(), remix({ ssr: false }), tsconfigPaths()],
   ssr: {
     noExternal: ['problematic-dependency'],
   },
