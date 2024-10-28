@@ -16,7 +16,7 @@ const Component: React.FC<ButtonProps> = (props) => {
       <button
         {...props}
         type="button"
-        className="w-fit text-nowrap rounded-full bg-primary px-4 font-qualion-bold leading-10 text-black duration-200 ease-in-out hover:opacity-80 active:scale-95"
+        className="w-fit text-nowrap rounded-full bg-primary px-4 font-qualion-bold leading-10 text-black duration-200 ease-in-out hover:opacity-80 focus-visible:outline-none active:scale-95"
       />
     );
   }
@@ -25,7 +25,7 @@ const Component: React.FC<ButtonProps> = (props) => {
     <button
       {...props}
       type="button"
-      className="w-fit text-nowrap rounded-full bg-black px-4 font-qualion-bold leading-10 text-primary duration-200 ease-in-out hover:opacity-80 active:scale-95"
+      className="w-fit text-nowrap rounded-full bg-black px-4 font-qualion-bold leading-10 text-primary duration-200 ease-in-out hover:opacity-80 focus-visible:outline-none active:scale-95"
     />
   );
 };

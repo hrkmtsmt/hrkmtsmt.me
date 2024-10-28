@@ -47,14 +47,14 @@ export interface TabPanelProps {
 export const TabPanel: React.FC<TabPanelProps> = (props) => {
   if (props.active) {
     return (
-      <div role="tabpanel" tabIndex={0} aria-hidden="true" className="hidden">
+      <div role="tabpanel" tabIndex={0} aria-hidden="false">
         {props.children}
       </div>
     );
   }
 
   return (
-    <div role="tabpanel" tabIndex={-1} aria-hidden="false">
+    <div role="tabpanel" tabIndex={-1} aria-hidden="true" className="hidden">
       {props.children}
     </div>
   );

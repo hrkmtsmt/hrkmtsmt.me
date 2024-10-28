@@ -1,6 +1,8 @@
 {
   "ignorePaths": ["node_modules/**", "build/**", "./pnpm-lock.yaml"],
   "words": [
+    "dotenv",
+    "dotenvx",
     "vite",
     "vitest",
     "isbot",

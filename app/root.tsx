@@ -1,8 +1,10 @@
 import React from 'react';
+import { LinksFunction } from '@remix-run/node'; // or cloudflare/deno
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
+import { Root } from '@components/layout';
+import { Footer, Header } from '@components/feature';
 import { Loader } from '@components/ui';
 import './tailwind.css';
-import type { LinksFunction } from '@remix-run/node'; // or cloudflare/deno
 
 export const links: LinksFunction = () => {
   return [
@@ -14,11 +16,7 @@ export const links: LinksFunction = () => {
   ];
 };
 
-interface Props {
-  children: React.ReactNode;
-}
-
-export function Layout(props: Props) {
+export function Layout() {
   return (
     <html
       lang="ja"
@@ -31,7 +29,11 @@ export function Layout(props: Props) {
         <Links />
       </head>
       <body>
-        {props.children}
+        <Root>
+          <Header />
+          <Outlet />
+          <Footer />
+        </Root>
         <ScrollRestoration />
         <Scripts />
       </body>

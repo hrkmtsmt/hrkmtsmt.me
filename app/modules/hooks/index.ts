@@ -1,1 +1,1 @@
-export * from './use-client-loader';
+export * from './use-search-params-tab';
