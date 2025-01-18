@@ -17,8 +17,6 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Page() {
-  const { data: posts, isLoading } = usePosts();
-
   const tablist = [
     { key: 'all', name: 'All' },
     { key: 'zenn', name: 'Zenn' },
@@ -27,6 +25,12 @@ export default function Page() {
   ] as const satisfies Tablist;
 
   const { selectedTabKey, handleChangeTab } = useSearchParamsTab(tablist, 'media');
+
+  const { data: posts, isLoading } = usePosts({
+    limit: 12,
+    offset: 0,
+    media: selectedTabKey === 'all' ? undefined : selectedTabKey,
+  });
 
   return (
     <Container>
@@ -45,13 +49,11 @@ export default function Page() {
           {tablist.map((t) => (
             <TabPanel key={t.key} active={selectedTabKey === t.key}>
               <Grid>
-                {posts
-                  ?.filter((post) => selectedTabKey === t.key || post.media === selectedTabKey)
-                  .map((post) => (
-                    <Column key={post.id} size="md">
-                      <Card to={post.url} category={post.media} title={post.title} />
-                    </Column>
-                  ))}
+                {posts?.map((post) => (
+                  <Column key={post.id} size="md">
+                    <Card to={post.url} category={post.media} title={post.title} />
+                  </Column>
+                ))}
               </Grid>
             </TabPanel>
           ))}

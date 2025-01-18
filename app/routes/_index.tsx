@@ -16,7 +16,7 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Page() {
-  const { data: posts, isLoading } = usePosts();
+  const { data: posts, isLoading } = usePosts({ limit: 12, offset: 0 });
 
   return (
     <Container>
