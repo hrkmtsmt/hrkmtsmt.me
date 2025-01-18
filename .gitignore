@@ -4,5 +4,3 @@ node_modules
 /build
 .env.keys
 .dev.vars
-
-wrangler.toml
