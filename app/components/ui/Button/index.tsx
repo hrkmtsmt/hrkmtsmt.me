@@ -1,33 +1,26 @@
 import React, { ComponentProps } from 'react';
+import { tv, VariantProps } from 'tailwind-variants';
 
-const BUTTON_COLORS = {
-  primary: 'primary',
-  secondary: 'secondary',
-} as const;
+const button = tv({
+  base: 'text-nowrap rounded-full px-4 font-qualion-bold leading-10 duration-200 ease-in-out hover:opacity-80 focus-visible:outline-none active:scale-95',
+  variants: {
+    color: {
+      primary: 'bg-primary text-black',
+      secondary: 'bg-black text-primary',
+    },
+    shape: {
+      circle: 'w-10',
+      pill: 'w-fit',
+    },
+  },
+});
 
 export interface ButtonProps
-  extends Pick<ComponentProps<'button'>, 'children' | 'value' | 'onClick' | 'disabled' | 'role'> {
-  color: (typeof BUTTON_COLORS)[keyof typeof BUTTON_COLORS];
-}
+  extends Pick<ComponentProps<'button'>, 'children' | 'value' | 'onClick' | 'disabled' | 'role'>,
+    VariantProps<typeof button> {}
 
 const Component: React.FC<ButtonProps> = (props) => {
-  if (props.color === BUTTON_COLORS.primary) {
-    return (
-      <button
-        {...props}
-        type="button"
-        className="w-fit text-nowrap rounded-full bg-primary px-4 font-qualion-bold leading-10 text-black duration-200 ease-in-out hover:opacity-80 focus-visible:outline-none active:scale-95"
-      />
-    );
-  }
-
-  return (
-    <button
-      {...props}
-      type="button"
-      className="w-fit text-nowrap rounded-full bg-black px-4 font-qualion-bold leading-10 text-primary duration-200 ease-in-out hover:opacity-80 focus-visible:outline-none active:scale-95"
-    />
-  );
+  return <button {...props} type="button" className={button({ color: props.color, shape: props.shape })} />;
 };
 
 export const Button = React.memo(Component);

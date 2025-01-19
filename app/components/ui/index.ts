@@ -4,5 +4,6 @@ export * from './Card';
 export * from './LinkButton';
 export * from './Loader';
 export * from './Navigation';
+export * from './Pagination';
 export * from './Skelton';
 export * from './Tab';

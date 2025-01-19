@@ -33,7 +33,13 @@ export interface TabProps extends Pick<ButtonProps, 'value' | 'onClick' | 'child
 
 export const Tab: React.FC<TabProps> = (props) => {
   return (
-    <Button role="tab" color={props.active ? 'primary' : 'secondary'} value={props.value} onClick={props.onClick}>
+    <Button
+      role="tab"
+      color={props.active ? 'primary' : 'secondary'}
+      shape="pill"
+      value={props.value}
+      onClick={props.onClick}
+    >
       {props.children}
     </Button>
   );
