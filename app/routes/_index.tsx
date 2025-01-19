@@ -16,7 +16,7 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Page() {
-  const { data: posts, isLoading } = usePosts({ limit: 12, offset: 0 });
+  const { data: posts, isLoading } = usePosts({ limit: 12, page: 1 });
 
   return (
     <Container>
@@ -25,7 +25,7 @@ export default function Page() {
         <SkeltonCards total={12} size="md" />
       ) : (
         <Grid>
-          {posts?.map((post) => (
+          {posts?.data.map((post) => (
             <Column key={post.id} size="md">
               <Card to={post.url} category={post.media} title={post.title} />
             </Column>

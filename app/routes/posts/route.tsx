@@ -28,7 +28,7 @@ export default function Page() {
 
   const { data: posts, isLoading } = usePosts({
     limit: 12,
-    offset: 0,
+    page: 1,
     media: tab ?? undefined,
   });
 
@@ -51,7 +51,7 @@ export default function Page() {
           {tablist.map((t) => (
             <TabPanel key={t.key} active={tab === t.key}>
               <Grid>
-                {posts?.map((post) => (
+                {posts?.data.map((post) => (
                   <Column key={post.id} size="md">
                     <Card to={post.url} category={post.media} title={post.title} />
                   </Column>
