@@ -4,7 +4,7 @@ import { BrandSymbol, Navigation, NavigationProps } from '@components/ui';
 import { Container } from '@components/layout';
 import { PAGES } from '@modules/constants';
 
-export const Header: React.FC = () => {
+const Component: React.FC = () => {
   const links: NavigationProps['links'] = useMemo(() => {
     return [
       { to: PAGES.about.path as string, name: PAGES.about.name },
@@ -27,3 +27,5 @@ export const Header: React.FC = () => {
     </header>
   );
 };
+
+export const Header = React.memo(Component);

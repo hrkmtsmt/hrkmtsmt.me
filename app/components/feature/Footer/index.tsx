@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Container } from '@components/layout';
 
-export const Footer: React.FC = () => {
+const Component: React.FC = () => {
   const year = useMemo(() => new Date().getFullYear().toString(), []);
 
   return (
@@ -16,3 +16,5 @@ export const Footer: React.FC = () => {
     </footer>
   );
 };
+
+export const Footer = React.memo(Component);

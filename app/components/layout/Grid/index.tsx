@@ -4,9 +4,11 @@ export interface GridProps {
   children?: React.ReactNode;
 }
 
-export const Grid: React.FC<GridProps> = (props) => {
+const GridComponent: React.FC<GridProps> = (props) => {
   return <div className="grid w-full grid-cols-4 gap-6 sm:grid-cols-8 sm:gap-8 md:grid-cols-12">{props.children}</div>;
 };
+
+export const Grid = React.memo(GridComponent);
 
 const GRID_COLUMN_SIZES = {
   full: 'full',
@@ -22,7 +24,7 @@ export interface ColumnProps {
   children?: React.ReactNode;
 }
 
-export const Column: React.FC<ColumnProps> = (props) => {
+const ColumnComponent: React.FC<ColumnProps> = (props) => {
   if (props.size === GRID_COLUMN_SIZES.full) {
     return <div className="col-span-full">{props.children}</div>;
   }
@@ -45,3 +47,5 @@ export const Column: React.FC<ColumnProps> = (props) => {
 
   return <div className="col-span-2 sm:col-span-2 md:col-span-3">{props.children}</div>;
 };
+
+export const Column = React.memo(ColumnComponent);

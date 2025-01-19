@@ -16,7 +16,7 @@ export const links: LinksFunction = () => {
   ];
 };
 
-export function Layout() {
+export const Layout: React.FC = React.memo(() => {
   return (
     <html
       lang="ja"
@@ -39,7 +39,7 @@ export function Layout() {
       </body>
     </html>
   );
-}
+});
 
 export default function App() {
   return <Outlet />;
