@@ -20,7 +20,7 @@ export const Layout: React.FC = React.memo(() => {
   return (
     <html
       lang="ja"
-      className="w-full bg-base font-qualion-regular text-white transition duration-200 ease-out selection:bg-primary selection:text-white"
+      className="w-full bg-base font-default text-white transition duration-200 ease-out selection:bg-primary selection:text-white"
     >
       <head>
         <meta charSet="utf-8" />
