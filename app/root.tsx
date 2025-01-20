@@ -1,17 +1,26 @@
 import React from 'react';
-import { LinksFunction } from '@remix-run/node'; // or cloudflare/deno
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
 import { Root } from '@components/layout';
 import { Footer, Header } from '@components/feature';
 import { Loader } from '@components/ui';
 import './tailwind.css';
+import type { LinksFunction } from '@remix-run/cloudflare';
 
 export const links: LinksFunction = () => {
   return [
     {
       rel: 'icon',
-      href: '/icon.svg',
+      href: '/images/icon.svg',
       type: 'image/svg+xml',
+    },
+    {
+      rel: 'stylesheet',
+      href: '/fonts.css',
+      media: 'print',
+      onLoad: () => {
+        const link = document.querySelector<HTMLLinkElement>('link[href="/fonts.css"]');
+        if (link) link.media = 'all';
+      },
     },
   ];
 };

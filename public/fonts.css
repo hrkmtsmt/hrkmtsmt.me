@@ -1,0 +1,47 @@
+@font-face {
+  font-family: 'QualionRound-Regular';
+  src:
+    url('/fonts/qualion-round-regular.woff2.br') format('woff2'),
+    url('/fonts/qualion-round-regular.woff2') format('woff2');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'QualionRound-Bold';
+  src:
+    url('/fonts/qualion-round-bold.woff2.br') format('woff2'),
+    url('/fonts/qualion-round-bold.woff2') format('woff2');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src:
+    url('/fonts/jet-brains-mono-regular.woff2.br') format('woff2'),
+    url('/fonts/jet-brains-mono-regular.woff2') format('woff2');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src:
+    url('/fonts/jet-brains-mono-bold.woff2.br') format('woff2'),
+    url('/fonts/jet-brains-mono-bold.woff2') format('woff2');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Gen Jyuu Gothic Monospace';
+  src:
+    url('/fonts/gen-jyuu-gothic-monospace-regular.woff2.br') format('woff2'),
+    url('/fonts/gen-jyuu-gothic-monospace-regular.woff2') format('woff2');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Gen Jyuu Gothic Monospace';
+  src:
+    url('/fonts/gen-jyuu-gothic-monospace-bold.woff2.br') format('woff2'),
+    url('/fonts/gen-jyuu-gothic-monospace-bold.woff2') format('woff2');
+  font-weight: 700;
+}
