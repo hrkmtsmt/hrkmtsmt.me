@@ -5,7 +5,7 @@ export interface RootProps {
 }
 
 const Component: React.FC<RootProps> = (props) => {
-  return <div className="flex flex-col gap-8">{props.children}</div>;
+  return <div className="flex flex-col gap-16">{props.children}</div>;
 };
 
 export const Root = React.memo(Component);

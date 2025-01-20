@@ -19,3 +19,13 @@ const Heading2Component: React.FC<Heading2Props> = (props) => {
 };
 
 export const Heading2 = React.memo(Heading2Component);
+
+export interface ParagraphProps {
+  children?: React.ReactNode;
+}
+
+const ParagraphComponent: React.FC<ParagraphProps> = (props) => {
+  return <p className="leading-6">{props.children}</p>;
+};
+
+export const Paragraph = React.memo(ParagraphComponent);

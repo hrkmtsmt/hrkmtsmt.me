@@ -1,7 +1,7 @@
 import React from 'react';
 import { MetaFunction } from '@remix-run/cloudflare';
 import { Card, LinkButton, SkeltonCards } from '@components/ui';
-import { Container, Grid, Column, Heading2 } from '@components/layout';
+import { Container, Grid, Column, Heading2, Paragraph } from '@components/layout';
 import { PAGES } from '@modules/constants';
 import { usePosts } from '@modules/api';
 
@@ -19,20 +19,26 @@ export default function Page() {
   const { data: posts, isLoading } = usePosts({ limit: 12, page: 1 });
 
   return (
-    <Container>
-      <Heading2>{PAGES.posts.name}</Heading2>
-      {isLoading ? (
-        <SkeltonCards total={12} size="md" />
-      ) : (
-        <Grid>
-          {posts?.data.map((post) => (
-            <Column key={post.id} size="md">
-              <Card to={post.url} category={post.media} title={post.title} />
-            </Column>
-          ))}
-        </Grid>
-      )}
-      <LinkButton to={PAGES.posts.path}>View all</LinkButton>
-    </Container>
+    <>
+      <Container>
+        <Heading2>{PAGES.about.name}</Heading2>
+        <Paragraph>Software engineer.</Paragraph>
+      </Container>
+      <Container>
+        <Heading2>{PAGES.posts.name}</Heading2>
+        {isLoading ? (
+          <SkeltonCards total={12} size="md" />
+        ) : (
+          <Grid>
+            {posts?.data.map((post) => (
+              <Column key={post.id} size="md">
+                <Card to={post.url} category={post.media} title={post.title} />
+              </Column>
+            ))}
+          </Grid>
+        )}
+        <LinkButton to={PAGES.posts.path}>View all</LinkButton>
+      </Container>
+    </>
   );
 }
