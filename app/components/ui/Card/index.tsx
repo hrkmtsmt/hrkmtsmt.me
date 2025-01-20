@@ -31,7 +31,7 @@ const Component: React.FC<CardProps> = (props) => {
         <span className="line-clamp-2 h-12 leading-6">{props.title}</span>
       </h3>
       <LinkButton to={props.to} ref={ref}>
-        More
+        Read article
       </LinkButton>
     </div>
   );
