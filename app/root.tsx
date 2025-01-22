@@ -10,15 +10,15 @@ export const links: LinksFunction = () => {
   return [
     {
       rel: 'icon',
-      href: '/images/icon.svg',
+      href: `${import.meta.env.VITE_BASE_URL}/images/icon.svg`,
       type: 'image/svg+xml',
     },
     {
       rel: 'stylesheet',
-      href: '/fonts.css',
+      href: `${import.meta.env.VITE_BASE_URL}/fonts.css`,
       media: 'print',
       onLoad: () => {
-        const link = document.querySelector<HTMLLinkElement>('link[href="/fonts.css"]');
+        const link = document.querySelector<HTMLLinkElement>(`link[href="${import.meta.env.VITE_BASE_URL}/fonts.css"]`);
         if (link) link.media = 'all';
       },
     },
