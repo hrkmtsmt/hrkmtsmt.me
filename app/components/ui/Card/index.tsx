@@ -11,7 +11,7 @@ export interface CardProps {
 const Component: React.FC<CardProps> = (props) => {
   const ref = useRef<HTMLAnchorElement>(null);
 
-  const handleClick = useCallback(() => {
+  const onClick = useCallback(() => {
     if (getSelection()?.toString()) {
       return;
     }
@@ -21,7 +21,7 @@ const Component: React.FC<CardProps> = (props) => {
 
   return (
     <div
-      onClick={handleClick}
+      onClick={onClick}
       className="flex cursor-pointer flex-col gap-4 rounded-2xl bg-black p-4 font-default duration-200 ease-in-out hover:opacity-80"
     >
       <h3 className="line-clamp-2 flex flex-col gap-2">
