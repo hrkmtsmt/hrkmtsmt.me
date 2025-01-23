@@ -87,9 +87,9 @@ export default function Page() {
         <>
           {tablist.map((t) => (
             <TabPanel key={t.key} active={media === t.key}>
-              <Grid>
+              <Grid type="ul">
                 {posts?.data.map((post) => (
-                  <Column key={post.id} size="md">
+                  <Column type="li" key={post.id} size="md">
                     <Card to={post.url} category={post.media} title={post.title} />
                   </Column>
                 ))}
