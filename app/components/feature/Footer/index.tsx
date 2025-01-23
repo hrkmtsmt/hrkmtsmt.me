@@ -8,9 +8,7 @@ const Component: React.FC = () => {
     <footer className="flex h-16 justify-center">
       <Container>
         <address className="flex gap-2 not-italic">
-          <span>&copy;</span>
-          <span>{year}</span>
-          <span>{process.env.NODE_ENV}</span>
+          <span>{`&copy; ${year} Hiroki Matsumoto`}</span>
         </address>
       </Container>
     </footer>
