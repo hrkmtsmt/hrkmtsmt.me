@@ -11,6 +11,9 @@ importers:
       '@dotenvx/dotenvx':
         specifier: ^1.21.0
         version: 1.21.0
+      '@phosphor-icons/react':
+        specifier: ^2.1.7
+        version: 2.1.7(react-dom@19.0.0-rc-cc1ec60d0d-20240607(react@19.0.0-rc-cc1ec60d0d-20240607))(react@19.0.0-rc-cc1ec60d0d-20240607)
       '@remix-run/cloudflare':
         specifier: 2.13.1
         version: 2.13.1(@cloudflare/workers-types@4.20241022.0)(typescript@5.6.3)
@@ -35,15 +38,15 @@ importers:
       react-dom:
         specifier: 19.0.0-rc-cc1ec60d0d-20240607
         version: 19.0.0-rc-cc1ec60d0d-20240607(react@19.0.0-rc-cc1ec60d0d-20240607)
-      react-feather:
-        specifier: 2.0.10
-        version: 2.0.10(react@19.0.0-rc-cc1ec60d0d-20240607)
       swr:
         specifier: ^2.2.5
         version: 2.2.5(react@19.0.0-rc-cc1ec60d0d-20240607)
       tailwind-variants:
         specifier: ^0.3.1
         version: 0.3.1(tailwindcss@3.4.14)
+      tailwindcss-animation-delay:
+        specifier: ^2.0.1
+        version: 2.0.1(tailwindcss@3.4.14)
       zod:
         specifier: 3.23.8
         version: 3.23.8
@@ -1262,6 +1265,13 @@ packages:
   '@npmcli/promise-spawn@6.0.2':
     resolution: {integrity: sha512-gGq0NJkIGSwdbUt4yhdF8ZrmkGKVz9vAdVzpOfnom+V8PLSmSOVhZwbNvZZS1EYcJN5hzzKBxmmVVAInM6HQLg==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+
+  '@phosphor-icons/react@2.1.7':
+    resolution: {integrity: sha512-g2e2eVAn1XG2a+LI09QU3IORLhnFNAFkNbo2iwbX6NOKSLOwvEMmTa7CgOzEbgNWR47z8i8kwjdvYZ5fkGx1mQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>= 16.8'
+      react-dom: '>= 16.8'
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -3868,11 +3878,6 @@ packages:
     peerDependencies:
       react: 19.0.0-rc-cc1ec60d0d-20240607
 
-  react-feather@2.0.10:
-    resolution: {integrity: sha512-BLhukwJ+Z92Nmdcs+EMw6dy1Z/VLiJTzEQACDUEnWMClhYnFykJCGWQx+NmwP/qQHGX/5CzQ+TGi8ofg2+HzVQ==}
-    peerDependencies:
-      react: '>=16.8.6'
-
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -4262,6 +4267,11 @@ packages:
     engines: {node: '>=16.x', pnpm: '>=7.x'}
     peerDependencies:
       tailwindcss: '*'
+
+  tailwindcss-animation-delay@2.0.1:
+    resolution: {integrity: sha512-ruJNsjkoS9V73ce4DVBy6adj4/l6URP4uoG0nrch57xvPlE774kR5tgkzaBGtlEIaE9SctZ1BrMV8HCSN1K6cw==}
+    peerDependencies:
+      tailwindcss: '>=2.0.0 || >=3.0.0'
 
   tailwindcss@3.4.14:
     resolution: {integrity: sha512-IcSvOcTRcUtQQ7ILQL5quRDg7Xs93PdJEk1ZLbhhvJc7uj/OAhYOnruEiwnGgBvUtaUAJ8/mhSw1o8L2jCiENA==}
@@ -5635,6 +5645,11 @@ snapshots:
   '@npmcli/promise-spawn@6.0.2':
     dependencies:
       which: 3.0.1
+
+  '@phosphor-icons/react@2.1.7(react-dom@19.0.0-rc-cc1ec60d0d-20240607(react@19.0.0-rc-cc1ec60d0d-20240607))(react@19.0.0-rc-cc1ec60d0d-20240607)':
+    dependencies:
+      react: 19.0.0-rc-cc1ec60d0d-20240607
+      react-dom: 19.0.0-rc-cc1ec60d0d-20240607(react@19.0.0-rc-cc1ec60d0d-20240607)
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
@@ -8717,11 +8732,6 @@ snapshots:
       react: 19.0.0-rc-cc1ec60d0d-20240607
       scheduler: 0.25.0-rc-cc1ec60d0d-20240607
 
-  react-feather@2.0.10(react@19.0.0-rc-cc1ec60d0d-20240607):
-    dependencies:
-      prop-types: 15.8.1
-      react: 19.0.0-rc-cc1ec60d0d-20240607
-
   react-is@16.13.1: {}
 
   react-refresh@0.14.2: {}
@@ -9190,6 +9200,10 @@ snapshots:
   tailwind-variants@0.3.1(tailwindcss@3.4.14):
     dependencies:
       tailwind-merge: 2.5.4
+      tailwindcss: 3.4.14
+
+  tailwindcss-animation-delay@2.0.1(tailwindcss@3.4.14):
+    dependencies:
       tailwindcss: 3.4.14
 
   tailwindcss@3.4.14:

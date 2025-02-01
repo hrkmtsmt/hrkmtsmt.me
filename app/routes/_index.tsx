@@ -1,6 +1,6 @@
 import React from 'react';
 import { MetaFunction } from '@remix-run/cloudflare';
-import { Card, LinkButton, SkeltonCards } from '@components/ui';
+import { Card, DetailLink, SkeltonCards } from '@components/ui';
 import { Container, Grid, Column, Heading2, Paragraph } from '@components/layout';
 import { PAGES } from '@modules/constants';
 import { usePosts } from '@modules/api';
@@ -37,7 +37,7 @@ export default function Page() {
             ))}
           </Grid>
         )}
-        <LinkButton to={PAGES.posts.path}>View all</LinkButton>
+        <DetailLink to={PAGES.posts.path} text="View&nbsp;all" />
       </Container>
     </>
   );

@@ -1,5 +1,10 @@
 import React from 'react';
 import { Link, LinkProps } from '@remix-run/react';
+import { tv } from 'tailwind-variants';
+
+const link = tv({
+  base: 'block w-fit rounded-full bg-primary px-4 font-qualion-bold leading-10 text-black duration-200 ease-in-out hover:opacity-80 active:scale-95',
+});
 
 interface LProps extends Pick<LinkProps, 'to' | 'children'> {}
 
@@ -18,22 +23,13 @@ const isURL = (props: LProps | AProps): props is AProps => {
 const Component: React.FC<LinkButtonProps> = (props) => {
   if (isURL(props)) {
     return (
-      <a
-        href={props.to}
-        ref={props.ref}
-        className="block w-fit rounded-full bg-primary px-4 font-qualion-bold leading-10 text-black duration-200 ease-in-out hover:opacity-80 active:scale-95"
-      >
+      <a href={props.to} ref={props.ref} className={link()}>
         {props.children}
       </a>
     );
   }
 
-  return (
-    <Link
-      {...props}
-      className="block w-fit rounded-full bg-primary px-4 font-qualion-bold leading-10 text-black duration-200 ease-in-out hover:opacity-80 active:scale-95"
-    />
-  );
+  return <Link {...props} className={link()} />;
 };
 
 export const LinkButton = React.memo(Component);

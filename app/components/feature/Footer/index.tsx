@@ -8,7 +8,7 @@ const Component: React.FC = () => {
     <footer className="flex h-16 justify-center">
       <Container>
         <address className="flex gap-2 not-italic">
-          <span>{`&copy; ${year} Hiroki Matsumoto`}</span>
+          <span>{`Copyright ${year} Hiroki Matsumoto`}</span>
         </address>
       </Container>
     </footer>

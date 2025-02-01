@@ -1,6 +1,7 @@
 export * from './BrandSymbol';
 export * from './Button';
 export * from './Card';
+export * from './DetailLink';
 export * from './LinkButton';
 export * from './Loader';
 export * from './Navigation';
