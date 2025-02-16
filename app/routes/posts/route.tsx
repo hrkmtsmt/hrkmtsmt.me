@@ -2,10 +2,11 @@ import React, { useCallback, useMemo } from 'react';
 import { MetaFunction } from '@remix-run/cloudflare';
 import { Tabs, TabPanel, Card, SkeltonCards, Pagination } from '@components/ui';
 import { Column, Container, Grid, Heading2 } from '@components/layout';
+import { useSWRConfig } from 'swr';
+import { useSearchParams } from '@remix-run/react';
 import { PAGES } from '@modules/constants';
 import { usePosts } from '@modules/api';
-import { useSearchParams } from '@remix-run/react';
-import { useSWRConfig } from 'swr';
+import { toSafeNumber } from '@modules/utils';
 
 export const meta: MetaFunction = () => {
   return [{ title: 'hrkmtsmt | Posts' }, { name: 'description', content: 'My posts' }];
@@ -21,10 +22,11 @@ export default function Page() {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const { mutate } = useSWRConfig();
-  const media = useMemo(() => searchParams.get('media') ?? tabs[0].value, [searchParams]) as
-    | (typeof tabs)[number]['value']
-    | undefined;
-  const page = useMemo(() => (Number(searchParams.get('page')) ? Number(searchParams.get('page')) : 1), [searchParams]);
+  const media = useMemo(
+    () => (searchParams.get('media') ?? undefined) as (typeof tabs)[number]['value'],
+    [searchParams]
+  );
+  const page = useMemo(() => toSafeNumber(searchParams.get('page'), 1), [searchParams]);
   const key = useMemo(() => ['/posts', { limit: 12, page, media: media ?? undefined }] as const, [page, media]);
   const { data: posts, isLoading } = usePosts(key[1]);
 
@@ -74,7 +76,7 @@ export default function Page() {
   return (
     <Container>
       <Heading2>{PAGES.posts.name}</Heading2>
-      <Tabs list={list} onClick={handleChangeTab} />
+      <Tabs tabs={list} onClick={handleChangeTab} />
       {isLoading ? (
         <SkeltonCards total={12} size="md" />
       ) : (
