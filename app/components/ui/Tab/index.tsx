@@ -2,7 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import { Button, ButtonProps } from '@components/ui';
 
 export interface TabsProps {
-  children?: React.ReactNode;
+  list: { name: string; value: string | undefined; active: boolean }[];
+  onClick: ButtonProps['onClick'];
 }
 
 export const Tabs: React.FC<TabsProps> = (props) => {
@@ -22,26 +23,18 @@ export const Tabs: React.FC<TabsProps> = (props) => {
 
   return (
     <div ref={ref} role="tablist" className="flex w-full gap-4 overflow-x-scroll">
-      {props.children}
+      {props.list.map((item) => (
+        <Button
+          role="tab"
+          color={item.active ? 'primary' : 'secondary'}
+          shape="pill"
+          value={item.value}
+          onClick={props.onClick}
+        >
+          {item.name}
+        </Button>
+      ))}
     </div>
-  );
-};
-
-export interface TabProps extends Pick<ButtonProps, 'value' | 'onClick' | 'children'> {
-  active: boolean;
-}
-
-export const Tab: React.FC<TabProps> = (props) => {
-  return (
-    <Button
-      role="tab"
-      color={props.active ? 'primary' : 'secondary'}
-      shape="pill"
-      value={props.value}
-      onClick={props.onClick}
-    >
-      {props.children}
-    </Button>
   );
 };
 
