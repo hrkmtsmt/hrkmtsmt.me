@@ -1,10 +1,10 @@
-import { tv } from 'tailwind-variants';
+import { tv } from "tailwind-variants";
 
 export const styles = tv({
   variants: {
     color: {
-      primary: 'fill-primary',
-      white: 'fill-white',
+      primary: "fill-primary",
+      white: "fill-white",
     },
   },
 });

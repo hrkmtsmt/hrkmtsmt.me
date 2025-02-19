@@ -1,9 +1,9 @@
-import React from 'react';
-import { Link, LinkProps } from '@remix-run/react';
+import React from "react";
+import { Link, LinkProps } from "@remix-run/react";
 
 export interface NavigationProps {
   links: {
-    to: LinkProps['to'];
+    to: LinkProps["to"];
     name: string;
   }[];
 }

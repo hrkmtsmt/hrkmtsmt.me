@@ -1,32 +1,37 @@
-import React, { useEffect, useRef } from 'react';
-import { Button, ButtonProps } from '@components/ui';
+import React, { useEffect, useRef } from "react";
+import { Button, ButtonProps } from "@components/ui";
 
 export interface TabsProps {
   tabs: { name: string; value: string | undefined; active: boolean }[];
-  onClick: ButtonProps['onClick'];
+  onClick: ButtonProps["onClick"];
 }
 
 export const Tabs: React.FC<TabsProps> = (props) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    ref.current?.addEventListener('wheel', (e) => {
+    ref.current?.addEventListener("wheel", (e) => {
       e.preventDefault();
 
       ref.current?.scrollBy({
         top: 0,
         left: e.deltaY,
-        behavior: 'smooth',
+        behavior: "smooth",
       });
     });
   }, []);
 
   return (
-    <div ref={ref} role="tablist" className="flex w-full gap-4 overflow-x-scroll">
+    <div
+      ref={ref}
+      role="tablist"
+      className="flex w-full gap-4 overflow-x-scroll"
+    >
       {props.tabs.map((item) => (
         <Button
+          key={item.name}
           role="tab"
-          color={item.active ? 'primary' : 'secondary'}
+          color={item.active ? "primary" : "secondary"}
           shape="pill"
           value={item.value}
           onClick={props.onClick}

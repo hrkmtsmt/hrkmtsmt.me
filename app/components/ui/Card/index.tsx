@@ -1,9 +1,9 @@
-import React, { useCallback, useRef } from 'react';
-import { LinkButton, LinkButtonProps } from '@components/ui';
+import React, { useCallback, useRef } from "react";
+import { LinkButton, LinkButtonProps } from "@components/ui";
 
 export interface CardProps {
   title: string;
-  to: LinkButtonProps['to'];
+  to: LinkButtonProps["to"];
   category?: string;
 }
 

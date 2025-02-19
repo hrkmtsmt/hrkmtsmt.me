@@ -4,25 +4,25 @@ interface ErrorResponse {
   description: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const isErrorResponse = (data: any): data is ErrorResponse => {
-  const KEY = 'message' as const;
+  const KEY = "message" as const;
 
   return KEY in data;
 };
 
 const ERRORS = {
   api: {
-    name: 'API_ERROR',
+    name: "API_ERROR",
     message: undefined,
   },
   fetch: {
-    name: 'FETCH_ERROR',
-    message: 'データ取得に失敗しました',
+    name: "FETCH_ERROR",
+    message: "データ取得に失敗しました",
   },
   systemError: {
-    name: 'SYSTEM_ERROR',
-    message: 'システムエラーです',
+    name: "SYSTEM_ERROR",
+    message: "システムエラーです",
   },
 } as const;
 

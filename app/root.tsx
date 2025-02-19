@@ -1,25 +1,25 @@
-import React from 'react';
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
-import { Root } from '@components/layout';
-import { Footer, Header } from '@components/feature';
-import { Loader } from '@components/ui';
-import './tailwind.css';
-import type { LinksFunction } from '@remix-run/cloudflare';
+import React from "react";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+import { Root } from "@components/layout";
+import { Footer, Header } from "@components/feature";
+import { Loader } from "@components/ui";
+import "./tailwind.css";
+import type { LinksFunction } from "@remix-run/cloudflare";
 
 export const links: LinksFunction = () => {
   return [
     {
-      rel: 'icon',
+      rel: "icon",
       href: `${import.meta.env.VITE_BASE_URL}/images/icon.svg`,
-      type: 'image/svg+xml',
+      type: "image/svg+xml",
     },
     {
-      rel: 'stylesheet',
+      rel: "stylesheet",
       href: `${import.meta.env.VITE_BASE_URL}/fonts.css`,
-      media: 'print',
+      media: "print",
       onLoad: () => {
         const link = document.querySelector<HTMLLinkElement>(`link[href="${import.meta.env.VITE_BASE_URL}/fonts.css"]`);
-        if (link) link.media = 'all';
+        if (link) link.media = "all";
       },
     },
   ];

@@ -1,9 +1,9 @@
-import React from 'react';
-import { Grid, Column, ColumnProps } from '@components/layout';
+import React from "react";
+import { Grid, Column, ColumnProps } from "@components/layout";
 
 export interface SkeltonCardsProps {
   total: number;
-  size: ColumnProps['size'];
+  size: ColumnProps["size"];
 }
 
 export const SkeltonCards: React.FC<SkeltonCardsProps> = (props) => {

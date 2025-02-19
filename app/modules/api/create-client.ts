@@ -1,11 +1,11 @@
-import { ApiError, FetchError, SystemError, isApiError, isFetchError, isErrorResponse } from './error';
+import { ApiError, FetchError, SystemError, isApiError, isFetchError, isErrorResponse } from "./error";
 
 export const HTTP_METHODS = {
-  get: 'GET',
-  post: 'POST',
-  put: 'PUT',
-  patch: 'PATCH',
-  delete: 'DELETE',
+  get: "GET",
+  post: "POST",
+  put: "PUT",
+  patch: "PATCH",
+  delete: "DELETE",
 } as const;
 
 type HttpMethods = (typeof HTTP_METHODS)[keyof typeof HTTP_METHODS];
@@ -27,11 +27,11 @@ type Headers = Record<string, string>;
 const fetcher = async <T, U>(url: string, method: HttpMethods, body?: U, headers?: Headers): Promise<T> => {
   try {
     const response = await fetch(url, {
-      mode: 'cors',
+      mode: "cors",
       method,
       body: createBody<U>(body),
       headers: {
-        'Content-Type': 'application/json; charset=utf-8',
+        "Content-Type": "application/json; charset=utf-8",
         ...headers,
       },
     });
@@ -90,5 +90,5 @@ const basicAuth = (username: string, password: string) => {
 
 export const client = createClient(import.meta.env.VITE_API_BASE_URL, {
   Authorization: basicAuth(import.meta.env.VITE_API_BASIC_AUTH_USERNAME, import.meta.env.VITE_API_BASIC_AUTH_PASSWORD),
-  'Access-Control-Allow-Origin': import.meta.env.BASE_URL,
+  "Access-Control-Allow-Origin": import.meta.env.BASE_URL,
 });

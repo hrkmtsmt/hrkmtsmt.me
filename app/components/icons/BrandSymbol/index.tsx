@@ -1,6 +1,6 @@
-import React from 'react';
-import { styles } from '@components/icons';
-import type { IconProps } from '@components/icons';
+import React from "react";
+import { styles } from "@components/icons";
+import type { IconProps } from "@components/icons";
 
 export const BrandSymbol: React.FC<IconProps> = (props) => {
   return (

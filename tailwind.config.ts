@@ -1,43 +1,43 @@
-import type { Config } from 'tailwindcss';
+import type { Config } from "tailwindcss";
 
 export default {
-  content: ['./app/**/*.{js,jsx,ts,tsx}'],
+  content: ["./app/**/*.{js,jsx,ts,tsx}"],
   theme: {
     colors: {
-      base: '#101010',
-      primary: '#2F76E6',
-      black: '#202020',
-      white: '#F1F1F1',
+      base: "#101010",
+      primary: "#2F76E6",
+      black: "#202020",
+      white: "#F1F1F1",
     },
     fontFamily: {
-      'qualion-regular': [
+      "qualion-regular": [
         '"QualionRound-Regular"',
         '"Helvetica Neue"',
-        'Arial',
+        "Arial",
         '"Hiragino Kaku Gothic ProN"',
         '"Hiragino Sans"',
-        'Meiryo',
-        'sans-serif',
+        "Meiryo",
+        "sans-serif",
       ],
-      'qualion-bold': [
+      "qualion-bold": [
         '"QualionRound-Bold"',
         '"Helvetica Neue"',
-        'Arial',
+        "Arial",
         '"Hiragino Kaku Gothic ProN"',
         '"Hiragino Sans"',
-        'Meiryo',
-        'sans-serif',
+        "Meiryo",
+        "sans-serif",
       ],
       default: [
         '"JetBrains Mono"',
         '"Gen Jyuu Gothic Monospace"',
-        'monospace',
+        "monospace",
         '"Helvetica Neue"',
-        'Arial',
+        "Arial",
         '"Hiragino Kaku Gothic ProN"',
         '"Hiragino Sans"',
-        'Meiryo',
-        'sans-serif',
+        "Meiryo",
+        "sans-serif",
       ],
     },
   },

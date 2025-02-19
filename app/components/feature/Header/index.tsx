@@ -1,12 +1,12 @@
-import React, { useMemo } from 'react';
-import { Link } from '@remix-run/react';
-import { BrandSymbol } from '@components/icons';
-import { Navigation, NavigationProps } from '@components/ui';
-import { Container } from '@components/layout';
-import { PAGES } from '@modules/constants';
+import React, { useMemo } from "react";
+import { Link } from "@remix-run/react";
+import { BrandSymbol } from "@components/icons";
+import { Navigation, NavigationProps } from "@components/ui";
+import { Container } from "@components/layout";
+import { PAGES } from "@modules/constants";
 
 const Component: React.FC = () => {
-  const links: NavigationProps['links'] = useMemo(() => {
+  const links: NavigationProps["links"] = useMemo(() => {
     return [
       { to: PAGES.about.path as string, name: PAGES.about.name },
       { to: PAGES.posts.path as string, name: PAGES.posts.name },

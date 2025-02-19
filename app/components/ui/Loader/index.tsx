@@ -1,5 +1,5 @@
-import React from 'react';
-import { CircleNotch } from '@phosphor-icons/react/dist/ssr';
+import React from "react";
+import { CircleNotch } from "@phosphor-icons/react/dist/ssr";
 
 export const Loader: React.FC = () => {
   return (

@@ -1,13 +1,13 @@
-import React from 'react';
-import { Link, LinkProps } from '@remix-run/react';
-import { tv } from 'tailwind-variants';
-import { ArrowRight } from '@phosphor-icons/react';
+import React from "react";
+import { Link, LinkProps } from "@remix-run/react";
+import { tv } from "tailwind-variants";
+import { ArrowRight } from "@phosphor-icons/react";
 
 const link = tv({
-  base: 'relative flex group w-fit font-qualion-bold leading-10 flex text-primary items-center gap-2 transition hover:-translate-x-[28px] hover:',
+  base: "relative flex group w-fit font-qualion-bold leading-10 flex text-primary items-center gap-2 transition hover:-translate-x-[28px] hover:",
 });
 
-interface DetailLinkProps extends Pick<LinkProps, 'to'> {
+interface DetailLinkProps extends Pick<LinkProps, "to"> {
   text: string;
 }
 

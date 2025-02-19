@@ -1,15 +1,15 @@
-import React from 'react';
-import { MetaFunction } from '@remix-run/cloudflare';
-import { Card, DetailLink, SkeltonCards } from '@components/ui';
-import { Container, Grid, Column, Heading2, Paragraph } from '@components/layout';
-import { PAGES } from '@modules/constants';
-import { usePosts } from '@modules/api';
+import React from "react";
+import { MetaFunction } from "@remix-run/cloudflare";
+import { Card, DetailLink, SkeltonCards } from "@components/ui";
+import { Container, Grid, Column, Heading2, Paragraph } from "@components/layout";
+import { PAGES } from "@modules/constants";
+import { usePosts } from "@modules/api";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: 'hrkmtsmt' },
+    { title: "hrkmtsmt" },
     {
-      name: 'description',
+      name: "description",
       content: "Hello! I'm Hiroki Matsumoto!",
     },
   ];

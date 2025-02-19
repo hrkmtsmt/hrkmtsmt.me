@@ -1,77 +1,98 @@
-import React, { useCallback, useMemo } from 'react';
-import { MetaFunction } from '@remix-run/cloudflare';
-import { Tabs, TabPanel, Card, SkeltonCards, Pagination } from '@components/ui';
-import { Column, Container, Grid, Heading2 } from '@components/layout';
-import { useSWRConfig } from 'swr';
-import { useSearchParams } from '@remix-run/react';
-import { PAGES } from '@modules/constants';
-import { usePosts } from '@modules/api';
-import { toSafeNumber } from '@modules/utils';
+import React, { useCallback, useMemo } from "react";
+import { MetaFunction } from "@remix-run/cloudflare";
+import { Tabs, TabPanel, Card, SkeltonCards, Pagination } from "@components/ui";
+import { Column, Container, Grid, Heading2 } from "@components/layout";
+import { useSWRConfig } from "swr";
+import { useSearchParams } from "@remix-run/react";
+import { PAGES } from "@modules/constants";
+import { usePosts } from "@modules/api";
+import { toSafeNumber } from "@modules/utils";
 
 export const meta: MetaFunction = () => {
-  return [{ title: 'hrkmtsmt | Posts' }, { name: 'description', content: 'My posts' }];
+  return [
+    { title: "hrkmtsmt | Posts" },
+    { name: "description", content: "My posts" },
+  ];
 };
 
 export default function Page() {
   const tabs = [
-    { value: undefined, name: 'All' },
-    { value: 'zenn', name: 'Zenn' },
-    { value: 'qiita', name: 'Qiita' },
-    { value: 'note', name: 'Note' },
+    { value: undefined, name: "All" },
+    { value: "zenn", name: "Zenn" },
+    { value: "qiita", name: "Qiita" },
+    { value: "note", name: "Note" },
   ] as const;
 
   const [searchParams, setSearchParams] = useSearchParams();
   const { mutate } = useSWRConfig();
   const media = useMemo(
-    () => (searchParams.get('media') ?? undefined) as (typeof tabs)[number]['value'],
-    [searchParams]
+    () =>
+      (searchParams.get("media") ??
+        undefined) as (typeof tabs)[number]["value"],
+    [searchParams],
   );
-  const page = useMemo(() => toSafeNumber(searchParams.get('page'), 1), [searchParams]);
-  const key = useMemo(() => ['/posts', { limit: 12, page, media: media ?? undefined }] as const, [page, media]);
+  const page = useMemo(
+    () => toSafeNumber(searchParams.get("page"), 1),
+    [searchParams],
+  );
+  const key = useMemo(
+    () => ["/posts", { limit: 12, page, media: media ?? undefined }] as const,
+    [page, media],
+  );
   const { data: posts, isLoading } = usePosts(key[1]);
 
-  const handleChangeTab: React.MouseEventHandler<HTMLButtonElement> = useCallback(
-    async (e) => {
-      mutate(key);
+  const handleChangeTab: React.MouseEventHandler<HTMLButtonElement> =
+    useCallback(
+      async (e) => {
+        mutate(key);
 
-      if (!e.currentTarget.value) {
+        if (!e.currentTarget.value) {
+          return setSearchParams((state) => {
+            state.delete("page");
+            state.delete("media");
+            return state;
+          });
+        }
+
         return setSearchParams((state) => {
-          state.delete('page');
-          state.delete('media');
+          state.delete("page");
+          state.set("media", e.currentTarget.value);
           return state;
         });
-      }
+      },
+      [key, mutate, setSearchParams],
+    );
 
-      return setSearchParams((state) => {
-        state.delete('page');
-        state.set('media', e.currentTarget.value);
-        return state;
-      });
-    },
-    [key]
-  );
+  const handleChangePage: React.MouseEventHandler<HTMLButtonElement> =
+    useCallback(
+      (e) => {
+        mutate(key);
 
-  const handleChangePage: React.MouseEventHandler<HTMLButtonElement> = useCallback(
-    (e) => {
-      mutate(key);
+        if (!e.currentTarget.value) {
+          return setSearchParams((state) => {
+            state.delete("page");
+            state.delete("media");
+            return state;
+          });
+        }
 
-      if (!e.currentTarget.value) {
         return setSearchParams((state) => {
-          state.delete('page');
-          state.delete('media');
+          state.set("page", e.currentTarget.value);
           return state;
         });
-      }
+      },
+      [key, mutate, setSearchParams],
+    );
 
-      return setSearchParams((state) => {
-        state.set('page', e.currentTarget.value);
-        return state;
-      });
-    },
-    [key]
+  const list = useMemo(
+    () =>
+      tabs.map((t) => ({
+        name: t.name,
+        value: t.value,
+        active: media === t.value,
+      })),
+    [media, tabs],
   );
-
-  const list = useMemo(() => tabs.map((t) => ({ name: t.name, value: t.value, active: media === t.value })), [media]);
 
   return (
     <Container>
@@ -82,11 +103,15 @@ export default function Page() {
       ) : (
         <>
           {tabs.map((t) => (
-            <TabPanel key={t.value} active={media === t.value}>
+            <TabPanel key={t.name} active={media === t.value}>
               <Grid type="ul">
                 {posts?.data.map((post) => (
                   <Column type="li" key={post.id} size="md">
-                    <Card to={post.url} category={post.media} title={post.title} />
+                    <Card
+                      to={post.url}
+                      category={post.media}
+                      title={post.title}
+                    />
                   </Column>
                 ))}
               </Grid>
@@ -94,7 +119,11 @@ export default function Page() {
           ))}
         </>
       )}
-      <Pagination pages={posts?.pages} current={page} onClick={handleChangePage} />
+      <Pagination
+        pages={posts?.pages}
+        current={page}
+        onClick={handleChangePage}
+      />
     </Container>
   );
 }
