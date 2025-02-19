@@ -5,3 +5,5 @@ export * from './Lapras';
 export * from './Qiita';
 export * from './X';
 export * from './Zenn';
+export * from './style';
+export * from './types';
