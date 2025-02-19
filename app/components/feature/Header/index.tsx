@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { Link } from '@remix-run/react';
-import { BrandSymbol, Navigation, NavigationProps } from '@components/ui';
+import { BrandSymbol } from '@components/icons';
+import { Navigation, NavigationProps } from '@components/ui';
 import { Container } from '@components/layout';
 import { PAGES } from '@modules/constants';
 
@@ -18,7 +19,7 @@ const Component: React.FC = () => {
         <div className="flex items-center gap-4">
           <h1>
             <Link to={PAGES.top.path}>
-              <BrandSymbol size={40} />
+              <BrandSymbol size={40} color="primary" />
             </Link>
           </h1>
           <Navigation links={links} />

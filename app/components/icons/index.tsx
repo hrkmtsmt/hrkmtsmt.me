@@ -1,3 +1,4 @@
+export * from './BrandSymbol';
 export * from './Findy';
 export * from './Github';
 export * from './Hatena';
