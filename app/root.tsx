@@ -13,15 +13,6 @@ export const links: LinksFunction = () => {
       href: `${import.meta.env.VITE_BASE_URL}/images/icon.svg`,
       type: "image/svg+xml",
     },
-    {
-      rel: "stylesheet",
-      href: `${import.meta.env.VITE_BASE_URL}/fonts.css`,
-      media: "print",
-      onLoad: () => {
-        const link = document.querySelector<HTMLLinkElement>(`link[href="${import.meta.env.VITE_BASE_URL}/fonts.css"]`);
-        if (link) link.media = "all";
-      },
-    },
   ];
 };
 
