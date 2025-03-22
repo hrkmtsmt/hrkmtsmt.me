@@ -10,7 +10,12 @@ export const links: LinksFunction = () => {
   return [
     {
       rel: "icon",
-      href: `${import.meta.env.VITE_BASE_URL}/images/icon.svg`,
+      href: `${import.meta.env.VITE_BASE_URL}/icon.ico`,
+      type: "image/x-icon",
+    },
+    {
+      rel: "icon",
+      href: `${import.meta.env.VITE_BASE_URL}/icon.svg`,
       type: "image/svg+xml",
     },
   ];
