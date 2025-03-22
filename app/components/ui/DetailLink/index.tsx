@@ -4,7 +4,7 @@ import { tv } from "tailwind-variants";
 import { ArrowRight } from "@phosphor-icons/react";
 
 const link = tv({
-  base: "relative flex group w-fit font-qualion-bold leading-10 flex text-primary items-center gap-2 transition hover:-translate-x-[28px] hover:",
+  base: "relative flex group w-fit font-qualion-round font-bold leading-10 flex text-primary items-center gap-2 transition hover:-translate-x-[28px] hover:",
 });
 
 interface DetailLinkProps extends Pick<LinkProps, "to"> {

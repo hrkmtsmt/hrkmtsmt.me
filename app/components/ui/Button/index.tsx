@@ -2,7 +2,7 @@ import React, { ComponentProps } from "react";
 import { tv, VariantProps } from "tailwind-variants";
 
 const button = tv({
-  base: "text-nowrap rounded-full px-4 font-qualion-bold leading-10 duration-200 ease-in-out hover:opacity-80 focus-visible:outline-hidden active:scale-95",
+  base: "text-nowrap rounded-full px-4 font-qualion-round font-bold leading-10 duration-200 ease-in-out hover:opacity-80 focus-visible:outline-hidden active:scale-95",
   variants: {
     color: {
       primary: "bg-primary text-black",

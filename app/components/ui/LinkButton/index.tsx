@@ -3,7 +3,7 @@ import { Link, LinkProps } from "@remix-run/react";
 import { tv } from "tailwind-variants";
 
 const link = tv({
-  base: "block w-fit rounded-full bg-primary px-4 font-qualion-bold leading-10 text-black duration-200 ease-in-out hover:opacity-80 active:scale-95",
+  base: "block w-fit rounded-full bg-primary px-4 font-qualion-round font-bold leading-10 text-black duration-200 ease-in-out hover:opacity-80 active:scale-95",
 });
 
 interface LProps extends Pick<LinkProps, "to" | "children"> {}

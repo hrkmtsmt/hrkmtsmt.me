@@ -14,6 +14,22 @@
     "bracketSpacing": true
   },
   "organizeImports": { "enabled": true },
+  "css": {
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "lineWidth": 120
+    }
+  },
+  "json": {
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "lineWidth": 120
+    }
+  },
   "linter": {
     "enabled": true,
     "rules": {
@@ -62,6 +78,15 @@
         "useForOf": "error",
         "useLiteralEnumMembers": "error",
         "useShorthandFunctionType": "error"
+      },
+      "nursery": {
+        "useSortedClasses": {
+          "level": "error",
+          "options": {
+            "attributes": ["className", "base"],
+            "functions": ["tv"]
+          }
+        }
       },
       "suspicious": {
         "noAsyncPromiseExecutor": "error",

@@ -9,7 +9,7 @@
     "deploy": "npm run build && wrangler pages deploy",
     "start": "wrangler pages dev ./build/client",
     "lint": "biome lint",
-    "format": "biome format",
+    "format": "biome format --write .",
     "type-check": "tsc",
     "spell-check": "cspell '**'",
     "test": "vitest",
@@ -63,10 +63,7 @@
     "wrangler": "3.83.0"
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx}": [
-      "bash -c tsc --noEmit",
-      "pnpm run lint"
-    ],
+    "src/**/*.{ts,tsx}": ["bash -c tsc --noEmit", "pnpm run lint"],
     "src/**/*.{ts,tsx,js,json}": "pnpm run format",
     "*": "pnpm run spell-check"
   },

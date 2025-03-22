@@ -9,7 +9,7 @@ export const Heading1: React.FC<TypographyProps> = React.memo((props) => {
 });
 
 export const Heading2: React.FC<TypographyProps> = React.memo((props) => {
-  return <h1 className="font-qualion-bold text-3xl leading-10 text-primary">{props.children}</h1>;
+  return <h1 className="font-qualion-round font-bold text-3xl leading-10 text-primary">{props.children}</h1>;
 });
 
 export const Paragraph: React.FC<TypographyProps> = React.memo((props) => {

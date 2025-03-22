@@ -22,11 +22,7 @@ export const Tabs: React.FC<TabsProps> = (props) => {
   }, []);
 
   return (
-    <div
-      ref={ref}
-      role="tablist"
-      className="flex w-full gap-4 overflow-x-scroll"
-    >
+    <div ref={ref} role="tablist" className="flex w-full gap-4 overflow-x-scroll">
       {props.tabs.map((item) => (
         <Button
           key={item.name}
