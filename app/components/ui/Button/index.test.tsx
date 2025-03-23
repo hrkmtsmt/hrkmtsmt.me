@@ -6,17 +6,26 @@ import { Button } from ".";
 describe("component Button", () => {
   test("childrenに渡された値が表示される", () => {
     render(<Button color="primary">Submit</Button>);
-    expect(screen.getByRole("button")).toHaveTextContent("Submit");
+
+    const result = screen.getByRole("button").textContent;
+
+    assert.include(result, "Submit");
   });
 
   test("color=primaryで指定したクラスが付与される", () => {
     render(<Button color="primary">Submit</Button>);
-    expect(screen.getByRole("button")).toHaveClass("bg-primary text-black");
+
+    const result = screen.getByRole("button").className;
+
+    assert.include(result, "bg-primary text-black");
   });
 
   test("color=secondaryで指定したクラスが付与される", () => {
     render(<Button color="secondary">Submit</Button>);
-    expect(screen.getByRole("button")).toHaveClass("bg-black text-primary");
+
+    const result = screen.getByRole("button").className
+
+    assert.include(result, "bg-black text-primary");
   });
 
   test("disable=falseの時にボタンを1度クリックするとonClickに渡した関数が1度発火する", async () => {
@@ -26,7 +35,9 @@ describe("component Button", () => {
         Submit
       </Button>
     );
+
     await userEvent.click(screen.getByRole("button"));
+
     expect(handleClick).toBeCalledTimes(1);
   });
 
@@ -37,7 +48,9 @@ describe("component Button", () => {
         Submit
       </Button>
     );
+
     await userEvent.click(screen.getByRole("button"));
+
     expect(handleClick).toBeCalledTimes(0);
   });
 });

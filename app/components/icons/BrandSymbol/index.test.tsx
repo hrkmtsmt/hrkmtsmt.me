@@ -5,26 +5,33 @@ import { BrandSymbol } from "./index";
 describe("component BrandSymbol", () => {
   test("widthプロパティが正しく適用される", () => {
     render(<BrandSymbol size={32} color="primary" />);
-    expect(screen.getByRole("img")).toHaveAttribute("width", "32");
+    
+    const result = screen.getByRole("img").getAttribute("width");
+    
+    assert.equal(result, "32");
   });
 
   test("heightプロパティが正しく適用される", () => {
     render(<BrandSymbol size={32} color="primary" />);
-    expect(screen.getByRole("img")).toHaveAttribute("height", "32");
+    
+    const result = screen.getByRole("img").getAttribute("height");
+    
+    assert.equal(result, "32");
   });
 
   test("color=primaryの場合はprimaryのクラスが適応される", () => {
     render(<BrandSymbol size={32} color="primary" />);
-    expect(screen.getByRole("img").firstChild).toHaveClass("fill-primary");
+    
+    const result = screen.getByRole("img").children[0].getAttribute("class");
+
+    assert.include(result, "fill-primary");
   });
 
   test("color=whiteの場合はwhiteのクラスが適応される", () => {
     render(<BrandSymbol size={32} color="white" />);
-    expect(screen.getByRole("img").firstChild).toHaveClass("fill-white");
-  });
 
-  test("BrandSymbolがレンダリングされる", () => {
-    render(<BrandSymbol size={32} color="primary" />);
-    expect(screen.getByRole("img")).toBeInTheDocument();
+    const result = screen.getByRole("img").children[0].getAttribute("class");
+
+    assert.include(result, "fill-white");
   });
 });
