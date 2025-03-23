@@ -29,8 +29,8 @@ const column = tv({
       "2xl": "col-span-8 md:col-span-full",
       xl: "col-span-4 sm:col-span-4 md:col-span-6",
       lg: "col-span-2 sm:col-span-4 md:col-span-4",
-      md: "col-span-2 sm:col-span-4 md:col-span-4",
-      sm: "col-span-2 sm:col-span-2 md:col-span-3",
+      md: "col-span-4 sm:col-span-4 md:col-span-4",
+      sm: "col-span-4 sm:col-span-4 md:col-span-3",
     },
   },
 });

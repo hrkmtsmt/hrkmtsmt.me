@@ -14,18 +14,21 @@ const Component: React.FC = () => {
   }, []);
 
   return (
-    <header className="flex h-16 justify-center">
-      <Container>
-        <div className="flex items-center gap-4">
-          <h1>
-            <Link to={PAGES.top.path}>
-              <BrandSymbol size={40} color="primary" />
-            </Link>
-          </h1>
-          <Navigation links={links} />
-        </div>
-      </Container>
-    </header>
+    <>
+      <header className="fixed z-10 flex h-16 w-full justify-center bg-base">
+        <Container>
+          <div className="flex items-center gap-4">
+            <h1>
+              <Link to={PAGES.top.path}>
+                <BrandSymbol size={40} color="primary" />
+              </Link>
+            </h1>
+            <Navigation links={links} />
+          </div>
+        </Container>
+      </header>
+      <div className="h-16 w-full" />
+    </>
   );
 };
 

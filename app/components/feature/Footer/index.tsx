@@ -6,7 +6,8 @@ const Component: React.FC = () => {
   const year = useMemo(() => new Date().getFullYear().toString(), []);
 
   return (
-    <footer className="flex h-16 justify-center">
+    // biome-ignore lint/nursery/useSortedClasses: <explanation>
+    <footer className="flex justify-center bg-black py-16 rounded-t-2xl">
       <Container>
         <ul className="flex gap-2">
           <li>

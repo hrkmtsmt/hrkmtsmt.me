@@ -23,7 +23,7 @@ describe("component Button", () => {
   test("color=secondaryで指定したクラスが付与される", () => {
     render(<Button color="secondary">Submit</Button>);
 
-    const result = screen.getByRole("button").className
+    const result = screen.getByRole("button").className;
 
     assert.include(result, "bg-black text-primary");
   });
