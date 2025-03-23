@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@dotenvx/dotenvx": "1.21.0",
-    "@phosphor-icons/react": "2.1.7",
+    "@heroicons/react": "2.2.0",
     "@remix-run/cloudflare": "2.13.1",
     "@remix-run/cloudflare-pages": "2.13.1",
     "@remix-run/node": "2.13.1",
@@ -63,7 +63,10 @@
     "wrangler": "3.83.0"
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx}": ["bash -c tsc --noEmit", "pnpm run lint"],
+    "src/**/*.{ts,tsx}": [
+      "bash -c tsc --noEmit",
+      "pnpm run lint"
+    ],
     "src/**/*.{ts,tsx,js,json}": "pnpm run format",
     "*": "pnpm run spell-check"
   },
