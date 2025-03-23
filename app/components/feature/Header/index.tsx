@@ -1,9 +1,9 @@
-import React, { useMemo } from "react";
-import { Link } from "@remix-run/react";
 import { BrandSymbol } from "@components/icons";
-import { Navigation, NavigationProps } from "@components/ui";
 import { Container } from "@components/layout";
+import { Navigation, NavigationProps } from "@components/ui";
 import { PAGES } from "@modules/constants";
+import { Link } from "@remix-run/react";
+import React, { useMemo } from "react";
 
 const Component: React.FC = () => {
   const links: NavigationProps["links"] = useMemo(() => {

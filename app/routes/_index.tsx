@@ -1,9 +1,9 @@
-import React from "react";
-import { MetaFunction } from "@remix-run/cloudflare";
+import { Column, Container, Grid, Heading2, Paragraph } from "@components/layout";
 import { Card, DetailLink, SkeltonCards } from "@components/ui";
-import { Container, Grid, Column, Heading2, Paragraph } from "@components/layout";
-import { PAGES } from "@modules/constants";
 import { usePosts } from "@modules/api";
+import { PAGES } from "@modules/constants";
+import { MetaFunction } from "@remix-run/cloudflare";
+import React from "react";
 
 export const meta: MetaFunction = () => {
   return [

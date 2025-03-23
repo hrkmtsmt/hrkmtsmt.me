@@ -1,6 +1,6 @@
-import React from "react";
-import { MetaFunction } from "@remix-run/cloudflare";
 import { Container } from "@components/layout";
+import { MetaFunction } from "@remix-run/cloudflare";
+import React from "react";
 
 export const meta: MetaFunction = () => {
   return [

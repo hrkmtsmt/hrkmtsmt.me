@@ -1,8 +1,8 @@
-import React from "react";
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
-import { Root } from "@components/layout";
 import { Footer, Header } from "@components/feature";
+import { Root } from "@components/layout";
 import { Loader } from "@components/ui";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+import React from "react";
 import "./tailwind.css";
 import type { LinksFunction } from "@remix-run/cloudflare";
 

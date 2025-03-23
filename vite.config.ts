@@ -1,7 +1,7 @@
+import dotenvx from "@dotenvx/dotenvx";
 import { vitePlugin as remix, cloudflareDevProxyVitePlugin as remixCloudflareDevProxy } from "@remix-run/dev";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import dotenvx from "@dotenvx/dotenvx";
 
 dotenvx.config();
 
@@ -16,7 +16,7 @@ export default defineConfig({
         entryFileNames: `assets/[name]-${Date.now()}.js`,
         chunkFileNames: `assets/[name]-${Date.now()}.js`,
         assetFileNames: `assets/[name]-${Date.now()}.[ext]`,
-      }
-    }
-  }
+      },
+    },
+  },
 });

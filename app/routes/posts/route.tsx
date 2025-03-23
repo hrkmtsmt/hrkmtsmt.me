@@ -1,12 +1,12 @@
-import React, { useCallback, useMemo } from "react";
-import { MetaFunction } from "@remix-run/cloudflare";
-import { Tabs, TabPanel, Card, SkeltonCards, Pagination } from "@components/ui";
 import { Column, Container, Grid, Heading2 } from "@components/layout";
-import { useSWRConfig } from "swr";
-import { useSearchParams } from "@remix-run/react";
-import { PAGES } from "@modules/constants";
+import { Card, Pagination, SkeltonCards, TabPanel, Tabs } from "@components/ui";
 import { usePosts } from "@modules/api";
+import { PAGES } from "@modules/constants";
 import { toSafeNumber } from "@modules/utils";
+import { MetaFunction } from "@remix-run/cloudflare";
+import { useSearchParams } from "@remix-run/react";
+import React, { useCallback, useMemo } from "react";
+import { useSWRConfig } from "swr";
 
 export const meta: MetaFunction = () => {
   return [{ title: "hrkmtsmt | Posts" }, { name: "description", content: "My posts" }];

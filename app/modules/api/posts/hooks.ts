@@ -1,4 +1,4 @@
-import { api, Api, ClientError } from "@modules/api";
+import { Api, ClientError, api } from "@modules/api";
 import useSWR from "swr";
 import { ListParams } from "./types";
 

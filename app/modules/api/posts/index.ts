@@ -1,6 +1,6 @@
 import { client } from "@modules/api";
-import { ListParams, ListResponse } from "./types";
 import queryString from "query-string";
+import { ListParams, ListResponse } from "./types";
 
 export const posts = {
   list: async (params: ListParams) => {

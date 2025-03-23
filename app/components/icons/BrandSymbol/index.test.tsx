@@ -1,6 +1,6 @@
+import { render, screen } from "@testing-library/react";
 import React from "react";
 import { BrandSymbol } from "./index";
-import { render, screen } from "@testing-library/react";
 
 describe("component BrandSymbol", () => {
   test("widthプロパティが正しく適用される", () => {

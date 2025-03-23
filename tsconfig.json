@@ -4,7 +4,7 @@
     "types": ["@remix-run/cloudflare", "@cloudflare/workers-types/2023-07-01", "vite/client", "vitest/globals"],
     "isolatedModules": true,
     "esModuleInterop": true,
-    "jsx": "react-jsx",
+    "jsx": "react",
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "resolveJsonModule": true,

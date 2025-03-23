@@ -1,6 +1,6 @@
-import React, { useMemo } from "react";
-import { Container } from "@components/layout";
 import { Github, Hatena, Lapras, Qiita, X, Zenn } from "@components/icons";
+import { Container } from "@components/layout";
+import React, { useMemo } from "react";
 
 const Component: React.FC = () => {
   const year = useMemo(() => new Date().getFullYear().toString(), []);

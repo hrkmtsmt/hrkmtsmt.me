@@ -11,7 +11,7 @@ export interface PaginationProps {
 
 export const Pagination: React.FC<PaginationProps> = (props) => {
   return (
-    <ul className="flex gap gap-4 items-center">
+    <ul className="gap flex items-center gap-4">
       {[...Array(props.pages)].map((_, i) => (
         <li key={page(i)}>
           <Button

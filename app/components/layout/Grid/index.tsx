@@ -1,5 +1,5 @@
 import React from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import { VariantProps, tv } from "tailwind-variants";
 
 const grid = tv({
   base: "grid w-full grid-cols-4 gap-6 sm:grid-cols-8 sm:gap-8 md:grid-cols-12",

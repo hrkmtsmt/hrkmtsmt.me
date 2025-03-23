@@ -1,5 +1,5 @@
+import { Column, ColumnProps, Grid } from "@components/layout";
 import React from "react";
-import { Grid, Column, ColumnProps } from "@components/layout";
 
 export interface SkeltonCardsProps {
   total: number;

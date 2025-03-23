@@ -1,4 +1,4 @@
-import { ApiError, FetchError, SystemError, isApiError, isFetchError, isErrorResponse } from "./error";
+import { ApiError, FetchError, SystemError, isApiError, isErrorResponse, isFetchError } from "./error";
 
 export const HTTP_METHODS = {
   get: "GET",

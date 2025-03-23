@@ -7,7 +7,6 @@ interface ImportMetaEnv {
   readonly VITE_API_BASIC_AUTH_PASSWORD: string;
 }
 
-// biome-ignore lint/correctness/noUnusedVariables: <explanation>
-interface ImportMeta {
+export interface ImportMeta {
   readonly env: ImportMetaEnv;
 }

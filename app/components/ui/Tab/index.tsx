@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
 import { Button, ButtonProps } from "@components/ui";
+import React, { useEffect, useRef } from "react";
 
 export interface TabsProps {
   tabs: { name: string; value: string | undefined; active: boolean }[];

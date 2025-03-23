@@ -1,5 +1,5 @@
-import React, { useCallback, useRef } from "react";
 import { LinkButton, LinkButtonProps } from "@components/ui";
+import React, { useCallback, useRef } from "react";
 
 export interface CardProps {
   title: string;
@@ -26,7 +26,7 @@ const Component: React.FC<CardProps> = (props) => {
     >
       <h3 className="line-clamp-2 flex flex-col gap-2">
         {!!props.category && (
-          <span className="block font-qualion-round text-xs capitalize leading-4 text-primary">{props.category}</span>
+          <span className="block font-qualion-round text-primary text-xs capitalize leading-4">{props.category}</span>
         )}
         <span className="line-clamp-2 h-12 leading-6">{props.title}</span>
       </h3>
