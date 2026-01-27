@@ -1,17 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {
-  Column,
-  Container,
-  Grid,
-  Heading2,
-  Paragraph,
-} from "@components/layout";
-import {
-  Card,
-  DetailLink,
-  SkeltonCards,
-  HorizontalScroller,
-} from "@components/ui";
+import { Column, Container, Grid, Heading2, Paragraph } from "@components/layout";
+import { Card, DetailLink, SkeltonCards, HorizontalScroller } from "@components/ui";
 import { ScrapPlayer, useScrapPlayer } from "@components/feature";
 import { usePosts, useScraps } from "@modules/api";
 import { PAGES } from "@modules/constants";

@@ -28,9 +28,7 @@ const Component: React.FC<CardProps> = (props) => {
         <span className="block w-fit font-qualion-round text-primary text-xs capitalize leading-4">
           {props.category}
         </span>
-        <span className="line-clamp-2 h-12 leading-6 hover:underline">
-          {props.title}
-        </span>
+        <span className="line-clamp-2 h-12 leading-6 hover:underline">{props.title}</span>
       </h3>
       <LinkButton to={props.to} ref={ref}>
         <span>Read on </span>

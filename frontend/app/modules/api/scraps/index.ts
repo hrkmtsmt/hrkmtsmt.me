@@ -26,14 +26,10 @@ export const useScraps = () => {
 };
 
 export const useScrap = (params: RetrieveParams) => {
-  return useSWR<RetrieveResponse, ClientError>(
-    ["/scraps", params],
-    () => scraps.retrieve(params),
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-    },
-  );
+  return useSWR<RetrieveResponse, ClientError>(["/scraps", params], () => scraps.retrieve(params), {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+  });
 };
 
 export type Schema = z.infer<typeof scrapSchema>;

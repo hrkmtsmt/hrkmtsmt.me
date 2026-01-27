@@ -4,9 +4,7 @@ export interface HorizontalScrollerProps {
   children?: React.ReactNode;
 }
 
-export const HorizontalScroller: React.FC<HorizontalScrollerProps> = (
-  props
-) => {
+export const HorizontalScroller: React.FC<HorizontalScrollerProps> = (props) => {
   const ref = useRef<HTMLDivElement>(null);
   const [margin, setMargin] = useState(0);
 
@@ -27,7 +25,7 @@ export const HorizontalScroller: React.FC<HorizontalScrollerProps> = (
   return (
     <div
       ref={ref}
-      className="flex w-full gap-6 sm:gap-8 overflow-x-scroll rounded-2xl snap-mandatory"
+      className="flex w-full snap-mandatory gap-6 overflow-x-scroll rounded-2xl sm:gap-8"
       style={{ overflowClipMargin: `${margin}px` }}
     >
       {props.children}
