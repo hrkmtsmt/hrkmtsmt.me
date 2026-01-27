@@ -1,5 +1,7 @@
 {
-  "ignorePaths": ["node_modules/**", "build/**", "./pnpm-lock.yaml", "./biome.json"],
+  "ignorePaths": [
+    "**/node_modules/**", "**/build/**", "./pnpm-lock.yaml", "./biome.json"
+  ],
   "words": [
     "cardcom",
     "evenodd",

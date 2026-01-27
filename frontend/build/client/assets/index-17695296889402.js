@@ -1,0 +1,1 @@
+import{R as o,j as a}from"./index-1769529688940.js";const s=e=>a.jsx("div",{className:"m-auto flex w-full max-w-(--breakpoint-xl) flex-col gap-6 px-6 sm:gap-8 sm:px-8",children:e.children}),m=o.memo(s);export{m as C};

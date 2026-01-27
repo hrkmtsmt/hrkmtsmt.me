@@ -1,0 +1,1 @@
+import{j as t}from"./index-1769529688940.js";import{C as r}from"./index-17695296889402.js";import{H as e,P as n}from"./index-17695296889404.js";const i=()=>[{title:"hrkmtsmt | About"},{name:"description",content:"My posts"}];function m(){return t.jsxs(r,{children:[t.jsx(e,{children:"About"}),t.jsx(n,{children:"Software engineer."})]})}export{m as default,i as meta};

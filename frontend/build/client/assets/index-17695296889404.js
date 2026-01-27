@@ -1,0 +1,1 @@
+import{R as r,j as a}from"./index-1769529688940.js";r.memo(e=>a.jsx("h1",{className:"",children:e.children}));const s=r.memo(e=>a.jsx("h1",{className:"font-bold font-qualion-round text-3xl text-primary leading-10",children:e.children})),t=r.memo(e=>a.jsx("p",{className:"leading-6",children:e.children}));export{s as H,t as P};

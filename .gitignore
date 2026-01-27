@@ -4,5 +4,6 @@ node_modules
 /build
 .env.keys
 .dev.vars
+.DS_Store
 
 *storybook.log
