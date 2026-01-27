@@ -81,9 +81,9 @@
       },
       "nursery": {
         "useSortedClasses": {
+          "fix": "safe",
           "level": "error",
           "options": {
-            "attributes": ["className", "base"],
             "functions": ["tv"]
           }
         }

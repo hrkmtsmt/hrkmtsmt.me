@@ -1,4 +1,11 @@
-import { ApiError, FetchError, SystemError, isApiError, isErrorResponse, isFetchError } from "./error";
+import {
+  ApiError,
+  FetchError,
+  SystemError,
+  isApiError,
+  isErrorResponse,
+  isFetchError,
+} from "./error";
 
 export const HTTP_METHODS = {
   get: "GET",
@@ -24,7 +31,12 @@ const createBody = <U>(body?: U) => {
 
 type Headers = Record<string, string>;
 
-const fetcher = async <T, U>(url: string, method: HttpMethods, body?: U, headers?: Headers): Promise<T> => {
+const fetcher = async <T, U>(
+  url: string,
+  method: HttpMethods,
+  body?: U,
+  headers?: Headers,
+): Promise<T> => {
   try {
     const response = await fetch(url, {
       mode: "cors",
@@ -88,7 +100,19 @@ const basicAuth = (username: string, password: string) => {
   return `Basic ${btoa(`${username}:${password}`)}`;
 };
 
-export const client = createClient(import.meta.env.VITE_API_BASE_URL, {
-  Authorization: basicAuth(import.meta.env.VITE_API_BASIC_AUTH_USERNAME, import.meta.env.VITE_API_BASIC_AUTH_PASSWORD),
+const getBaseURL = () => {
+  // 開発環境ではプロキシを使用
+  if (import.meta.env.DEV) {
+    return "/api";
+  }
+  // 本番環境では直接APIサーバーにアクセス
+  return import.meta.env.VITE_API_BASE_URL;
+};
+
+export const client = createClient(getBaseURL(), {
+  Authorization: basicAuth(
+    import.meta.env.VITE_API_BASIC_AUTH_USERNAME,
+    import.meta.env.VITE_API_BASIC_AUTH_PASSWORD,
+  ),
   "Access-Control-Allow-Origin": import.meta.env.BASE_URL,
 });

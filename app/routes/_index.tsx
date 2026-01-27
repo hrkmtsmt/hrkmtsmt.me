@@ -1,9 +1,22 @@
-import { Column, Container, Grid, Heading2, Paragraph } from "@components/layout";
-import { Card, DetailLink, SkeltonCards } from "@components/ui";
-import { usePosts } from "@modules/api";
+import React, { useEffect, useState } from "react";
+import {
+  Column,
+  Container,
+  Grid,
+  Heading2,
+  Paragraph,
+} from "@components/layout";
+import {
+  Card,
+  DetailLink,
+  SkeltonCards,
+  HorizontalScroller,
+} from "@components/ui";
+import { ScrapPlayer, useScrapPlayer } from "@components/feature";
+import { usePosts, useScraps } from "@modules/api";
 import { PAGES } from "@modules/constants";
-import { MetaFunction } from "@remix-run/cloudflare";
-import React from "react";
+
+import type { MetaFunction } from "@remix-run/cloudflare";
 
 export const meta: MetaFunction = () => {
   return [
@@ -16,7 +29,9 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Page() {
-  const { data: posts, isLoading } = usePosts({ limit: 12, page: 1 });
+  const posts = usePosts({ limit: 12, page: 1 });
+  const scraps = useScraps();
+  const player = useScrapPlayer();
 
   return (
     <>
@@ -26,11 +41,11 @@ export default function Page() {
       </Container>
       <Container>
         <Heading2>{PAGES.posts.name}</Heading2>
-        {isLoading ? (
+        {posts.isLoading ? (
           <SkeltonCards total={12} size="md" />
         ) : (
           <Grid type="ul">
-            {posts?.data.map((post) => (
+            {posts.data?.data.map((post) => (
               <Column type="li" key={post.id} size="md">
                 <Card to={post.url} category={post.media} title={post.title} />
               </Column>
@@ -38,6 +53,21 @@ export default function Page() {
           </Grid>
         )}
         <DetailLink to={PAGES.posts.path} text="View&nbsp;all" />
+      </Container>
+      <Container>
+        <Heading2>{PAGES.scraps.name}</Heading2>
+        <HorizontalScroller>
+          {scraps.data?.data.map((scrap) => (
+            <div key={scrap.filename} className="min-w-[40%]">
+              <ScrapPlayer
+                status={player.status(scrap.filename)}
+                filename={scrap.filename}
+                path={player.path(scrap.filename)}
+                onPlay={player.play}
+              />
+            </div>
+          ))}
+        </HorizontalScroller>
       </Container>
     </>
   );
