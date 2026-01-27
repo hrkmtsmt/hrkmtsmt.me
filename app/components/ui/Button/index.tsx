@@ -10,18 +10,27 @@ const button = tv({
       secondary: "bg-black text-primary",
     },
     shape: {
-      circle: "w-10",
+      circle: "w-10", // TODO: Change this param name 'circle' to 'square'
       pill: "w-fit",
     },
   },
 });
 
 export interface ButtonProps
-  extends Pick<ComponentProps<"button">, "children" | "value" | "onClick" | "disabled" | "role">,
+  extends Pick<
+      ComponentProps<"button">,
+      "children" | "value" | "onClick" | "disabled" | "role"
+    >,
     VariantProps<typeof button> {}
 
 const Component: React.FC<ButtonProps> = (props) => {
-  return <button {...props} type="button" className={button({ color: props.color, shape: props.shape })} />;
+  return (
+    <button
+      {...props}
+      type="button"
+      className={button({ color: props.color, shape: props.shape })}
+    />
+  );
 };
 
 export const Button = React.memo(Component);

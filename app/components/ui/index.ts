@@ -1,6 +1,7 @@
 export * from "./Button";
 export * from "./Card";
 export * from "./DetailLink";
+export * from "./HorizontalScroller";
 export * from "./LinkButton";
 export * from "./Loader";
 export * from "./Navigation";
