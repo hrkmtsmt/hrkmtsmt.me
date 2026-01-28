@@ -17,20 +17,11 @@ const button = tv({
 });
 
 export interface ButtonProps
-  extends Pick<
-      ComponentProps<"button">,
-      "children" | "value" | "onClick" | "disabled" | "role"
-    >,
+  extends Pick<ComponentProps<"button">, "children" | "value" | "onClick" | "disabled" | "role">,
     VariantProps<typeof button> {}
 
 const Component: React.FC<ButtonProps> = (props) => {
-  return (
-    <button
-      {...props}
-      type="button"
-      className={button({ color: props.color, shape: props.shape })}
-    />
-  );
+  return <button {...props} type="button" className={button({ color: props.color, shape: props.shape })} />;
 };
 
 export const Button = React.memo(Component);

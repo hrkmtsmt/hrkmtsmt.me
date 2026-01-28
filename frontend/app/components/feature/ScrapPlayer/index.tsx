@@ -15,7 +15,7 @@ const STATUSES = {
 } as const;
 
 const button = tv({
-  base: "bg-primary text-black relative cursor-pointer flex align-center justify-center h-10 w-10 rounded-2xl z-[2]",
+  base: "relative z-[2] flex h-10 w-10 cursor-pointer justify-center rounded-2xl bg-primary align-center text-black",
 });
 
 const icon = tv({
@@ -23,7 +23,7 @@ const icon = tv({
 });
 
 export interface ScrapPlayerProps extends VariantProps<typeof button> {
-  status: typeof STATUSES[keyof typeof STATUSES];
+  status: (typeof STATUSES)[keyof typeof STATUSES];
   filename: string;
   path: string;
   onPlay: (path: string, text: string) => void;
@@ -64,18 +64,11 @@ export const ScrapPlayer: React.FC<ScrapPlayerProps> = (props) => {
         <time className="text-gray text-xs" dateTime={date}>
           {date}
         </time>
-        <Link
-          to={props.path}
-          className="after:absolute after:inset-0 after:z-[1] hover:underline focus:outline-none"
-        >
+        <Link to={props.path} className="after:absolute after:inset-0 after:z-[1] hover:underline focus:outline-none">
           <span className="line-clamp-2 h-12 leading-6">{title}</span>
         </Link>
       </h3>
-      <button
-        type="button"
-        className={button()}
-        onClick={onClick}
-      >
+      <button type="button" className={button()} onClick={onClick}>
         {props.status === "playing" && <StopIcon className={icon()} />}
         {props.status === "stopped" && <PlayIcon className={icon()} />}
       </button>

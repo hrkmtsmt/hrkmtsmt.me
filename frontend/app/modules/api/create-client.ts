@@ -1,11 +1,4 @@
-import {
-  ApiError,
-  FetchError,
-  SystemError,
-  isApiError,
-  isErrorResponse,
-  isFetchError,
-} from "./error";
+import { ApiError, FetchError, SystemError, isApiError, isErrorResponse, isFetchError } from "./error";
 
 export const HTTP_METHODS = {
   get: "GET",
@@ -31,12 +24,7 @@ const createBody = <U>(body?: U) => {
 
 type Headers = Record<string, string>;
 
-const fetcher = async <T, U>(
-  url: string,
-  method: HttpMethods,
-  body?: U,
-  headers?: Headers,
-): Promise<T> => {
+const fetcher = async <T, U>(url: string, method: HttpMethods, body?: U, headers?: Headers): Promise<T> => {
   try {
     const response = await fetch(url, {
       mode: "cors",
@@ -110,9 +98,6 @@ const getBaseURL = () => {
 };
 
 export const client = createClient(getBaseURL(), {
-  Authorization: basicAuth(
-    import.meta.env.VITE_API_BASIC_AUTH_USERNAME,
-    import.meta.env.VITE_API_BASIC_AUTH_PASSWORD,
-  ),
+  Authorization: basicAuth(import.meta.env.VITE_API_BASIC_AUTH_USERNAME, import.meta.env.VITE_API_BASIC_AUTH_PASSWORD),
   "Access-Control-Allow-Origin": import.meta.env.BASE_URL,
 });
