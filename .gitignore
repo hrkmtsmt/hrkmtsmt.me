@@ -1,0 +1,14 @@
+.DS_Store
+.env
+.env.*
+
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+
+build/
+dist/
+node_modules/
+.terraform/
+
