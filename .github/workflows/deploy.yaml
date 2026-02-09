@@ -1,0 +1,37 @@
+name: Deploy
+
+on:
+  push:
+    branches: 
+      - main
+    paths: 
+      - 'infra/**'
+  workflow_dispatch:
+
+env:
+  DOTENV_PRIVATE_KEY: ${{ secrets.DOTENV_PRIVATE_KEY }}
+
+jobs:
+  infra:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - name: Install dotenvx
+        run: curl -sfS https://dotenvx.sh/install.sh | sh
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Initialize Terraform
+        working-directory: ./infra
+        run: terraform init
+
+      - name: Apply Terraform configuration
+        working-directory: ./infra
+        run: dotenvx run -f ../.env -- terraform apply -auto-approve
+
