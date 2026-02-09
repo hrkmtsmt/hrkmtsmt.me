@@ -1,0 +1,52 @@
+name: Deploy
+
+on:
+  push:
+    branches: 
+      - main
+    paths: 
+      - 'infra/**'
+  workflow_dispatch:
+
+env:
+  DOTENV_PRIVATE_KEY: ${{ secrets.DOTENV_PRIVATE_KEY }}
+
+jobs:
+  infra:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - name: Install dotenvx
+        run: curl -sfS https://dotenvx.sh/install.sh | sh
+
+      - name: Set environment variables
+        run: |
+          ENV_JSON=$(dotenvx get)
+          ENV_VARS=$(echo "$ENV_JSON" | jq -r 'to_entries[] | "\(.key)=\(.value)"')
+          while IFS= read -r line; do
+            VALUE="${line#*=}"
+            echo "::add-mask::$VALUE"
+            echo "${line}" >> "$GITHUB_ENV"
+          done <<< "$ENV_VARS"
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Initialize Terraform
+        working-directory: ./infra
+        run: |
+          terraform init \
+            -backend-config="bucket=${{ env.TF_VAR_cloudflare_r2_bucket_tfstate }}" \
+            -backend-config="endpoint=${{ env.TF_VAR_cloudflare_r2_endpoint }}" \
+            -backend-config="access_key=${{ env.TF_VAR_cloudflare_r2_access_key_id }}" \
+            -backend-config="secret_key=${{ env.TF_VAR_cloudflare_r2_secret_access_key }}"
+
+      - name: Apply Terraform configuration
+        working-directory: ./infra
+        run: dotenvx run -f ../.env -- terraform apply -auto-approve
+

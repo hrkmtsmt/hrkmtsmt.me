@@ -5,6 +5,16 @@ terraform {
       version = "~> 5"
     }
   }
+
+  backend "s3" {
+    key                         = "terraform.tfstate"
+    region                      = "auto"
+    skip_credentials_validation = true
+    skip_metadata_api_check     = true
+    skip_region_validation      = true
+    skip_requesting_account_id  = true
+    use_path_style              = true
+  }
 }
 
 provider "cloudflare" {
@@ -38,7 +48,6 @@ resource "cloudflare_dns_record" "wildcard_a_2" {
   ttl     = 1
 }
 
-# WWW A records
 resource "cloudflare_dns_record" "www_a_1" {
   zone_id = var.cloudflare_zone_id
   name    = "www"
@@ -63,7 +72,7 @@ resource "cloudflare_dns_record" "caa_letsencrypt" {
   type    = "CAA"
   ttl     = 1
   data = {
-    flags = 0
+    flags = "0"
     tag   = "issue"
     value = "letsencrypt.org"
   }
