@@ -1,19 +1,19 @@
 terraform {
   required_providers {
     cloudflare = {
-      source  = "cloudflare/cloudflare"
+      source = "cloudflare/cloudflare"
       version = "~> 5"
     }
   }
 
   backend "s3" {
-    key                         = "terraform.tfstate"
-    region                      = "auto"
+    key = "terraform.tfstate"
+    region = "auto"
     skip_credentials_validation = true
-    skip_metadata_api_check     = true
-    skip_region_validation      = true
-    skip_requesting_account_id  = true
-    use_path_style              = true
+    skip_metadata_api_check = true
+    skip_region_validation = true
+    skip_requesting_account_id = true
+    use_path_style = true
   }
 }
 
@@ -21,13 +21,65 @@ provider "cloudflare" {
   api_token = var.cloudflare_api_token
 }
 
-resource "cloudflare_dns_record" "root_cname" {
+resource "cloudflare_worker" "frontend_worker" {
+  account_id = var.cloudflare_account_id
+  name = "hrkmtsmt"
+  observability = {
+    enabled = true
+  }
+  subdomain = {
+    enabled = true
+    previews_enabled = false
+  }
+}
+
+locals {
+  server_asset_files = fileset("../frontend/build/server/assets", "*.js")
+}
+
+resource "cloudflare_worker_version" "frontend_worker_version" {
+  account_id          = var.cloudflare_account_id
+  worker_id           = cloudflare_worker.frontend_worker.id
+  main_module         = "index.js"
+  compatibility_date  = "2025-04-04"
+  compatibility_flags = ["nodejs_compat"]
+  modules = concat(
+    [{
+      content_file = "../frontend/build/server/index.js"
+      content_type = "application/javascript+module"
+      name         = "index.js"
+    }],
+    [for f in local.server_asset_files : {
+      content_file = "../frontend/build/server/assets/${f}"
+      content_type = "application/javascript+module"
+      name         = "assets/${f}"
+    }]
+  )
+  assets = {
+    directory = "../frontend/build/client"
+  }
+  bindings = [{
+    name = "VALUE_FROM_CLOUDFLARE"
+    type = "plain_text"
+    text = "Hello from Cloudflare"
+  }]
+}
+
+resource "cloudflare_workers_deployment" "frontend_worker_deployment" {
+  account_id = var.cloudflare_account_id
+  script_name = cloudflare_worker.frontend_worker.name
+  strategy = "percentage"
+  versions = [{
+    percentage = 100
+    version_id = cloudflare_worker_version.frontend_worker_version.id
+  }]
+}
+
+resource "cloudflare_workers_custom_domain" "frontend_domain" {
+  account_id = var.cloudflare_account_id
+  hostname = var.domain
+  service = "hrkmtsmt"
   zone_id = var.cloudflare_zone_id
-  name    = "@"
-  content = "hrkmtsmt.pages.dev"
-  type    = "CNAME"
-  proxied = true
-  ttl     = 1
 }
 
 resource "cloudflare_dns_record" "wildcard_a_1" {
