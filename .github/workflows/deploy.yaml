@@ -6,6 +6,7 @@ on:
       - main
     paths: 
       - 'infra/**'
+      - 'frontend/**'
   workflow_dispatch:
 
 env:
@@ -22,26 +23,20 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version-file: .node-version
 
       - uses: pnpm/action-setup@v4
-        with:
-          version: 10
 
       - name: Install frontend dependencies
-        working-directory: frontend
         run: pnpm install --frozen-lockfile
 
       - name: Build frontend
         working-directory: frontend
         run: pnpm run build
 
-      - name: Install dotenvx
-        run: curl -sfS https://dotenvx.sh/install.sh | sh
-
       - name: Set environment variables
         run: |
-          ENV_JSON=$(dotenvx get)
+          ENV_JSON=$(pnpm dotenvx get)
           ENV_VARS=$(echo "$ENV_JSON" | jq -r 'to_entries[] | "\(.key)=\(.value)"')
           while IFS= read -r line; do
             VALUE="${line#*=}"
@@ -53,7 +48,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Initialize Terraform
-        working-directory: ./infra
+        working-directory: infra
         run: |
           terraform init \
             -backend-config="bucket=${{ env.TF_VAR_cloudflare_r2_bucket_tfstate }}" \
@@ -63,5 +58,5 @@ jobs:
 
       - name: Apply Terraform configuration
         working-directory: ./infra
-        run: dotenvx run -f ../.env -- terraform apply -auto-approve
+        run: terraform apply -auto-approve
 

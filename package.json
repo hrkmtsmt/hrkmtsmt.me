@@ -1,0 +1,15 @@
+{
+  "name": "@hrkmtsmt",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.28.0",
+  "devDependencies": {
+    "@dotenvx/dotenvx": "^1.52.0",
+    "typescript": "^5.9.3",
+    "wrangler": "^4.67.0"
+  }
+}
