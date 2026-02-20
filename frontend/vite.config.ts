@@ -11,4 +11,23 @@ export default defineConfig({
     reactRouter(),
     tsconfigPaths(),
   ],
+  server: {
+    proxy: {
+      "/api": {
+        target: process.env.VITE_API_BASE_URL ?? "https://api.hrkmtsmt.me",
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: `assets/[name]-${Date.now()}.js`,
+        chunkFileNames: `assets/[name]-${Date.now()}.js`,
+        assetFileNames: `assets/[name]-${Date.now()}.[ext]`,
+      },
+    },
+  },
 });

@@ -1,3 +1,6 @@
+import { Footer, Header } from "@components/feature";
+import { Root } from "@components/layout";
+import { Loader } from "@components/ui";
 import {
   isRouteErrorResponse,
   Links,
@@ -6,26 +9,31 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-
+import React from "react";
+import "./tailwind.css";
 import type { Route } from "./+types/root";
-import "./app.css";
 
-export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
-  {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
-  },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-  },
-];
+export const links: Route.LinksFunction = () => {
+  return [
+    {
+      rel: "icon",
+      href: `${import.meta.env.VITE_BASE_URL}/icon.ico`,
+      type: "image/x-icon",
+    },
+    {
+      rel: "icon",
+      href: `${import.meta.env.VITE_BASE_URL}/icon.svg`,
+      type: "image/svg+xml",
+    },
+  ];
+};
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html
+      lang="ja"
+      className="w-full bg-base font-default text-white transition duration-200 ease-out selection:bg-primary selection:text-white"
+    >
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,7 +41,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <Root>
+          <Header />
+          {children}
+          <Footer />
+        </Root>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -43,6 +55,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return <Outlet />;
+}
+
+export function HydrateFallback() {
+  return <Loader />;
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

@@ -12,7 +12,7 @@
     "composite": true,
     "strict": true,
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "types": ["vite/client"],
+    "types": ["vite/client", "vitest/globals"],
     "target": "ES2022",
     "module": "ES2022",
     "moduleResolution": "bundler",
@@ -20,7 +20,9 @@
     "baseUrl": ".",
     "rootDirs": [".", "./.react-router/types"],
     "paths": {
-      "~/*": ["./app/*"]
+      "~/*": ["./app/*"],
+      "@components/*": ["./app/components/*"],
+      "@modules/*": ["./app/modules/*"]
     },
     "esModuleInterop": true,
     "resolveJsonModule": true
