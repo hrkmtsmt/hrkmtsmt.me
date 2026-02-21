@@ -34,9 +34,9 @@ jobs:
         working-directory: frontend
         run: pnpm run build
 
-      - name: Set environment variables
+      - name: Set infra environment variables
         run: |
-          ENV_JSON=$(pnpm dotenvx get)
+          ENV_JSON=$(pnpm dotenvx get -f .env.infra)
           ENV_VARS=$(echo "$ENV_JSON" | jq -r 'to_entries[] | "\(.key)=\(.value)"')
           while IFS= read -r line; do
             VALUE="${line#*=}"
