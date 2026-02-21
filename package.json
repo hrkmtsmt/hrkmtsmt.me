@@ -11,6 +11,7 @@
     "@dotenvx/dotenvx": "^1.52.0",
     "npm-check-updates": "^19.4.1",
     "typescript": "^5.9.3",
+    "vitest": "^4.0.18",
     "wrangler": "^4.67.0"
   }
 }

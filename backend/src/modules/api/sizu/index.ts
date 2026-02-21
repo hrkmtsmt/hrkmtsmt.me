@@ -1,0 +1,18 @@
+import { Client } from "@modules";
+import type { Env } from "@types";
+import type * as Articles from "./articles.types";
+
+const articles = (c: Client) => ({
+	get: async () => c.get<Articles.GetResponse>("/posts"),
+});
+
+// DOCS: https://catnose99.github.io/quiet-internet-api-docs/
+export const sizu = (env: Env["Bindings"]) => {
+	const c = new Client(env.SIZU_API_URL, {
+		Authorization: `Bearer ${env.SIZU_API_KEY}`,
+	});
+
+	return {
+		articles: articles(c),
+	};
+};

@@ -6,7 +6,7 @@
 		"build": "react-router build",
 		"cf-typegen": "wrangler types",
 		"deploy": "wrangler deploy",
-		"dev": "react-router dev",
+		"dev": "dotenvx run -f ../.env.frontend -- react-router dev",
 		"preview": "pnpm run build && vite preview",
 		"typecheck": "pnpm run cf-typegen && react-router typegen && tsc -b"
 	},

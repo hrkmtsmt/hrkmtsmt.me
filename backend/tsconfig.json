@@ -1,0 +1,27 @@
+{
+	"compilerOptions": {
+		"target": "ES2022",
+		"lib": ["ES2023"],
+		"module": "CommonJS",
+		"moduleResolution": "node",
+		"types": ["@cloudflare/workers-types/2023-07-01", "bun-types"],
+		"resolveJsonModule": true,
+		"allowJs": true,
+		"checkJs": false,
+		"noEmit": true,
+		"isolatedModules": true,
+		"allowSyntheticDefaultImports": true,
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"skipLibCheck": true,
+		"paths": {
+			"@*": ["./src/*"],
+			"@app/*": ["./src/app/*"],
+			"@modules/*": ["./src/modules/*"],
+			"@schema/*": ["./src/schema/*"],
+			"@core/*": ["./src/core/*"],
+			"@test/*": ["./test/*"]
+		}
+	},
+	"exclude": ["node_modules", "dist", "test"]
+}

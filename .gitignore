@@ -1,4 +1,6 @@
 .DS_Store
+
+.dev.vars
 .env.keys
 
 *.tfstate
@@ -10,4 +12,4 @@ build/
 dist/
 node_modules/
 .terraform/
-
+.wrangler/

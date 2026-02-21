@@ -1,0 +1,22 @@
+# Diagnostic reports (https://nodejs.org/api/report.html)
+
+report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
+
+# Dependency directories
+
+node_modules/
+
+# wrangler project
+
+.wrangler/
+
+# environment
+
+.env*
+!.env.example
+.dev.vars
+secret.json
+
+# test
+
+db.sqlite
