@@ -64,3 +64,6 @@ jobs:
         working-directory: ./infra
         run: terraform apply -auto-approve
 
+      - name: Migrate database
+        working-directory: backend
+        run: pnpm dotenvx run -f ../.env.backend -- pnpm run migrate

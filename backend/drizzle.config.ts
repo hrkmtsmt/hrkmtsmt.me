@@ -1,10 +1,4 @@
-import path from "path";
-import * as dotenvx from "@dotenvx/dotenvx";
 import { defineConfig } from "drizzle-kit";
-
-dotenvx.config({
-  path: path.join(__dirname, ".dev.vars"),
-});
 
 const production = defineConfig({
   out: "./migrations",
