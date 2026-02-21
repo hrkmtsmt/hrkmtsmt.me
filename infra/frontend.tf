@@ -1,6 +1,6 @@
 resource "cloudflare_worker" "frontend_worker" {
   account_id = var.cloudflare_account_id
-  name = "hrkmtsmt"
+  name = "hrkmtsmt-frontend"
   observability = {
     enabled = true
   }
