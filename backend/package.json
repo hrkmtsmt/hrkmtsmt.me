@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "build": "wrangler deploy --dry-run --outdir=./dist --env production",
     "dev:env": "dotenvx get -f ../.env.backend --format eval >> .dev.vars",
     "dev:d1": "wrangler d1 migrations apply local --env local --local --persist-to ./.wrangler/state",
     "dev:worker": "wrangler dev --env local --test-scheduled --persist-to ./.wrangler/state",

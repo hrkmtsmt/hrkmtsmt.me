@@ -52,9 +52,8 @@ resource "cloudflare_workers_deployment" "frontend_worker_deployment" {
   }]
 }
 
-resource "cloudflare_workers_custom_domain" "frontend_domain" {
-  account_id = var.cloudflare_account_id
-  hostname = var.domain
-  service = "hrkmtsmt"
+resource "cloudflare_workers_route" "frontend_route" {
   zone_id = var.cloudflare_zone_id
+  pattern = "${var.domain}/*"
+  script  = cloudflare_worker.frontend_worker.name
 }
