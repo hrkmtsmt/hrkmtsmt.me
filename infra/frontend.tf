@@ -1,11 +1,11 @@
 resource "cloudflare_worker" "frontend_worker" {
   account_id = var.cloudflare_account_id
-  name = "hrkmtsmt-frontend"
+  name       = "hrkmtsmt-frontend"
   observability = {
     enabled = true
   }
   subdomain = {
-    enabled = true
+    enabled          = true
     previews_enabled = false
   }
 }
@@ -43,9 +43,9 @@ resource "cloudflare_worker_version" "frontend_worker_version" {
 }
 
 resource "cloudflare_workers_deployment" "frontend_worker_deployment" {
-  account_id = var.cloudflare_account_id
+  account_id  = var.cloudflare_account_id
   script_name = cloudflare_worker.frontend_worker.name
-  strategy = "percentage"
+  strategy    = "percentage"
   versions = [{
     percentage = 100
     version_id = cloudflare_worker_version.frontend_worker_version.id
