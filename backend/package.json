@@ -11,7 +11,6 @@
     "deploy": "wrangler secret bulk .dev.vars && wrangler deploy --env production",
     "migrate": "drizzle-kit migrate",
     "migrate:generate": "drizzle-kit generate",
-    "test": "ENVIRONMENT='test' bun run migrate && bun test",
     "format": "biome format --write",
     "lint": "biome lint",
     "spell-check": "cspell '**'",
