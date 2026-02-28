@@ -1,21 +1,27 @@
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
+import { zValidator } from "@hono/zod-validator";
+import { z } from "zod";
 import { Logger } from "@modules";
 import { Pagination, MediaSelecter } from "@core";
 import { PostService } from "./service";
 import type { BlankSchema } from "hono/types";
 import type { Env } from "@types";
-import type { Post } from "@schema/types";
+
+const postsQuerySchema = z.object({
+  limit: z.preprocess((v) => Number(v) || 12, z.int().positive()),
+  page: z.preprocess((v) => Number(v) || 1, z.int().positive()),
+  secret: z.preprocess((v) => v === "true", z.boolean()),
+  media: z.enum(["zenn", "qiita", "sizu", "note", "hatena"]).optional(),
+});
 
 export const posts = new Hono<Env, BlankSchema, "/">().get(
   "/posts",
+  zValidator("query", postsQuerySchema),
   async (c) => {
     try {
-      const limit = Number(c.req.query("limit")) || 12;
-      const page = Number(c.req.query("page")) || 1;
+      const { limit, page, secret, media } = c.req.valid("query");
       const offset = (page - 1) * limit;
-      const secret = c.req.query("secret")?.toLowerCase() === "true";
-      const media = c.req.query("media") as Post["media"] | undefined;
       const selecter = new MediaSelecter(media, secret);
       const medium = selecter.value === "all" ? undefined : selecter.value;
 
