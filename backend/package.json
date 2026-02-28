@@ -31,6 +31,9 @@
     "snakecase-keys": "8.0.1",
     "uuid": "11.1.0"
   },
+  "exports": {
+    ".": "./src/main.ts"
+  },
   "module": "src/main.ts",
   "type": "module"
 }
