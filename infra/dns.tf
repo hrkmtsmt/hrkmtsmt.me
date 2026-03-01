@@ -1,3 +1,21 @@
+resource "cloudflare_dns_record" "root_a_1" {
+  zone_id = var.cloudflare_zone_id
+  name    = "@"
+  content = "76.76.21.22"
+  type    = "A"
+  proxied = true
+  ttl     = 1
+}
+
+resource "cloudflare_dns_record" "root_a_2" {
+  zone_id = var.cloudflare_zone_id
+  name    = "@"
+  content = "76.76.21.9"
+  type    = "A"
+  proxied = true
+  ttl     = 1
+}
+
 resource "cloudflare_dns_record" "wildcard_a_1" {
   zone_id = var.cloudflare_zone_id
   name    = "*"
