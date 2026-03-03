@@ -15,7 +15,7 @@ export default defineConfig(() => {
     server: {
       proxy: {
         "/api": {
-          target: "http://localhost:8787",
+          target: "http://localhost:8787/api",
           changeOrigin: true,
           secure: false,
           rewrite: (path) => path.replace(/^\/api/, ""),
@@ -30,11 +30,6 @@ export default defineConfig(() => {
           assetFileNames: `assets/[name]-${Date.now()}.[ext]`,
         },
       },
-    },
-    define: {
-      "import.meta.env.VITE_API_BASE_URL": JSON.stringify(process.env.BASE_URL),
-      "import.meta.env.VITE_API_BASIC_AUTH_USERNAME": JSON.stringify(process.env.BASIC_AUTH_USERNAME),
-      "import.meta.env.VITE_API_BASIC_AUTH_PASSWORD": JSON.stringify(process.env.BASIC_AUTH_PASSWORD),
     },
   };
 });

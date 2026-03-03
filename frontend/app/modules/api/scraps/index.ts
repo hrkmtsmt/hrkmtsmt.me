@@ -1,45 +1,30 @@
-import { type Api, client, type ClientError } from "@modules/api";
+import { useMemo } from "react";
 import useSWR from "swr";
-import { z } from "zod";
-
-export const scrapSchema = z.object({
-  filename: z.string(),
-  title: z.string(),
-  content: z.string(),
-  createdAt: z.string().datetime(),
-});
-
-export const scraps = {
-  list: async () => {
-    return client.get<ListResponse>("/scraps");
-  },
-  retrieve: async (params: RetrieveParams) => {
-    return client.get<RetrieveResponse>(`/scraps/${params.filename}`);
-  },
-};
+import { rpc } from "@modules/api/rpc";
+import type { InferRequestType } from "hono/client";
 
 export const useScraps = () => {
-  return useSWR<ListResponse, ClientError>(["/scraps"], scraps.list, {
+  const url = useMemo(() => rpc.api.scraps.$url(), []);
+  return useSWR(url.href, async () => {
+    const response = await rpc.api.scraps.$get({ query: { page: undefined, limit: undefined } });
+    return response.json();
+  }, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
   });
 };
+
+const scrap = rpc.api.scraps[":filename"];
+
+type RetrieveParams = InferRequestType<typeof scrap.$get>["param"];
 
 export const useScrap = (params: RetrieveParams) => {
-  return useSWR<RetrieveResponse, ClientError>(["/scraps", params], () => scraps.retrieve(params), {
+  const url = useMemo(() => scrap.$url({ param: params }), [params]);
+  return useSWR(url.href, async () => {
+    const response = await scrap.$get({ param: params });
+    return response.json();
+  }, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
   });
 };
-
-export type Schema = z.infer<typeof scrapSchema>;
-
-export type ListResponse = {
-  data: Schema[];
-  pages: number;
-  next: number | number;
-};
-
-export type RetrieveParams = { filename: string };
-
-export type RetrieveResponse = { data: Schema };

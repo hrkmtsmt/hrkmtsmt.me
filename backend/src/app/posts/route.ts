@@ -8,19 +8,20 @@ import { PostService } from "./service";
 import type { BlankSchema } from "hono/types";
 import type { Env } from "@types";
 
-const postsQuerySchema = z.object({
-  limit: z.preprocess((v) => Number(v) || 12, z.int().positive()),
-  page: z.preprocess((v) => Number(v) || 1, z.int().positive()),
-  secret: z.preprocess((v) => v === "true", z.boolean()),
+const PostQueries = z.object({
+  limit: z.coerce.number().int().optional().default(12),
+  page: z.coerce.number().int().optional().default(1),
+  secret: z.coerce.boolean().optional().default(false),
   media: z.enum(["zenn", "qiita", "sizu", "note", "hatena"]).optional(),
 });
 
 export const posts = new Hono<Env, BlankSchema, "/">().get(
   "/posts",
-  zValidator("query", postsQuerySchema),
+  zValidator("query", PostQueries),
   async (c) => {
     try {
       const { limit, page, secret, media } = c.req.valid("query");
+
       const offset = (page - 1) * limit;
       const selecter = new MediaSelecter(media, secret);
       const medium = selecter.value === "all" ? undefined : selecter.value;
@@ -36,10 +37,12 @@ export const posts = new Hono<Env, BlankSchema, "/">().get(
     } catch (error: unknown) {
       Logger.error(error);
       if (error instanceof Error) {
+        // return c.json({ message: error.message }, 422);
         throw new HTTPException(422, { message: error.message });
       }
 
       throw new HTTPException(500, { message: "Failed to fetch posts." });
+      // return c.json({ message: "Failed to fetch posts." }, 500);
     }
   },
 );

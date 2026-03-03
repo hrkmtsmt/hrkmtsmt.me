@@ -1,14 +1,16 @@
-import { type Api, type ClientError, api } from "@modules/api";
-import { rpc } from "@modules/api/rpc"
+import { useMemo } from "react";
 import useSWR from "swr";
-import type { ListParams } from "./types";
+import { rpc } from "@modules/api/rpc";
+import type { InferRequestType } from "hono/client"
 
-export const usePosts = (params: ListParams) => {
-  rpc.posts.$get({
-    queries: params
-  })
+type ListQueries = InferRequestType<typeof rpc.api.posts.$get>['query'];
 
-  return useSWR<Api.Post.ListResponse, ClientError>(["/posts", params], () => api.posts.list(params), {
+export const usePosts = (queries: ListQueries) => {
+  const url = useMemo(() => rpc.api.posts.$url({ query: queries }), [queries]);
+  return useSWR(url.href, async () => {
+    const response = await rpc.api.posts.$get({ query: queries });
+    return response.json();
+  }, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
   });

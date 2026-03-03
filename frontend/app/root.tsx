@@ -17,12 +17,12 @@ export const links: Route.LinksFunction = () => {
   return [
     {
       rel: "icon",
-      href: `${import.meta.env.VITE_BASE_URL}/icon.ico`,
+      href: `${import.meta.env.VITE_APP_BASE_URL}/icon.ico`,
       type: "image/x-icon",
     },
     {
       rel: "icon",
-      href: `${import.meta.env.VITE_BASE_URL}/icon.svg`,
+      href: `${import.meta.env.VITE_APP_BASE_URL}/icon.svg`,
       type: "image/svg+xml",
     },
   ];

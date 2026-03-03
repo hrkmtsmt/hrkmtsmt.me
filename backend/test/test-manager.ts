@@ -1,18 +1,17 @@
-import { mock, afterEach } from "bun:test";
-import { Database } from "bun:sqlite";
+import { afterEach, vi } from "vitest";
+import { DatabaseSync } from "node:sqlite";
 import { drizzle } from "drizzle-orm/bun-sqlite";
 import { Octokit } from "@octokit/rest";
 import * as dotenvx from "@dotenvx/dotenvx";
 import * as schema from "@schema/index";
-import type SQLite from "bun:sqlite";
 import type { BunSQLiteDatabase } from "drizzle-orm/bun-sqlite";
 
 export interface BunSQLite extends BunSQLiteDatabase<typeof schema> {
-  $client: SQLite;
+  $client: DatabaseSync;
 }
 
 export interface TestHonoEnv {
-  DB: SQLite;
+  DB: DatabaseSync;
   GITHUB_TOKEN: string;
   GITHUB_OWNER: string;
   GITHUB_REPO: string;
@@ -28,7 +27,7 @@ export class TestManager {
   constructor() {
     dotenvx.config({ path: ".dev.vars" });
 
-    const store = new Database("db.sqlite");
+    const store = new DatabaseSync("db.sqlite");
     const octokit = new Octokit({
       auth: process.env.GITHUB_TOKEN,
     });
@@ -37,12 +36,12 @@ export class TestManager {
     this.octokit = octokit;
     this.env = {
       DB: store,
-      GITHUB_TOKEN: process.env.GITHUB_TOKEN,
-      GITHUB_OWNER: process.env.GITHUB_OWNER,
-      GITHUB_REPO: process.env.GITHUB_REPO,
+      GITHUB_TOKEN: process.env.GITHUB_TOKEN!,
+      GITHUB_OWNER: process.env.GITHUB_OWNER!,
+      GITHUB_REPO: process.env.GITHUB_REPO!,
     };
 
-    mock.module("drizzle-orm/d1", () => {
+    vi.mock("drizzle-orm/d1", () => {
       return { drizzle };
     });
 

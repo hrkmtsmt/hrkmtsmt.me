@@ -8,17 +8,17 @@ import { ScrapService } from "./service";
 import type { BlankSchema } from "hono/types";
 import type { Env } from "@types";
 
-const scrapsQuerySchema = z.object({
-  page: z.preprocess((v) => Number(v) || 1, z.int().positive()),
-  limit: z.preprocess((v) => Number(v) || 12, z.int().positive()),
+const ScrapsQueries = z.object({
+  limit: z.coerce.number().int().positive().optional().default(12),
+  page: z.coerce.number().int().positive().optional().default(1),
 });
 
-const scrapParamSchema = z.object({
-  filename: z.string().min(1),
+const ScrapParams = z.object({
+  filename: z.string(),
 });
 
 export const scraps = new Hono<Env, BlankSchema, "/">()
-  .get("/scraps", zValidator("query", scrapsQuerySchema), async (c) => {
+  .get("/scraps", zValidator("query", ScrapsQueries), async (c) => {
     try {
       const { page, limit } = c.req.valid("query");
       const offset = (page - 1) * limit;
@@ -44,7 +44,7 @@ export const scraps = new Hono<Env, BlankSchema, "/">()
       throw new HTTPException(500, { message: "Failed to fetch scraps." });
     }
   })
-  .get("/scraps/:filename", zValidator("param", scrapParamSchema), async (c) => {
+  .get("/scraps/:filename", zValidator("param", ScrapParams), async (c) => {
     try {
       const { filename } = c.req.valid("param");
 

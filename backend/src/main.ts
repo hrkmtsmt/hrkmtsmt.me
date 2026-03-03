@@ -10,6 +10,7 @@ import type { BlankSchema } from "hono/types";
 import type { Env } from "./types";
 
 const app = new Hono<Env, BlankSchema, "/">()
+  .basePath("/api")
   .use(logger())
   .use("/*", (c, next) => {
     return cors({
@@ -41,6 +42,7 @@ const app = new Hono<Env, BlankSchema, "/">()
   .route("/", handlers.root)
   .route("/", handlers.posts)
   .route("/", handlers.scraps);
+
 
 export default {
   fetch: app.fetch,

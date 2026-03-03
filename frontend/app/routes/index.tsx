@@ -18,7 +18,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Page() {
-  const posts = usePosts({ limit: 12, page: 1 });
+  const posts = usePosts({ limit: "12", page: "1" });
   const scraps = useScraps();
   const player = useScrapPlayer();
 
