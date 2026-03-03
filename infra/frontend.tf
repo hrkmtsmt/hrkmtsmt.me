@@ -35,11 +35,6 @@ resource "cloudflare_worker_version" "frontend_worker_version" {
   assets = {
     directory = "../frontend/build/client"
   }
-  bindings = [{
-    name = "VALUE_FROM_CLOUDFLARE"
-    type = "plain_text"
-    text = "Hello from Cloudflare"
-  }]
 }
 
 resource "cloudflare_workers_deployment" "frontend_worker_deployment" {

@@ -24,7 +24,7 @@ resource "cloudflare_worker_version" "backend_worker_version" {
   worker_id           = cloudflare_worker.backend_worker.id
   main_module         = "main.js"
   compatibility_date  = "2024-11-11"
-  compatibility_flags = ["nodejs_compat_populate_process_env"]
+  compatibility_flags = ["nodejs_compat"]
   modules = [{
     content_file = "../backend/dist/main.js"
     content_type = "application/javascript+module"
