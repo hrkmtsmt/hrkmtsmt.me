@@ -38,7 +38,7 @@ jobs:
 
       - name: Build backend
         working-directory: backend
-        run: pnpm dotenvx run -f ../.env.frontend -- pnpm build
+        run: pnpm dotenvx run -f ../.env.backend -- pnpm build
 
       - name: Set infra environment variables
         run: |

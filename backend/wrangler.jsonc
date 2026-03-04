@@ -1,0 +1,21 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "hrkmtsmt-backend",
+	"main": "src/main.ts",
+	"compatibility_date": "2025-04-04",
+	"compatibility_flags": ["nodejs_compat"],
+	"workers_dev": false,
+	"preview_urls": false,
+	"env": {
+		"local": {
+			"d1_databases": [
+				{
+					"binding": "DB",
+					"database_name": "local",
+					"database_id": "local",
+					"migrations_dir": "migrations"
+				}
+			]
+		}
+	}
+}

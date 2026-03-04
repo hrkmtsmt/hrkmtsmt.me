@@ -1,15 +1,7 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "hrkmtsmt",
+	"name": "hrkmtsmt-frontend",
 	"compatibility_date": "2025-04-04",
 	"main": "./workers/app.ts",
-	"vars": {
-		"VALUE_FROM_CLOUDFLARE": "Hello from Cloudflare"
-	},
-	"observability": {
-		"enabled": true
-	},
-	"compatibility_flags": [
-		"nodejs_compat"
-	]
+	"compatibility_flags": ["nodejs_compat"]
 }
