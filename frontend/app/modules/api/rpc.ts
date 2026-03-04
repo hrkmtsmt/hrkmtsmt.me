@@ -5,6 +5,8 @@ const basicAuth = (username: string, password: string) => {
   return `Basic ${btoa(`${username}:${password}`)}`;
 };
 
+console.log(import.meta.env)
+
 export const rpc = hc<AppType>(import.meta.env.VITE_APP_BASE_URL, {
   headers: {
     Authorization: basicAuth(
