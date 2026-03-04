@@ -12,6 +12,10 @@ resource "cloudflare_worker" "backend_worker" {
   name       = "hrkmtsmt-backend"
   observability = {
     enabled = true
+    logs = {
+      enabled = true
+      invocation_logs = true
+    }
   }
   subdomain = {
     enabled          = true
