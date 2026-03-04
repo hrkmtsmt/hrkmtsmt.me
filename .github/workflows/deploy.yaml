@@ -34,11 +34,11 @@ jobs:
 
       - name: Build frontend
         working-directory: frontend
-        run: pnpm run build
+        run: pnpm dotenvx run -f ../.env.frontend -- pnpm build
 
       - name: Build backend
         working-directory: backend
-        run: pnpm run build
+        run: pnpm dotenvx run -f ../.env.frontend -- pnpm build
 
       - name: Set infra environment variables
         run: |
@@ -82,4 +82,4 @@ jobs:
 
       - name: Migrate database
         working-directory: backend
-        run: pnpm dotenvx run -f ../.env.backend -- pnpm run migrate
+        run: pnpm dotenvx run -f ../.env.backend -- pnpm migrate
