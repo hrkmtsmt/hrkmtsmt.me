@@ -23,20 +23,14 @@ export const scraps = new Hono<Env, BlankSchema, "/">()
       const { page, limit } = c.req.valid("query");
       const offset = (page - 1) * limit;
 
-      const service = new ScrapService(
-        c.var.octokit,
-        c.env.GITHUB_OWNER,
-        c.env.GITHUB_REPO,
-      );
-      const data = await service.list();
-      const { pages, next } = new Pagination(data.length, limit, page);
+      const service = new ScrapService(c.var.db);
+      const { data, total } = await service.list(limit, offset);
+      const { pages, next } = new Pagination(total, limit, page);
 
-      return c.json(
-        { data: data.slice(offset, page * limit), pages, next },
-        200,
-      );
+      return c.json({ data, pages, next }, 200);
     } catch (error: unknown) {
       Logger.error(error);
+
       if (error instanceof Error) {
         throw new HTTPException(422, { message: error.message });
       }
@@ -48,11 +42,7 @@ export const scraps = new Hono<Env, BlankSchema, "/">()
     try {
       const { filename } = c.req.valid("param");
 
-      const service = new ScrapService(
-        c.var.octokit,
-        c.env.GITHUB_OWNER,
-        c.env.GITHUB_REPO,
-      );
+      const service = new ScrapService(c.var.db);
       const data = await service.retrieve(filename);
 
       if (!data) {
@@ -62,6 +52,7 @@ export const scraps = new Hono<Env, BlankSchema, "/">()
       return c.json({ data }, 200);
     } catch (error: unknown) {
       Logger.error(error);
+
       if (error instanceof HTTPException) {
         throw error;
       }

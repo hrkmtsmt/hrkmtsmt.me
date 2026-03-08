@@ -1,56 +1,40 @@
-import { Buffer } from "node:buffer";
-import { Octokit } from "@octokit/rest";
+import { eq, count } from "drizzle-orm";
+import * as schema from "@schema";
+import type { Database, CloudflareD1 } from "@types";
 
-export class ScrapService {
-  constructor(
-    private octokit: Octokit,
-    private owner: string,
-    private repo: string,
-  ) {}
+export class ScrapService<DB extends Database> {
+  private readonly db: CloudflareD1;
 
-  public async list() {
-    const { data } = await this.octokit.rest.repos.getContent({
-      owner: this.owner,
-      repo: this.repo,
-      path: "scraps",
-    });
+  constructor(db: DB) {
+    this.db = db as unknown as CloudflareD1;
+  }
 
-    if (!Array.isArray(data)) {
-      return [];
-    }
+  public async list(limit: number, offset: number) {
+    const [data, [{ total }]] = await Promise.all([
+      this.db.select().from(schema.scraps).limit(limit).offset(offset),
+      this.db.select({ total: count() }).from(schema.scraps),
+    ]);
 
-    return data
-      .filter((d) => d.type === "file")
-      .map((d) => ({
-        filename: d.name,
-        createdAt: this.toDate(d.name),
-      }));
+    return {
+      data: data.map((s) => ({ filename: s.path, createdAt: new Date(s.createdAt) })),
+      total,
+    };
   }
 
   public async retrieve(filename: string) {
-    const { data } = await this.octokit.rest.repos.getContent({
-      owner: this.owner,
-      repo: this.repo,
-      path: `scraps/${filename}`,
-    });
+    const [data] = await this.db
+      .select()
+      .from(schema.scraps)
+      .where(eq(schema.scraps.path, filename));
 
-    if (Array.isArray(data)) {
-      return null;
-    }
-
-    if (data.type !== "file") {
+    if (!data) {
       return null;
     }
 
     return {
-      filename: data.name,
-      content: Buffer.from(data.content, "base64").toString("utf-8"),
-      createdAt: this.toDate(data.name),
+      filename: data.path,
+      content: data.text,
+      createdAt: new Date(data.createdAt),
     };
-  }
-
-  private toDate(filename: string) {
-    const [unixtime] = filename.split(".");
-    return new Date(Number(unixtime));
   }
 }

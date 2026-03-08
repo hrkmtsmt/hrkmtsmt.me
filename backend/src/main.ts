@@ -41,7 +41,8 @@ const app = new Hono<Env, BlankSchema, "/">()
   })
   .route("/", handlers.root)
   .route("/", handlers.posts)
-  .route("/", handlers.scraps);
+  .route("/", handlers.scraps)
+  .route("/", handlers.internal);
 
 
 export default {

@@ -7,6 +7,13 @@ resource "cloudflare_d1_database" "backend_db" {
   }
 }
 
+resource "cloudflare_r2_bucket" "backend_bucket" {
+  account_id    = var.cloudflare_account_id
+  name          = "hrkmtsmt-bucket"
+  location      = "apac"
+  storage_class = "Standard"
+}
+
 resource "cloudflare_worker" "backend_worker" {
   account_id = var.cloudflare_account_id
   name       = "hrkmtsmt-backend"
