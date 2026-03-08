@@ -13,10 +13,6 @@ const ScrapsQueries = z.object({
   page: z.coerce.number().int().positive().optional().default(1),
 });
 
-const ScrapParams = z.object({
-  filename: z.string(),
-});
-
 export const scraps = new Hono<Env, BlankSchema, "/">()
   .get("/scraps", zValidator("query", ScrapsQueries), async (c) => {
     try {
@@ -36,31 +32,5 @@ export const scraps = new Hono<Env, BlankSchema, "/">()
       }
 
       throw new HTTPException(500, { message: "Failed to fetch scraps." });
-    }
-  })
-  .get("/scraps/:filename", zValidator("param", ScrapParams), async (c) => {
-    try {
-      const { filename } = c.req.valid("param");
-
-      const service = new ScrapService(c.var.db);
-      const data = await service.retrieve(filename);
-
-      if (!data) {
-        throw new HTTPException(404, { message: "Not found." });
-      }
-
-      return c.json({ data }, 200);
-    } catch (error: unknown) {
-      Logger.error(error);
-
-      if (error instanceof HTTPException) {
-        throw error;
-      }
-
-      if (error instanceof Error) {
-        throw new HTTPException(422, { message: error.message });
-      }
-
-      throw new HTTPException(500, { message: "Failed to fetch scrap." });
     }
   });

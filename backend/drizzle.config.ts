@@ -1,6 +1,6 @@
 import { defineConfig } from "drizzle-kit";
 
-const production = defineConfig({
+const config = defineConfig({
   out: "./migrations",
   schema: "./src/schema/index.ts",
   dialect: "sqlite",
@@ -12,13 +12,4 @@ const production = defineConfig({
   },
 });
 
-const local = defineConfig({
-  out: "./migrations",
-  schema: "./src/schema/index.ts",
-  dialect: "sqlite",
-  dbCredentials: {
-    url: "db.sqlite",
-  },
-});
-
-export default process.env.ENVIRONMENT === "production" ? production : local;
+export default config;

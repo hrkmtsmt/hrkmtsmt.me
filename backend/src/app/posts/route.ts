@@ -37,12 +37,10 @@ export const posts = new Hono<Env, BlankSchema, "/">().get(
     } catch (error: unknown) {
       Logger.error(error);
       if (error instanceof Error) {
-        // return c.json({ message: error.message }, 422);
         throw new HTTPException(422, { message: error.message });
       }
 
       throw new HTTPException(500, { message: "Failed to fetch posts." });
-      // return c.json({ message: "Failed to fetch posts." }, 500);
     }
   },
 );

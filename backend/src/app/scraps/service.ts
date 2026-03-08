@@ -1,4 +1,4 @@
-import { eq, count } from "drizzle-orm";
+import { count } from "drizzle-orm";
 import * as schema from "@schema";
 import type { Database, CloudflareD1 } from "@types";
 
@@ -15,26 +15,6 @@ export class ScrapService<DB extends Database> {
       this.db.select({ total: count() }).from(schema.scraps),
     ]);
 
-    return {
-      data: data.map((s) => ({ filename: s.path, createdAt: new Date(s.createdAt) })),
-      total,
-    };
-  }
-
-  public async retrieve(filename: string) {
-    const [data] = await this.db
-      .select()
-      .from(schema.scraps)
-      .where(eq(schema.scraps.path, filename));
-
-    if (!data) {
-      return null;
-    }
-
-    return {
-      filename: data.path,
-      content: data.text,
-      createdAt: new Date(data.createdAt),
-    };
+    return { data, total };
   }
 }
