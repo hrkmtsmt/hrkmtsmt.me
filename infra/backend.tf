@@ -9,9 +9,17 @@ resource "cloudflare_d1_database" "backend_db" {
 
 resource "cloudflare_r2_bucket" "backend_bucket" {
   account_id    = var.cloudflare_account_id
-  name          = "hrkmtsmt-bucket"
+  name          = "hrkmtsmt-assets"
   location      = "apac"
   storage_class = "Standard"
+}
+
+resource "cloudflare_r2_custom_domain" "backend_bucket_domain" {
+  account_id  = var.cloudflare_account_id
+  bucket_name = cloudflare_r2_bucket.backend_bucket.name
+  zone_id     = var.cloudflare_zone_id
+  domain      = "assets.${var.domain}"
+  enabled     = true
 }
 
 resource "cloudflare_worker" "backend_worker" {
