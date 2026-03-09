@@ -1,39 +1,36 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useRef, useMemo, useState, useEffect } from "react";
+import { atom, useAtom } from "jotai";
 import { Link } from "react-router";
-import { PlayIcon, StopIcon } from "@heroicons/react/24/outline";
-import { useScrap } from "@modules/api";
+import { PlayIcon, PauseIcon } from "@heroicons/react/24/outline";
 import DOMPurify from "dompurify";
 import * as Tempo from "@formkit/tempo";
 import { marked } from "marked";
-import { tv, type VariantProps } from "tailwind-variants";
 
-const STATUSES = {
-  STOPPED: "stopped",
-  PLAYING: "playing",
-} as const;
+interface ScrapAudio {
+  status: "play" | "pause";
+  time: number
+}
 
-const button = tv({
-  base: "relative z-[2] flex h-10 w-10 cursor-pointer justify-center rounded-2xl bg-primary align-center text-black",
-});
+interface ScrapAudioMap extends Map<string, ScrapAudio> {}
 
-const icon = tv({
-  base: "w-6 stroke-2",
-});
+const scrapAudioMapAtom = atom<ScrapAudioMap>(new Map());
 
-export interface ScrapPlayerProps extends VariantProps<typeof button> {
-  status: (typeof STATUSES)[keyof typeof STATUSES];
-  filename: string;
+export interface ScrapPlayerProps {
   path: string;
-  onPlay: (path: string, text: string) => void;
+  text: string;
+  mp3: string;
 }
 
 export const ScrapPlayer: React.FC<ScrapPlayerProps> = (props) => {
-  const { data } = useScrap({ filename: props.filename });
+  const ref = useRef<HTMLAudioElement>(null);
+
+  const [map, setMap] = useAtom(scrapAudioMapAtom);
+  const scrap = useMemo(() => map.get(props.path) ?? { status: "pause", time: 0 }, [map, props.path]);
 
   const html = useMemo(() => {
-    const parsed = marked.parse(data?.data.content ?? "", { async: false });
+    const parsed = marked.parse(props.text, { async: false });
     return DOMPurify.sanitize(parsed);
-  }, [data]);
+  }, [props.text]);
 
   const dom = useMemo(() => {
     const parser = new DOMParser();
@@ -41,20 +38,69 @@ export const ScrapPlayer: React.FC<ScrapPlayerProps> = (props) => {
   }, [html]);
 
   const date = useMemo(() => {
-    const [unixtime] = props.filename.split(".");
-    return Tempo.format(new Date(Number(unixtime)), "YYYY-MM-DD");
-  }, [props.filename]);
+    return Tempo.format(new Date(Number(props.path)), "YYYY-MM-DD");
+  }, [props.text]);
 
   const title = useMemo(() => dom.querySelector("h2")?.innerText ?? "", [dom]);
-  const text = useMemo(() => dom.querySelector("html")?.innerText ?? "", [dom]);
+  useMemo(() => dom.querySelector("html")?.innerText ?? "", [dom]);
 
-  const onClick: React.MouseEventHandler<HTMLButtonElement> = useCallback(
-    (e) => {
-      e.stopPropagation();
-      props.onPlay(props.path, text);
-    },
-    [text, props.path, props.onPlay]
-  );
+  const onClick = useCallback(async () => {
+    const audio = ref.current;
+
+    if (!audio) {
+      return;
+    };
+
+    if (!audio.src) {
+      audio.src = props.mp3;
+    }
+
+    if (audio.paused) {
+      await audio.play();
+      setMap((prev) => {
+        const next = new Map(prev);
+        const time = next.get(props.path)?.time ?? 0;
+        return next.set(props.path, { status: "play", time });
+      });
+    } else {
+      audio.pause();
+      setMap((prev) => {
+        const next = new Map(prev);
+        const time = next.get(props.path)?.time ?? 0;
+        return next.set(props.path, { status: "pause", time });
+      });
+    }
+  }, [props.mp3]);
+
+  const onChange = useCallback<React.ChangeEventHandler<HTMLInputElement>>((e) => {
+    const audio = ref.current;
+
+    if (!audio) {
+      return;
+    }
+
+    const time = audio.duration * (Number(e.target.value) / 100);
+    audio.currentTime = time;
+  }, []);
+
+  const onTimeUpdate = useCallback<React.ReactEventHandler<HTMLAudioElement>>((e) => {
+    const audio = e.currentTarget;
+
+    if (audio.duration) {
+      const time = (audio.currentTime / audio.duration) * 100;
+      setMap((prev) => {
+        const next = new Map(prev);
+        const status = next.get(props.path)?.status ?? "pause";
+        return next.set(props.path, { status, time });
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      ref.current?.pause();
+    }
+  }, []);
 
   return (
     <article className="relative flex flex-col gap-4 rounded-2xl bg-black p-4 font-default duration-200 ease-in-out hover:scale-101 hover:opacity-80">
@@ -66,50 +112,16 @@ export const ScrapPlayer: React.FC<ScrapPlayerProps> = (props) => {
           <span className="line-clamp-2 h-12 leading-6">{title}</span>
         </Link>
       </h3>
-      <button type="button" className={button()} onClick={onClick}>
-        {props.status === "playing" && <StopIcon className={icon()} />}
-        {props.status === "stopped" && <PlayIcon className={icon()} />}
+      <audio ref={ref} onTimeUpdate={onTimeUpdate} />
+      <button
+        type="button"
+        className="relative z-[2] flex h-10 w-10 cursor-pointer justify-center rounded-2xl bg-primary align-center text-black"
+        onClick={onClick}
+      >
+        {scrap.status === "play" && <PauseIcon className="w-6 stroke-2" />}
+        {scrap.status === "pause" && <PlayIcon className="w-6 stroke-2" />}
       </button>
+      <input type="range" value={scrap.time} className="z-[2] h-1 bg-black" onChange={onChange} />
     </article>
   );
-};
-
-export const useScrapPlayer = () => {
-  const [current, setCurrent] = useState<string | null>(null);
-
-  const path = useCallback((filename: string) => `/scraps/${filename}`, []);
-
-  const status = useCallback(
-    (filename: string) => {
-      if (current === path(filename)) {
-        return STATUSES.PLAYING;
-      }
-
-      return STATUSES.STOPPED;
-    },
-    [current, path]
-  );
-
-  const play: ScrapPlayerProps["onPlay"] = useCallback((path, text) => {
-    setCurrent((prev) => {
-      speechSynthesis.cancel();
-
-      if (prev === path) {
-        return null;
-      }
-
-      const utterance = new SpeechSynthesisUtterance(text);
-      speechSynthesis.speak(utterance);
-
-      return path;
-    });
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      speechSynthesis.cancel();
-    };
-  }, []);
-
-  return { path, status, play };
 };

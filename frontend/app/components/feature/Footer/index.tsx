@@ -41,9 +41,12 @@ const Component: React.FC = () => {
             </a>
           </li>
         </ul>
-        <address className="flex gap-2 not-italic">
-          <span>{`Copyright ${year} Hiroki Matsumoto`}</span>
-        </address>
+        <ul>
+          <a href="https://voicevox.hiroshiba.jp">VOICEVOXずんだもん</a>
+          <address className="flex gap-2 not-italic">
+            <span>{`Copyright ${year} Hiroki Matsumoto`}</span>
+          </address>
+        </ul>
       </Container>
     </footer>
   );

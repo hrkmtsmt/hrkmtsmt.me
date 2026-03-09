@@ -28,8 +28,8 @@ export default function Page() {
     [searchParams]
   );
   const page = useMemo(() => toSafeNumber(searchParams.get("page"), 1), [searchParams]);
-  const key = useMemo(() => ["/posts", { limit: 12, page, media: media ?? undefined }] as const, [page, media]);
-  const { data: posts, isLoading } = usePosts(key[1]);
+  const [_, params] = useMemo(() => ["/posts", { limit: 12, page, media: media ?? undefined }] as const, [page, media]);
+  const { data: posts, isLoading } = usePosts(params);
 
   const handleChangeTab: React.MouseEventHandler<HTMLButtonElement> = useCallback(
     async (e) => {

@@ -1,7 +1,7 @@
 import { or, count, desc, eq, sql } from "drizzle-orm";
 import { posts } from "@schema";
 import { splitArray } from "@modules";
-import type { Database, CloudflareD1 } from "@types";
+import type { DrizzleD1Database } from "drizzle-orm/d1";
 import type { Post } from "@schema/types";
 
 interface ListSelecter {
@@ -14,11 +14,11 @@ interface CountSelecter {
   medium: Post["media"][] | undefined;
 }
 
-export class PostService<DB extends Database> {
-  private readonly db: CloudflareD1;
+export class PostService {
+  private readonly db: DrizzleD1Database;
 
-  constructor(db: DB) {
-    this.db = db as unknown as CloudflareD1;
+  constructor(db: DrizzleD1Database) {
+    this.db = db;
   }
 
   private mediumSelecter(medium: Post["media"][] | undefined) {

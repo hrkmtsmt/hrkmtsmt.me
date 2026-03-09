@@ -1,7 +1,7 @@
 import React from "react";
 import { Column, Container, Grid, Heading2, Paragraph } from "@components/layout";
 import { Card, DetailLink, SkeltonCards, HorizontalScroller } from "@components/ui";
-import { ScrapPlayer, useScrapPlayer } from "@components/feature";
+import { ScrapPlayer } from "@components/feature";
 import { usePosts, useScraps } from "@modules/api";
 import { PAGES } from "@modules/constants";
 
@@ -20,7 +20,7 @@ export function meta({}: Route.MetaArgs) {
 export default function Page() {
   const posts = usePosts({ limit: "12", page: "1" });
   const scraps = useScraps();
-  const player = useScrapPlayer();
+  console.log(scraps.data)
 
   return (
     <>
@@ -47,12 +47,11 @@ export default function Page() {
         <Heading2>{PAGES.scraps.name}</Heading2>
         <HorizontalScroller>
           {scraps.data?.data.map((scrap) => (
-            <div key={scrap.filename} className="min-w-[40%]">
+            <div key={scrap.hash} className="min-w-[40%]">
               <ScrapPlayer
-                status={player.status(scrap.filename)}
-                filename={scrap.filename}
-                path={player.path(scrap.filename)}
-                onPlay={player.play}
+                path={scrap.path}
+                text={scrap.text}
+                mp3={scrap.mp3}
               />
             </div>
           ))}

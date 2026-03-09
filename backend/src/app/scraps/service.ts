@@ -1,12 +1,12 @@
 import { count } from "drizzle-orm";
 import * as schema from "@schema";
-import type { Database, CloudflareD1 } from "@types";
+import type { DrizzleD1Database } from "drizzle-orm/d1";
 
-export class ScrapService<DB extends Database> {
-  private readonly db: CloudflareD1;
+export class ScrapService {
+  private readonly db: DrizzleD1Database;
 
-  constructor(db: DB) {
-    this.db = db as unknown as CloudflareD1;
+  constructor(db: DrizzleD1Database) {
+    this.db = db;
   }
 
   public async list(limit: number, offset: number) {
