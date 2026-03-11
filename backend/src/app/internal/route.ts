@@ -10,8 +10,8 @@ import type { Env } from "@types";
 
 const ScrapsBulkBody = z.array(
   z.object({
-    path: z.string(),
-    text: z.string(),
+    filename: z.string(),
+    markdown: z.string(),
     mp3: z.string(),
     hash: z.string(),
   }),
@@ -22,16 +22,16 @@ export const internal = new Hono<Env, BlankSchema, "/">().post(
   zValidator("json", ScrapsBulkBody),
   async (c) => {
     try {
-      const data = c.req.valid("json");
-      const now = new Date().toISOString();
+      const body = c.req.valid("json");
+      const now = new Date();
 
       await c.var.db
         .insert(schema.scraps)
-        .values(data.map((item) => ({ ...item, createdAt: now, updatedAt: now })))
+        .values(body.map((scrap) => ({ ...scrap, createdAt: now, updatedAt: now })))
         .onConflictDoUpdate({
-          target: [schema.scraps.path],
+          target: [schema.scraps.filename],
           set: {
-            text: sql`excluded.text`,
+            markdown: sql`excluded.markdown`,
             mp3: sql`excluded.mp3`,
             hash: sql`excluded.hash`,
             updatedAt: sql`excluded.updated_at`,
