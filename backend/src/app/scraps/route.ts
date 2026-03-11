@@ -5,12 +5,18 @@ import { z } from "zod";
 import { Pagination } from "@core";
 import { Logger } from "@modules";
 import { ScrapService } from "./service";
+import * as schema from "@schema";
 import type { BlankSchema } from "hono/types";
 import type { Env } from "@types";
+import { eq } from "drizzle-orm";
 
 const ScrapsQueries = z.object({
   limit: z.coerce.number().int().positive().optional().default(12),
   page: z.coerce.number().int().positive().optional().default(1),
+});
+
+const ScrapParams = z.object({
+  filename: z.string(),
 });
 
 export const scraps = new Hono<Env, BlankSchema, "/">()
@@ -33,4 +39,15 @@ export const scraps = new Hono<Env, BlankSchema, "/">()
 
       throw new HTTPException(500, { message: "Failed to fetch scraps." });
     }
+  })
+  .get("/scraps/:filename", zValidator("param", ScrapParams), async (c) => {
+    const { filename } = c.req.valid("param");
+    const data = await c.var.db.select().from(schema.scraps).where(eq(schema.scraps.filename, filename));
+    const scrap = data.at(0);
+
+    if (!scrap) {
+      throw new HTTPException(400, { message: `${filename} dose not exist.` });
+    }
+
+    return c.json({ data: scrap }, 200);
   });
