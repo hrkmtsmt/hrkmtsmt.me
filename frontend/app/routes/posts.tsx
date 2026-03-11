@@ -1,11 +1,10 @@
+import React, { useCallback, useMemo } from "react";
+import { useSearchParams } from "react-router";
+import { useSWRConfig } from "swr";
 import { Column, Container, Grid, Heading2 } from "@components/layout";
 import { Card, Pagination, SkeltonCards, TabPanel, Tabs } from "@components/ui";
 import { usePosts } from "@modules/api";
 import { PAGES } from "@modules/constants";
-import { toSafeNumber } from "@modules/utils";
-import { useSearchParams } from "react-router";
-import React, { useCallback, useMemo } from "react";
-import { useSWRConfig } from "swr";
 
 import type { Route } from "./+types/posts";
 
@@ -27,9 +26,9 @@ export default function Page() {
     () => (searchParams.get("media") ?? undefined) as (typeof tabs)[number]["value"],
     [searchParams]
   );
-  const page = useMemo(() => toSafeNumber(searchParams.get("page"), 1), [searchParams]);
-  const [_, params] = useMemo(() => ["/posts", { limit: 12, page, media: media ?? undefined }] as const, [page, media]);
-  const { data: posts, isLoading } = usePosts(params);
+  const page = useMemo(() => searchParams.get("page") ?? "1", [searchParams]);
+  const [key, queries] = useMemo(() => ["/posts", { limit: "12", page, media: media ?? undefined }] as const, [page, media]);
+  const { data: posts, isLoading } = usePosts(queries);
 
   const handleChangeTab: React.MouseEventHandler<HTMLButtonElement> = useCallback(
     async (e) => {
@@ -103,7 +102,7 @@ export default function Page() {
           ))}
         </>
       )}
-      <Pagination pages={posts?.pages} current={page} onClick={handleChangePage} />
+      <Pagination pages={posts?.pages} current={Number(page)} onClick={handleChangePage} />
     </Container>
   );
 }

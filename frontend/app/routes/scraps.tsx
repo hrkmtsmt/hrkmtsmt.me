@@ -10,7 +10,7 @@ export function meta({}: Route.MetaArgs) {
 export default function Page() {
   return (
     <Container>
-      <Heading2>About</Heading2>
+      <Heading2>Scraps</Heading2>
       <Paragraph>Software engineer.</Paragraph>
     </Container>
   );

@@ -5,9 +5,7 @@ import { ScrapPlayer } from "@components/feature";
 import { usePosts, useScraps } from "@modules/api";
 import { PAGES } from "@modules/constants";
 
-import type { Route } from "./+types/index";
-
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
     { title: "hrkmtsmt" },
     {
@@ -20,7 +18,6 @@ export function meta({}: Route.MetaArgs) {
 export default function Page() {
   const posts = usePosts({ limit: "12", page: "1" });
   const scraps = useScraps();
-  console.log(scraps.data)
 
   return (
     <>
@@ -49,8 +46,9 @@ export default function Page() {
           {scraps.data?.data.map((scrap) => (
             <div key={scrap.hash} className="min-w-[40%]">
               <ScrapPlayer
-                path={scrap.path}
-                text={scrap.text}
+                path={`/scraps/${scrap.filename}`}
+                filename={scrap.filename}
+                text={scrap.markdown}
                 mp3={scrap.mp3}
               />
             </div>

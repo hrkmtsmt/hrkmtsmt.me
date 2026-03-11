@@ -12,3 +12,14 @@ export const useScraps = () => {
     revalidateOnFocus: false,
   });
 };
+
+export const useScrap = (filename: string) => {
+  const url = useMemo(() => rpc.api.scraps[":filename"].$url({ param: { filename } }), []);
+  return useSWR(url.href, async () => {
+    const response = await rpc.api.scraps[":filename"].$get({ param: { filename } });
+    return response.json();
+  }, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+  });
+};
