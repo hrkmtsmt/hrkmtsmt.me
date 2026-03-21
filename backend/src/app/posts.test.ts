@@ -1,6 +1,6 @@
 import { describe, test, expect } from "vitest";
 import { TestManager } from "@test/index";
-import { posts } from "./route";
+import { posts } from "./posts";
 import * as schema from "@schema";
 import type { Post } from "@schema/types";
 

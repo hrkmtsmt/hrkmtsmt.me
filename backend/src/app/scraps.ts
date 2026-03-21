@@ -2,13 +2,13 @@ import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
+import { count, eq } from "drizzle-orm";
+import { drizzle } from "drizzle-orm/d1";
 import { Pagination } from "@core";
 import { Logger } from "@modules";
-import { ScrapService } from "./service";
 import * as schema from "@schema";
 import type { BlankSchema } from "hono/types";
 import type { Env } from "@types";
-import { eq } from "drizzle-orm";
 
 const ScrapsQueries = z.object({
   limit: z.coerce.number().int().positive().optional().default(12),
@@ -25,8 +25,15 @@ export const scraps = new Hono<Env, BlankSchema, "/">()
       const { page, limit } = c.req.valid("query");
       const offset = (page - 1) * limit;
 
-      const service = new ScrapService(c.var.db);
-      const { data, total } = await service.list(limit, offset);
+      const db = drizzle(c.env.DB);
+      const [data, [{ total }]] = await Promise.all([
+        db
+          .select()
+          .from(schema.scraps)
+          .limit(limit)
+          .offset(offset),
+        db.select({ total: count() }).from(schema.scraps),
+      ]);
       const { pages, next } = new Pagination(total, limit, page);
 
       return c.json({ data, pages, next }, 200);
@@ -42,7 +49,8 @@ export const scraps = new Hono<Env, BlankSchema, "/">()
   })
   .get("/scraps/:filename", zValidator("param", ScrapParams), async (c) => {
     const { filename } = c.req.valid("param");
-    const data = await c.var.db.select().from(schema.scraps).where(eq(schema.scraps.filename, filename));
+    const db = drizzle(c.env.DB);
+    const data = await db.select().from(schema.scraps).where(eq(schema.scraps.filename, filename));
     const scrap = data.at(0);
 
     if (!scrap) {

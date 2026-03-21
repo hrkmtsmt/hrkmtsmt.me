@@ -1,5 +1,5 @@
 import { describe, test, expect } from "vitest";
-import { root } from "./route";
+import { root } from "./root";
 import type { GetResponse } from "./types";
 
 describe("route /", () => {
