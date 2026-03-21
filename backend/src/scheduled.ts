@@ -1,8 +1,9 @@
 import { drizzle } from "drizzle-orm/d1";
 import { HTTPException } from "hono/http-exception";
 import { XMLParser } from "fast-xml-parser";
-import { Logger, Api } from "@modules";
-import { PostService } from "@app/posts";
+import { sql } from "drizzle-orm";
+import { Logger, Api, splitArray } from "@modules";
+import { posts as postsTable } from "@schema";
 import type { ExportedHandlerScheduledHandler } from "@cloudflare/workers-types";
 import type { Env } from "@types";
 import type { Post } from "@schema/types";
@@ -93,8 +94,20 @@ export const scheduled: Scheduled = async (_, env, context) => {
             };
           });
 
-        const service = new PostService(drizzle(env.DB));
-        await service.upsert([...h, ...z, ...q, ...s]);
+        const db = drizzle(env.DB);
+        await Promise.all(
+          splitArray([...h, ...z, ...q, ...s], 10).map(async (row) => {
+            return db
+              .insert(postsTable)
+              .values(row)
+              .onConflictDoUpdate({
+                target: [postsTable.slug],
+                set: {
+                  title: sql`excluded.title`,
+                },
+              });
+          }),
+        );
       } catch (error: unknown) {
         Logger.error(error);
         throw new HTTPException(500, { message: "Failed to insert posts." });

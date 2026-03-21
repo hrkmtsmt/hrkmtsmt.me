@@ -2,9 +2,11 @@ import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
+import { or, count, desc, eq } from "drizzle-orm";
+import { drizzle } from "drizzle-orm/d1";
 import { Logger } from "@modules";
 import { Pagination, MediaSelecter } from "@core";
-import { PostService } from "./service";
+import { posts as postsTable } from "@schema";
 import type { BlankSchema } from "hono/types";
 import type { Env } from "@types";
 
@@ -25,11 +27,20 @@ export const posts = new Hono<Env, BlankSchema, "/">().get(
       const offset = (page - 1) * limit;
       const selecter = new MediaSelecter(media, secret);
       const medium = selecter.value === "all" ? undefined : selecter.value;
+      const where = medium
+        ? or(...medium.map((m) => eq(postsTable.media, m)))
+        : undefined;
 
-      const service = new PostService(c.var.db);
-      const [data, total] = await Promise.all([
-        service.list({ medium, limit, offset }),
-        service.count({ medium }),
+      const db = drizzle(c.env.DB);
+      const [data, [{ total }]] = await Promise.all([
+        db
+          .select()
+          .from(postsTable)
+          .where(where)
+          .orderBy(desc(postsTable.publishedAt))
+          .limit(limit)
+          .offset(offset),
+        db.select({ total: count() }).from(postsTable).where(where),
       ]);
       const { pages, next } = new Pagination(total, limit, page);
 
