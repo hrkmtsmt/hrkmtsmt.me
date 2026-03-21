@@ -1,6 +1,6 @@
 import { describe, test, expect } from "vitest";
 import { TestManager } from "@test/index";
-import { scraps } from "./route";
+import { scraps } from "./scraps";
 import type { GetListResponse, GetResponse } from "./types";
 
 describe("route /scraps", () => {

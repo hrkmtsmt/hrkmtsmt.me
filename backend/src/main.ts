@@ -3,8 +3,11 @@ import { logger } from "hono/logger";
 import { cors } from "hono/cors";
 import { basicAuth } from "hono/basic-auth";
 import { drizzle } from "drizzle-orm/d1";
-import { scheduled } from "./scheduled";
-import * as handlers from "./app";
+import { internal } from "@app/internal";
+import { posts } from "@app/posts"
+import { root } from "@app/root"
+import { scraps } from "@app/scraps"
+import { scheduled } from "@app/scheduled";
 import type { BlankSchema } from "hono/types";
 import type { Env } from "./types";
 
@@ -26,10 +29,10 @@ const app = new Hono<Env, BlankSchema, "/">()
     c.set("db", drizzle(c.env.DB));
     await next();
   })
-  .route("/", handlers.root)
-  .route("/", handlers.posts)
-  .route("/", handlers.scraps)
-  .route("/", handlers.internal);
+  .route("/", internal)
+  .route("/", posts)
+  .route("/", root)
+  .route("/", scraps);
 
 export default {
   fetch: app.fetch,
