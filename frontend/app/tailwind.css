@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @font-face {
   font-family: "QualionRound";
@@ -39,6 +40,22 @@
   --font-default: "JetBrains Mono", "Gen Jyuu Gothic Monospace", monospace,
     "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans",
     Meiryo, sans-serif;
+}
+
+.shiki {
+  --shiki-foreground: var(--color-white);
+  --shiki-background: var(--color-black);
+  --shiki-token-keyword: #2f76e6;
+  --shiki-token-string: #98c379;
+  --shiki-token-string-expression: #98c379;
+  --shiki-token-comment: #909090;
+  --shiki-token-function: #61afef;
+  --shiki-token-constant: #e5c07b;
+  --shiki-token-parameter: #e06c75;
+  --shiki-token-punctuation: #abb2bf;
+  --shiki-token-link: #2f76e6;
+
+  @apply rounded-2xl p-4 overflow-x-auto;
 }
 
 @layer base {
