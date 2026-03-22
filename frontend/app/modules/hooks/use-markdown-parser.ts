@@ -1,82 +1,47 @@
-import { useState, useEffect } from "react";
-import { Marked } from "marked";
+import { use } from "react";
+import { marked } from "marked";
+import extention from "marked-shiki";
 import DOMPurify from "dompurify";
-import { createHighlighter, createCssVariablesTheme, type Highlighter } from "shiki";
+import { createHighlighter, createCssVariablesTheme, createJavaScriptRegexEngine } from "shiki";
 
-const cssVarsTheme = createCssVariablesTheme({ name: "css-variables", variablePrefix: "--shiki-" });
+const theme = createCssVariablesTheme({
+  name: "css-variables",
+  variablePrefix: "--shiki-"
+});
 
-let highlighterPromise: Promise<Highlighter> | null = null;
+const highlighter = await createHighlighter({
+  themes: [theme],
+  langs: [
+    "bash", "css", "go", "html", "javascript", "json",
+    "python", "rust", "tsx", "typescript",
+  ],
+  engine: createJavaScriptRegexEngine(),
+});
 
-function getHighlighter() {
-  if (!highlighterPromise) {
-    highlighterPromise = createHighlighter({
-      themes: [cssVarsTheme],
-      langs: [
-        "bash", "css", "go", "html", "javascript", "json",
-        "python", "rust", "tsx", "typescript",
-      ],
-    });
+const shiki = extention({
+  highlight: (code, lang, props) => {
+    return highlighter.codeToHtml(code, {
+      lang,
+      theme,
+      meta: { __raw: props.join("") },
+      transformers: []
+    })
   }
-  return highlighterPromise;
-}
+});
 
-function extractTitleAndBody(html: string) {
+const cache = new Map<string, Promise<string>>();
+export const useMarkdownParser = (markdown: string) => {
+
+  if (!cache.has(markdown)) {
+    cache.set(markdown, marked.use(shiki).parse(markdown, { async: true }));
+  }
+
+  const dirty = use(cache.get(markdown)!);
+  const html = DOMPurify.sanitize(dirty, { ADD_ATTR: ["style"] });
   const dom = new DOMParser().parseFromString(html, "text/html");
   const title = dom.body.querySelector("h2")?.innerText ?? "";
   dom.body.querySelector("h2")?.remove();
-  return { html, title, body: dom.body.innerHTML };
-}
+  const body = dom.body.innerHTML;
 
-function parsePlain(markdown: string) {
-  const html = DOMPurify.sanitize(new Marked().parse(markdown, { async: false }));
-  return extractTitleAndBody(html);
-}
-
-async function parseWithHighlight(markdown: string, highlighter: Highlighter) {
-  const raw = new Marked().parse(markdown, { async: false });
-  const dom = new DOMParser().parseFromString(raw, "text/html");
-
-  await Promise.all(
-    Array.from(dom.querySelectorAll("pre code")).map(async (codeEl) => {
-      const pre = codeEl.parentElement!;
-      const lang = codeEl.className.replace("language-", "") || "text";
-      const code = codeEl.textContent ?? "";
-
-      try {
-        const highlighted = await highlighter.codeToHtml(code, {
-          lang,
-          theme: "css-variables",
-        });
-        const wrapper = dom.createElement("div");
-        wrapper.innerHTML = highlighted;
-        pre.replaceWith(wrapper.firstElementChild!);
-      } catch {
-        // 対応言語外はそのまま
-      }
-    })
-  );
-
-  const html = DOMPurify.sanitize(dom.body.innerHTML, { ADD_ATTR: ["style"] });
-  return extractTitleAndBody(html);
-}
-
-export const useMarkdownParser = (markdown: string) => {
-  const [result, setResult] = useState(() => parsePlain(markdown));
-
-  useEffect(() => {
-    let cancelled = false;
-
-    getHighlighter()
-      .then((highlighter) => {
-        if (cancelled) return;
-        return parseWithHighlight(markdown, highlighter);
-      })
-      .then((result) => {
-        if (result && !cancelled) setResult(result);
-      });
-
-    return () => { cancelled = true; };
-  }, [markdown]);
-
-  return result;
+  return { title, body, html }
 };

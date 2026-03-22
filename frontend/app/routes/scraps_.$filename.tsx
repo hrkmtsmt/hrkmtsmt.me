@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { useParams } from "react-router";
 import { Container, Heading2 } from "@components/layout";
 import { AudioButton } from "~/components/ui/AudioButton";
@@ -8,8 +8,8 @@ import { useMarkdownParser } from "@modules/hooks/use-markdown-parser";
 import { useAudioPlayer } from "@modules/hooks/use-audio-player";
 import type { Route } from "./+types/about";
 
-export function meta({}: Route.MetaArgs) {
-  return [{ title: "hrkmtsmt | About" }, { name: "description", content: "My posts" }];
+export function meta(props: Route.MetaArgs) {
+  return [{ title: "scraps" }, { name: "description", content: "My posts" }];
 }
 
 const Component: React.FC<{ mp3: string; filename: string; markdown: string }> = (props) => {
@@ -40,6 +40,8 @@ export default function Page() {
   }
 
   return (
-    <Component mp3={data?.data.mp3} filename={data?.data.filename} markdown={data?.data.markdown} />
+    <Suspense fallback={null}>
+      <Component mp3={data?.data.mp3} filename={data?.data.filename} markdown={data?.data.markdown} />
+    </Suspense>
   );
 }
