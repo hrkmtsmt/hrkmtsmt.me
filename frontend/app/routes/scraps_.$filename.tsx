@@ -12,9 +12,11 @@ export function meta(props: Route.MetaArgs) {
   return [{ title: "scraps" }, { name: "description", content: "My posts" }];
 }
 
-const Component: React.FC<{ mp3: string; filename: string; markdown: string }> = (props) => {
-  const { title, body } = useMarkdownParser(props.markdown);
-  const player = useAudioPlayer(props.mp3);
+function ScrapContent() {
+  const { filename } = useParams<"filename">();
+  const { data } = useScrap(filename!);
+  const { title, body } = useMarkdownParser(data.data.markdown);
+  const player = useAudioPlayer(data.data.mp3);
 
   return (
     <Container>
@@ -28,20 +30,13 @@ const Component: React.FC<{ mp3: string; filename: string; markdown: string }> =
         dangerouslySetInnerHTML={{ __html: body }}
       />
     </Container>
-  )
+  );
 }
 
 export default function Page() {
-  const { filename } = useParams<"filename">();
-  const { data, isLoading } = useScrap(filename!);
-
-  if (isLoading) {
-    return null;
-  }
-
   return (
     <Suspense fallback={null}>
-      <Component mp3={data?.data.mp3} filename={data?.data.filename} markdown={data?.data.markdown} />
+      <ScrapContent />
     </Suspense>
   );
 }

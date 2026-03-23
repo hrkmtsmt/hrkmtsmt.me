@@ -8,6 +8,7 @@ export const useScraps = () => {
     const response = await rpc.api.scraps.$get({ query: { page: undefined, limit: undefined } });
     return response.json();
   }, {
+    suspense: true,
     revalidateIfStale: false,
     revalidateOnFocus: false,
   });
@@ -19,6 +20,7 @@ export const useScrap = (filename: string) => {
     const response = await rpc.api.scraps[":filename"].$get({ param: { filename } });
     return response.json();
   }, {
+    suspense: true,
     revalidateIfStale: false,
     revalidateOnFocus: false,
   });

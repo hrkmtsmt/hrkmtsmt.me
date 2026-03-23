@@ -11,6 +11,7 @@ export const usePosts = (queries: ListQueries) => {
     const response = await rpc.api.posts.$get({ query: queries });
     return response.json();
   }, {
+    suspense: true,
     revalidateIfStale: false,
     revalidateOnFocus: false,
   });
