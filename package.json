@@ -13,7 +13,8 @@
     "spellcheck": "cspell '**' --no-progress",
     "test": "pnpm test:backend && pnpm test:frontend",
     "test:backend": "pnpm --filter ./backend exec vitest run",
-    "test:frontend": "pnpm --filter ./frontend exec vitest run"
+    "test:frontend": "pnpm --filter ./frontend exec vitest run",
+    "prepare": "lefthook install"
   },
   "dependencies": {
     "hono": "4.12.3",
@@ -29,6 +30,7 @@
     "concurrently": "^9.2.1",
     "cspell": "^10.0.0",
     "globals": "17.3.0",
+    "lefthook": "^2.1.5",
     "npm-check-updates": "^19.4.1",
     "typescript": "^5.9.3",
     "vitest": "^4.1.0",
