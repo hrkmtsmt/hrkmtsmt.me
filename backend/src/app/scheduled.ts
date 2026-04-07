@@ -31,10 +31,10 @@ export const scheduled: Scheduled = async (_, env, context) => {
         const entries = Array.isArray(xmlData.feed?.entry)
           ? xmlData.feed.entry
           : [xmlData.feed?.entry].filter(Boolean);
-        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+        // biome-ignore lint/suspicious/noExplicitAny: XML parsed data has no type definition
         const h = entries.map((entry: any): Post => {
           const url =
-            // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+            // biome-ignore lint/suspicious/noExplicitAny: XML parsed data has no type definition
             entry.link?.find?.((link: any) => link["@_rel"] === "alternate")?.[
               "@_href"
             ] || entry.link?.["@_href"];
@@ -50,8 +50,6 @@ export const scheduled: Scheduled = async (_, env, context) => {
             publishedAt: new Date(entry.updated),
           };
         });
-        console.log(h)
-
         // TODO: ページネーションがあれば再帰的に取得する処理をかく
         const [zenn, qiita, sizu] = await Promise.all([
           api.zenn.articles.get({ username: "hrkmtsmt" }),

@@ -8,7 +8,7 @@ import { PAGES } from "@modules/constants";
 
 import type { Route } from "./+types/posts";
 
-export function meta({}: Route.MetaArgs) {
+export function meta(_: Route.MetaArgs) {
   return [{ title: "hrkmtsmt | Posts" }, { name: "description", content: "My posts" }];
 }
 
@@ -85,19 +85,17 @@ function PostsContent() {
     <Container>
       <Heading2>{PAGES.posts.name}</Heading2>
       <Tabs tabs={list} onClick={handleChangeTab} />
-      <>
-        {tabs.map((t) => (
-          <TabPanel key={t.name} active={media === t.value}>
-            <Grid type="ul">
-              {posts.data.map((post) => (
-                <Column type="li" key={post.id} size="md">
-                  <Card to={post.url} category={post.media} title={post.title} />
-                </Column>
-              ))}
-            </Grid>
-          </TabPanel>
-        ))}
-      </>
+      {tabs.map((t) => (
+        <TabPanel key={t.name} active={media === t.value}>
+          <Grid type="ul">
+            {posts.data.map((post) => (
+              <Column type="li" key={post.id} size="md">
+                <Card to={post.url} category={post.media} title={post.title} />
+              </Column>
+            ))}
+          </Grid>
+        </TabPanel>
+      ))}
       <Pagination pages={posts.pages} current={Number(page)} onClick={handleChangePage} />
     </Container>
   );

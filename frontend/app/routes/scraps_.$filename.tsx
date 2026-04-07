@@ -14,6 +14,7 @@ export function meta(props: Route.MetaArgs) {
 
 function ScrapContent() {
   const { filename } = useParams<"filename">();
+  // biome-ignore lint/style/noNonNullAssertion: filename is always defined within this route
   const { data } = useScrap(filename!);
   const { title, body } = useMarkdownParser(data.data.markdown);
   const player = useAudioPlayer(data.data.mp3);

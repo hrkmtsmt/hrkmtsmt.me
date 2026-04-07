@@ -36,6 +36,7 @@ export const useMarkdownParser = (markdown: string) => {
     cache.set(markdown, marked.use(shiki).parse(markdown, { async: true }));
   }
 
+  // biome-ignore lint/style/noNonNullAssertion: cache is always populated above before this line
   const dirty = use(cache.get(markdown)!);
   const html = DOMPurify.sanitize(dirty, { ADD_ATTR: ["style"] });
   const dom = new DOMParser().parseFromString(html, "text/html");

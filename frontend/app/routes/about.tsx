@@ -3,7 +3,7 @@ import { Container, Heading2, Paragraph } from "@components/layout";
 
 import type { Route } from "./+types/about";
 
-export function meta({}: Route.MetaArgs) {
+export function meta(_: Route.MetaArgs) {
   return [{ title: "hrkmtsmt | About" }, { name: "description", content: "My posts" }];
 }
 

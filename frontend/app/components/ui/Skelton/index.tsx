@@ -10,6 +10,7 @@ export const SkeltonCards: React.FC<SkeltonCardsProps> = (props) => {
   return (
     <Grid type="ul">
       {[...Array(props.total)].map((_, i) => (
+        // biome-ignore lint/suspicious/noArrayIndexKey: skeleton placeholders have no meaningful unique identifier
         <Column type="li" key={i} size={props.size}>
           <div className="h-[160px] animate-pulse rounded-2xl bg-black" />
         </Column>

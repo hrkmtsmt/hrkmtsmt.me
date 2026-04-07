@@ -4,7 +4,7 @@ interface ErrorResponse {
   description: string;
 }
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: type guard function requires any to accept unknown runtime values
 export const isErrorResponse = (data: any): data is ErrorResponse => {
   const KEY = "message" as const;
 

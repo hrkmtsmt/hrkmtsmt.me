@@ -4,6 +4,7 @@ import type * as Articles from "./articles.types";
 
 const articles = (client: Client) => ({
 	list: async (params: Articles.GetParams) =>
+		// biome-ignore lint/suspicious/noExplicitAny: Hatena API returns XML-parsed data with no type definition
 		client.get<any>(`/${params.hatenaId}/${params.blogId}/atom/entry`),
 });
 

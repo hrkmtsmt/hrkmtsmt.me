@@ -1,7 +1,7 @@
 import { Bindings } from "@types";
 
 declare global {
-  // biome-ignore lint/style/noNamespace: <explanation>
+  // biome-ignore lint/style/noNamespace: NodeJS namespace is required for environment type declarations
   namespace NodeJS {
     interface ProcessEnv {
       ENVIRONMENT: Bindings["ENVIRONMENT"];

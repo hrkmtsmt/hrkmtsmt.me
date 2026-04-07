@@ -16,7 +16,7 @@ export interface ScrapPlayerProps {
 export const ScrapPlayer: React.FC<ScrapPlayerProps> = React.memo((props) => {
   const date = useMemo(() => {
     return Tempo.format(new Date(Number(props.filename)), "YYYY-MM-DD");
-  }, [props.path]);
+  }, [props.filename]);
 
   const { title } = useMarkdownParser(props.text);
 
