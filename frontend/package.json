@@ -8,7 +8,9 @@
 		"deploy": "wrangler deploy",
 		"dev": "dotenvx run -f ../.env.frontend -- react-router dev",
 		"preview": "pnpm run build && vite preview",
-		"typecheck": "pnpm run cf-typegen && react-router typegen && tsc -b"
+		"typecheck": "pnpm run cf-typegen && react-router typegen && tsc -b",
+		"format": "biome format --write .",
+		"lint": "biome lint ."
 	},
 	"dependencies": {
 		"@formkit/tempo": "^1.0.0",
