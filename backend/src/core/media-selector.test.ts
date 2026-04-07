@@ -1,40 +1,40 @@
 import { test, describe, expect } from "vitest";
-import { MediaSelecter } from "./media-selecter";
+import { MediaSelector } from "./media-selector";
 
-describe("class MediaSelecter", () => {
-	describe("method selecter.value", () => {
+describe("class MediaSelector", () => {
+	describe("method selector.value", () => {
 		test("メディアでしずかなインターネットを指定していてシークレットモードが無効な場合はエラーを返す", () => {
-			expect(() => new MediaSelecter("sizu", false)).toThrow();
+			expect(() => new MediaSelector("sizu", false)).toThrow();
 		});
 
 		test("メディアでしずかなインターネットを指定していてシークレットモードが有効な場合はしずかなインターネットのみを返す", () => {
-			const selecter = new MediaSelecter("sizu", true);
+			const selector = new MediaSelector("sizu", true);
 
-			expect(selecter.value).toStrictEqual(["sizu"]);
+			expect(selector.value).toStrictEqual(["sizu"]);
 		});
 
 		test("メディアの指定ありでシークレットモードが有効な場合は指定されたメディアのみを返す", () => {
-			const selecter = new MediaSelecter("zenn", true);
+			const selector = new MediaSelector("zenn", true);
 
-			expect(selecter.value).toStrictEqual(["zenn"]);
+			expect(selector.value).toStrictEqual(["zenn"]);
 		});
 
 		test("メディアの指定ありでシークレットモードが無効な場合は指定されたメディアのみを返す", () => {
-			const selecter = new MediaSelecter("qiita", false);
+			const selector = new MediaSelector("qiita", false);
 
-			expect(selecter.value).toStrictEqual(["qiita"]);
+			expect(selector.value).toStrictEqual(["qiita"]);
 		});
 
 		test("メディアの指定なしでシークレットモードが有効な場合は全メディアを返す", () => {
-			const selecter = new MediaSelecter(undefined, true);
+			const selector = new MediaSelector(undefined, true);
 
-			expect(selecter.value).toBe("all");
+			expect(selector.value).toBe("all");
 		});
 
 		test("メディアの指定なしでシークレットモードが無効な場合は指定されたはしずかなインターネットを含まない全メディアを返す", () => {
-			const selecter = new MediaSelecter(undefined, false);
+			const selector = new MediaSelector(undefined, false);
 
-			expect(selecter.value).toStrictEqual(["hatena", "note", "qiita", "zenn"]);
+			expect(selector.value).toStrictEqual(["hatena", "note", "qiita", "zenn"]);
 		});
 	});
 });

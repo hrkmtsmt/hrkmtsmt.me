@@ -1,6 +1,6 @@
 import { use } from "react";
 import { marked } from "marked";
-import extention from "marked-shiki";
+import extension from "marked-shiki";
 import DOMPurify from "dompurify";
 import { createHighlighter, createCssVariablesTheme, createJavaScriptRegexEngine } from "shiki";
 
@@ -18,7 +18,7 @@ const highlighter = await createHighlighter({
   engine: createJavaScriptRegexEngine(),
 });
 
-const shiki = extention({
+const shiki = extension({
   highlight: (code, lang, props) => {
     return highlighter.codeToHtml(code, {
       lang,

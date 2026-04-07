@@ -13,7 +13,7 @@ export type InitiateSignatureKeys = {
   tokenSecret: string;
 };
 
-export type InitiateAuthorizaitonParams = {
+export type InitiateAuthorizationParams = {
   oauthCallback: string;
   oauthConsumerKey: string;
   oauthNonce: string;

@@ -1,2 +1,2 @@
-export * from "./media-selecter";
+export * from "./media-selector";
 export * from "./pagination";

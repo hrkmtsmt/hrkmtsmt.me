@@ -5,7 +5,7 @@ import { z } from "zod";
 import { or, count, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 import { Logger } from "@modules";
-import { Pagination, MediaSelecter } from "@core";
+import { Pagination, MediaSelector } from "@core";
 import { posts as postsTable } from "@schema";
 import type { BlankSchema } from "hono/types";
 import type { Env } from "@types";
@@ -25,8 +25,8 @@ export const posts = new Hono<Env, BlankSchema, "/">().get(
       const { limit, page, secret, media } = c.req.valid("query");
 
       const offset = (page - 1) * limit;
-      const selecter = new MediaSelecter(media, secret);
-      const medium = selecter.value === "all" ? undefined : selecter.value;
+      const selector = new MediaSelector(media, secret);
+      const medium = selector.value === "all" ? undefined : selector.value;
       const where = medium
         ? or(...medium.map((m) => eq(postsTable.media, m)))
         : undefined;

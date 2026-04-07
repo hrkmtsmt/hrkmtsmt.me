@@ -5,7 +5,7 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       ENVIRONMENT: Bindings["ENVIRONMENT"];
-      CLOUDFLARE_API_TOKEN: strintg;
+      CLOUDFLARE_API_TOKEN: string;
       CLOUDFLARE_ACCOUNT_ID: string;
       CLOUDFLARE_DATABASE_ID: string;
       GITHUB_OWNER: string;

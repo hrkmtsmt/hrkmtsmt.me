@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "concurrently -c yellow,blue -n backend,frontend 'pnpm --filter ./backend dev' 'pnpm --filter ./frontend dev'",
     "format": "biome format --write .",
-    "lint": "biome lint ."
+    "lint": "biome lint .",
+    "spellcheck": "cspell '**' --no-progress"
   },
   "dependencies": {
     "hono": "4.12.3",
@@ -22,6 +23,7 @@
     "@dotenvx/dotenvx": "^1.52.0",
     "@types/node": "^25.3.2",
     "concurrently": "^9.2.1",
+    "cspell": "^10.0.0",
     "globals": "17.3.0",
     "npm-check-updates": "^19.4.1",
     "typescript": "^5.9.3",
