@@ -1,9 +1,7 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const scraps = sqliteTable("scraps", {
-  id: integer("id", { mode: "number" })
-    .primaryKey({ autoIncrement: true })
-    .notNull(),
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }).notNull(),
   filename: text("filename").unique().notNull(),
   markdown: text("markdown").notNull(),
   mp3: text("mp3").notNull(),
@@ -13,9 +11,7 @@ export const scraps = sqliteTable("scraps", {
 });
 
 export const posts = sqliteTable("posts", {
-  id: integer("id", { mode: "number" })
-    .primaryKey({ autoIncrement: true })
-    .notNull(),
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }).notNull(),
   slug: text("slug").unique().notNull(),
   title: text("title").notNull(),
   url: text("url").notNull(),

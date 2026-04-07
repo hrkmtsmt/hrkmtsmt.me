@@ -7,7 +7,7 @@ const button = tv({
 });
 
 const icon = tv({
-  base: "w-6 stroke-2"
+  base: "w-6 stroke-2",
 });
 
 interface AudioButtonProps {
@@ -22,28 +22,20 @@ export const AudioButton: React.FC<AudioButtonProps> = React.memo((props) => {
   if (props.status === "paused") {
     return (
       <>
-        <button
-          type="button"
-          className={button()}
-          onClick={props.onPlay}
-        >
+        <button type="button" className={button()} onClick={props.onPlay}>
           <PlayIcon className={icon()} />
         </button>
         <audio ref={props.ref} onTimeUpdate={props.onTimeUpdate} />
       </>
-    )
+    );
   }
 
-  return(
+  return (
     <>
-      <button
-        type="button"
-        className={button()}
-        onClick={props.onPause}
-      >
+      <button type="button" className={button()} onClick={props.onPause}>
         <PauseIcon className={icon()} />
       </button>
       <audio ref={props.ref} onTimeUpdate={props.onTimeUpdate} />
     </>
-  )
+  );
 });

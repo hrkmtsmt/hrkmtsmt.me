@@ -12,14 +12,14 @@ export const useAudioPlayer = (url: string) => {
 
     if (!audio) {
       return;
-    };
+    }
 
     if (!audio.src) {
       audio.src = url;
     }
 
     await audio.play();
-    setStatus("playing")
+    setStatus("playing");
   }, [url]);
 
   const pause = useCallback<React.MouseEventHandler<HTMLButtonElement>>(async () => {
@@ -27,10 +27,10 @@ export const useAudioPlayer = (url: string) => {
 
     if (!audio) {
       return;
-    };
+    }
 
     audio.pause();
-    setStatus("paused")
+    setStatus("paused");
   }, []);
 
   const toggle = useCallback<React.MouseEventHandler<HTMLButtonElement>>(async () => {
@@ -38,7 +38,7 @@ export const useAudioPlayer = (url: string) => {
 
     if (!audio) {
       return;
-    };
+    }
 
     if (!audio.src) {
       audio.src = url;
@@ -53,20 +53,23 @@ export const useAudioPlayer = (url: string) => {
     }
   }, [url]);
 
-  const seek = useCallback<React.ChangeEventHandler<HTMLInputElement>>((e) => {
-    const audio = ref.current;
+  const seek = useCallback<React.ChangeEventHandler<HTMLInputElement>>(
+    (e) => {
+      const audio = ref.current;
 
-    if (!audio) {
-      return;
-    }
+      if (!audio) {
+        return;
+      }
 
-    if (!audio.src) {
-      audio.src = url;
-    }
+      if (!audio.src) {
+        audio.src = url;
+      }
 
-    const time = audio.duration * (Number(e.target.value) / 100);
-    audio.currentTime = time;
-  }, [url]);
+      const time = audio.duration * (Number(e.target.value) / 100);
+      audio.currentTime = time;
+    },
+    [url]
+  );
 
   const render = useCallback<React.ReactEventHandler<HTMLAudioElement>>((e) => {
     const audio = e.currentTarget;
@@ -79,8 +82,8 @@ export const useAudioPlayer = (url: string) => {
   useEffect(() => {
     return () => {
       ref.current?.pause();
-    }
+    };
   }, []);
 
-  return { ref, status, time, play, pause, toggle, seek, render }
-}
+  return { ref, status, time, play, pause, toggle, seek, render };
+};

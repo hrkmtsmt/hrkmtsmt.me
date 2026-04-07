@@ -48,11 +48,7 @@ describe("route /scraps", () => {
         updatedAt: createdAt,
       });
 
-      const result = await scraps.request(
-        "/scraps/1751979286783.md",
-        {},
-        manager.env,
-      );
+      const result = await scraps.request("/scraps/1751979286783.md", {}, manager.env);
 
       expect(result.status).toEqual(200);
     });
@@ -60,11 +56,7 @@ describe("route /scraps", () => {
     test("存在しないファイル名でリクエストすると400エラーが返ってくる", async () => {
       const manager = new TestManager();
 
-      const result = await scraps.request(
-        "/scraps/non-existent.md",
-        {},
-        manager.env,
-      );
+      const result = await scraps.request("/scraps/non-existent.md", {}, manager.env);
 
       expect(result.status).toBe(400);
     });

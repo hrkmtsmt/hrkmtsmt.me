@@ -7,12 +7,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, false);
   return {
-    plugins: [
-      cloudflare({ viteEnvironment: { name: "ssr" } }),
-      tailwindcss(),
-      reactRouter(),
-      tsconfigPaths(),
-    ],
+    plugins: [cloudflare({ viteEnvironment: { name: "ssr" } }), tailwindcss(), reactRouter(), tsconfigPaths()],
     server: {
       proxy: {
         "/api": {
@@ -25,7 +20,9 @@ export default defineConfig(({ mode }) => {
     },
     define: {
       "import.meta.env.MODE": JSON.stringify(mode),
-      "import.meta.env.VITE_APP_BASE_URL": JSON.stringify(mode === "production" ? env.VITE_APP_BASE_URL : env.VITE_LOCAL_APP_BASE_URL),
+      "import.meta.env.VITE_APP_BASE_URL": JSON.stringify(
+        mode === "production" ? env.VITE_APP_BASE_URL : env.VITE_LOCAL_APP_BASE_URL
+      ),
       "import.meta.env.VITE_BASIC_AUTH_PASSWORD": JSON.stringify(env.VITE_BASIC_AUTH_PASSWORD),
       "import.meta.env.VITE_BASIC_AUTH_USERNAME": JSON.stringify(env.VITE_BASIC_AUTH_USERNAME),
     },

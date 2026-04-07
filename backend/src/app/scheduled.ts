@@ -28,18 +28,13 @@ export const scheduled: Scheduled = async (_, env, context) => {
         });
         const xmlData = parser.parse(response);
 
-        const entries = Array.isArray(xmlData.feed?.entry)
-          ? xmlData.feed.entry
-          : [xmlData.feed?.entry].filter(Boolean);
+        const entries = Array.isArray(xmlData.feed?.entry) ? xmlData.feed.entry : [xmlData.feed?.entry].filter(Boolean);
         // biome-ignore lint/suspicious/noExplicitAny: XML parsed data has no type definition
         const h = entries.map((entry: any): Post => {
           const url =
             // biome-ignore lint/suspicious/noExplicitAny: XML parsed data has no type definition
-            entry.link?.find?.((link: any) => link["@_rel"] === "alternate")?.[
-              "@_href"
-            ] || entry.link?.["@_href"];
-          const slug =
-            url?.split("/").pop() || entry.id?.split("/").pop() || "";
+            entry.link?.find?.((link: any) => link["@_rel"] === "alternate")?.["@_href"] || entry.link?.["@_href"];
+          const slug = url?.split("/").pop() || entry.id?.split("/").pop() || "";
 
           return {
             slug,
@@ -104,12 +99,12 @@ export const scheduled: Scheduled = async (_, env, context) => {
                   title: sql`excluded.title`,
                 },
               });
-          }),
+          })
         );
       } catch (error: unknown) {
         Logger.error(error);
         throw new HTTPException(500, { message: "Failed to insert posts." });
       }
-    })(),
+    })()
   );
 };

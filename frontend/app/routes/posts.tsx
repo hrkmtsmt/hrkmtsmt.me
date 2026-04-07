@@ -27,7 +27,10 @@ function PostsContent() {
     [searchParams]
   );
   const page = useMemo(() => searchParams.get("page") ?? "1", [searchParams]);
-  const [key, queries] = useMemo(() => ["/posts", { limit: "12", page, media: media ?? undefined }] as const, [page, media]);
+  const [key, queries] = useMemo(
+    () => ["/posts", { limit: "12", page, media: media ?? undefined }] as const,
+    [page, media]
+  );
   const { data: posts } = usePosts(queries);
 
   const handleChangeTab: React.MouseEventHandler<HTMLButtonElement> = useCallback(
@@ -103,7 +106,13 @@ function PostsContent() {
 
 export default function Page() {
   return (
-    <Suspense fallback={<Container><SkeltonCards total={12} size="md" /></Container>}>
+    <Suspense
+      fallback={
+        <Container>
+          <SkeltonCards total={12} size="md" />
+        </Container>
+      }
+    >
       <PostsContent />
     </Suspense>
   );

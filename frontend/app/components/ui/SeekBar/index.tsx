@@ -13,5 +13,5 @@ export const SeekBar: React.FC<SeekBarProps> = React.memo((props) => {
       value={props.value}
       onChange={props.onChange}
     />
-  )
-})
+  );
+});

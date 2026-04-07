@@ -14,7 +14,7 @@ const ScrapsBulkBody = z.array(
     markdown: z.string(),
     mp3: z.string(),
     hash: z.string(),
-  }),
+  })
 );
 
 export const internal = new Hono<Env, BlankSchema, "/">().post(
@@ -48,5 +48,5 @@ export const internal = new Hono<Env, BlankSchema, "/">().post(
 
       throw new HTTPException(500, { message: "Failed to upsert scraps." });
     }
-  },
+  }
 );

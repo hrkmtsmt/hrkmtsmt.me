@@ -23,7 +23,13 @@ function ScrapContent() {
     <Container>
       <Heading2>{title}</Heading2>
       <div className="flex gap-4 items-center w-full">
-        <AudioButton ref={player.ref} onTimeUpdate={player.render} status={player.status} onPlay={player.play} onPause={player.pause} />
+        <AudioButton
+          ref={player.ref}
+          onTimeUpdate={player.render}
+          status={player.status}
+          onPlay={player.play}
+          onPause={player.pause}
+        />
         <SeekBar value={player.time} onChange={player.seek} />
       </div>
       <div

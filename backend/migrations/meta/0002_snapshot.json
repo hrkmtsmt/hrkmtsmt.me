@@ -60,9 +60,7 @@
       "indexes": {
         "posts_slug_unique": {
           "name": "posts_slug_unique",
-          "columns": [
-            "slug"
-          ],
+          "columns": ["slug"],
           "isUnique": true
         }
       },
@@ -127,16 +125,12 @@
       "indexes": {
         "scraps_filename_unique": {
           "name": "scraps_filename_unique",
-          "columns": [
-            "filename"
-          ],
+          "columns": ["filename"],
           "isUnique": true
         },
         "scraps_hash_unique": {
           "name": "scraps_hash_unique",
-          "columns": [
-            "hash"
-          ],
+          "columns": ["hash"],
           "isUnique": true
         }
       },

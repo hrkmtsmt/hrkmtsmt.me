@@ -32,7 +32,13 @@ export const ScrapPlayer: React.FC<ScrapPlayerProps> = React.memo((props) => {
           <span className="line-clamp-2 h-12 leading-6">{title}</span>
         </Link>
       </h3>
-      <AudioButton ref={player.ref} status={player.status} onPlay={player.play} onPause={player.pause} onTimeUpdate={player.render} />
+      <AudioButton
+        ref={player.ref}
+        status={player.status}
+        onPlay={player.play}
+        onPause={player.pause}
+        onTimeUpdate={player.render}
+      />
       <SeekBar value={player.time} onChange={player.seek} />
     </article>
   );

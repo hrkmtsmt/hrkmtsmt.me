@@ -27,11 +27,7 @@ export const scraps = new Hono<Env, BlankSchema, "/">()
 
       const db = drizzle(c.env.DB);
       const [data, [{ total }]] = await Promise.all([
-        db
-          .select()
-          .from(schema.scraps)
-          .limit(limit)
-          .offset(offset),
+        db.select().from(schema.scraps).limit(limit).offset(offset),
         db.select({ total: count() }).from(schema.scraps),
       ]);
       const { pages, next } = new Pagination(total, limit, page);

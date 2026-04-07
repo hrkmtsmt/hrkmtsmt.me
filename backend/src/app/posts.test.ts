@@ -121,11 +121,7 @@ describe("route /posts", () => {
     test("メディアがしずかなインターネットに指定されていてシークレットモードが無効のパラメータのリクエストを送るとエラーになる", async () => {
       const manager = new TestManager();
 
-      const result = await posts.request(
-        "/posts?media=sizu",
-        {},
-        manager.env,
-      );
+      const result = await posts.request("/posts?media=sizu", {}, manager.env);
 
       expect(result.status).toBe(422);
     });

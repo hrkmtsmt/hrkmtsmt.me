@@ -6,15 +6,12 @@ import { createHighlighter, createCssVariablesTheme, createJavaScriptRegexEngine
 
 const theme = createCssVariablesTheme({
   name: "css-variables",
-  variablePrefix: "--shiki-"
+  variablePrefix: "--shiki-",
 });
 
 const highlighter = await createHighlighter({
   themes: [theme],
-  langs: [
-    "bash", "css", "go", "html", "javascript", "json",
-    "python", "rust", "tsx", "typescript",
-  ],
+  langs: ["bash", "css", "go", "html", "javascript", "json", "python", "rust", "tsx", "typescript"],
   engine: createJavaScriptRegexEngine(),
 });
 
@@ -24,14 +21,13 @@ const shiki = extension({
       lang,
       theme,
       meta: { __raw: props.join("") },
-      transformers: []
-    })
-  }
+      transformers: [],
+    });
+  },
 });
 
 const cache = new Map<string, Promise<string>>();
 export const useMarkdownParser = (markdown: string) => {
-
   if (!cache.has(markdown)) {
     cache.set(markdown, marked.use(shiki).parse(markdown, { async: true }));
   }
@@ -44,5 +40,5 @@ export const useMarkdownParser = (markdown: string) => {
   dom.body.querySelector("h2")?.remove();
   const body = dom.body.innerHTML;
 
-  return { title, body, html }
+  return { title, body, html };
 };

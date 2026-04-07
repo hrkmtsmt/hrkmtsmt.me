@@ -4,9 +4,9 @@ import { cors } from "hono/cors";
 import { basicAuth } from "hono/basic-auth";
 import { drizzle } from "drizzle-orm/d1";
 import { internal } from "@app/internal";
-import { posts } from "@app/posts"
-import { root } from "@app/root"
-import { scraps } from "@app/scraps"
+import { posts } from "@app/posts";
+import { root } from "@app/root";
+import { scraps } from "@app/scraps";
 import { scheduled } from "@app/scheduled";
 import type { BlankSchema } from "hono/types";
 import type { Env } from "./types";

@@ -2,28 +2,28 @@ import { describe, test, expect } from "vitest";
 import { Cache } from ".";
 
 describe("class Cache", () => {
-	test("初期化後に値を取得するとundefinedになる", () => {
-		const cache = new Cache<number>();
+  test("初期化後に値を取得するとundefinedになる", () => {
+    const cache = new Cache<number>();
 
-		const result = cache.get();
+    const result = cache.get();
 
-		expect<number | undefined>(result).toBe(undefined);
-	});
+    expect<number | undefined>(result).toBe(undefined);
+  });
 
-	test("値を16にセットした後に値を取得すると16になる", () => {
-		const cache = new Cache<number>();
+  test("値を16にセットした後に値を取得すると16になる", () => {
+    const cache = new Cache<number>();
 
-		cache.set(16);
+    cache.set(16);
 
-		expect<number | undefined>(cache.get()).toBe(16);
-	});
+    expect<number | undefined>(cache.get()).toBe(16);
+  });
 
-	test("値を32にセットして値をクリアした後に値を取得するとundefinedになる", () => {
-		const cache = new Cache<number>();
-		cache.set(32);
+  test("値を32にセットして値をクリアした後に値を取得するとundefinedになる", () => {
+    const cache = new Cache<number>();
+    cache.set(32);
 
-		cache.clear();
+    cache.clear();
 
-		expect<number | undefined>(cache.get()).toBe(undefined);
-	});
+    expect<number | undefined>(cache.get()).toBe(undefined);
+  });
 });
