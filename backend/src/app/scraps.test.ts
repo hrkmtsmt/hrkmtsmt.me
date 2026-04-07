@@ -24,8 +24,13 @@ describe("route /scraps", () => {
       expect(await result.json<GetListResponse>()).toStrictEqual({
         data: [
           {
+            id: 1,
             filename: "1751979286783.md",
+            markdown: "# Test",
+            mp3: "test.mp3",
+            hash: "abc123",
             createdAt: createdAt.toISOString(),
+            updatedAt: createdAt.toISOString(),
           },
         ],
         pages: 1,

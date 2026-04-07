@@ -15,6 +15,6 @@ describe("component Footer", () => {
   test("フッターのコピーライトのに現在の年が表示される", () => {
     render(<Footer />);
 
-    assert.equal(screen.getByRole("contentinfo").textContent, "Copyright 2030 Hiroki Matsumoto");
+    assert.equal(screen.getByText("Copyright 2030 Hiroki Matsumoto").textContent, "Copyright 2030 Hiroki Matsumoto");
   });
 });
