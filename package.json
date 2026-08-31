@@ -1,0 +1,14 @@
+{
+  "name": "@hrkmtsmt.me",
+  "author": "hrkmtsmt",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {},
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.5.2",
+      "onFail": "download"
+    }
+  }
+}

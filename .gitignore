@@ -1,2 +1,13 @@
+.dev.vars*
 .DS_Store
+.env*
+*.d.ts
+
+!.dev.vars.example
+!.env.example
+
+.next/
+.vinext/
+.wrangler/
+dist/
 node_modules/
