@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [],
+    "deny": [
+      "Bash(git push -f *)",
+      "Bash(git push --force *)",
+      "Bash(git reset *)",
+      "Bash(git rebase *)",
+      "Bash(sudo *)",
+      "Bash(wget *)",
+      "Read(.env*)",
+      "Read(*.tfstate)",
+      "Write(.env*)",
+      "Write(*.tfstate)"
+    ]
+  }
+}
+
