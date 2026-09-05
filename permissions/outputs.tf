@@ -18,3 +18,12 @@ output "blog_deploy_permission_groups" {
     if strcontains(lower(group.name), "r2")
   ]
 }
+
+output "blog_deploy_zone_permission_groups" {
+  value = [
+    for group in data.cloudflare_api_token_permission_groups_list.all.result : group
+    if anytrue([
+      for kw in ["zone", "dns", "ssl", "workers routes"] : strcontains(lower(group.name), kw)
+    ])
+  ]
+}

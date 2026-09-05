@@ -10,8 +10,8 @@
       "Bash(wget *)",
       "Read(.env*)",
       "Read(*.tfstate)",
-      "Write(.env*)",
-      "Write(*.tfstate)"
+      "Edit(.env*)",
+      "Edit(*.tfstate)"
     ]
   }
 }

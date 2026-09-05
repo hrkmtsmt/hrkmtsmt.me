@@ -8,10 +8,17 @@ locals {
     for name, ids in local.permission_group_ids_by_name : name => ids[0]
   }
 
-  deploy_permission_names = [
+  deploy_account_permission_names = [
     "Workers Scripts Write",
     "Images Write",
     "Workers R2 Storage Write",
+  ]
+
+  deploy_zone_permission_names = [
+    "Zone Write",
+    "DNS Write",
+    "SSL and Certificates Write",
+    "Workers Routes Write",
   ]
 }
 
@@ -19,13 +26,26 @@ resource "cloudflare_account_token" "blog_deploy" {
   name       = "blog-deploy"
   account_id = var.cloudflare_account_id
 
-  policies = [{
-    effect = "allow"
-    permission_groups = [
-      for name in local.deploy_permission_names : { id = local.permission_group_ids[name] }
-    ]
-    resources = jsonencode({
-      "com.cloudflare.api.account.${var.cloudflare_account_id}" = "*"
-    })
-  }]
+  policies = [
+    {
+      effect = "allow"
+      permission_groups = [
+        for name in local.deploy_account_permission_names : { id = local.permission_group_ids[name] }
+      ]
+      resources = jsonencode({
+        "com.cloudflare.api.account.${var.cloudflare_account_id}" = "*"
+      })
+    },
+    {
+      effect = "allow"
+      permission_groups = [
+        for name in local.deploy_zone_permission_names : { id = local.permission_group_ids[name] }
+      ]
+      resources = jsonencode({
+        "com.cloudflare.api.account.${var.cloudflare_account_id}" = {
+          "com.cloudflare.api.account.zone.*" = "*"
+        }
+      })
+    },
+  ]
 }
